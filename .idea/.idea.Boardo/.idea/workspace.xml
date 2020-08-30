@@ -19,10 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="settlements and road click handling finished">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" afterDir="false" />
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="other player score board added">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/thief.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/thief.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +54,14 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../BordoBuild\Boardo Catan.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\smrz\Documents\BordoBuild" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
@@ -81,7 +89,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1598771647891</updated>
-      <workItem from="1598771663455" duration="4872000" />
+      <workItem from="1598771663455" duration="6401000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -90,7 +98,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598774965242</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="other player score board added">
+      <created>1598796752321</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1598796752321</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,7 +127,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="settlements and road click handling finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="settlements and road click handling finished" />
+    <MESSAGE value="other player score board added" />
+    <option name="LAST_COMMIT_MESSAGE" value="other player score board added" />
   </component>
   <component name="WindowStateProjectService">
     <state x="535" y="158" key="RiderGenerateDialog" timestamp="1598774550393">
@@ -123,9 +139,9 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="279" y="78" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1598773735398" />
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1598775096044">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1598796765041">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1598775096044" />
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1598796765041" />
   </component>
 </project>
