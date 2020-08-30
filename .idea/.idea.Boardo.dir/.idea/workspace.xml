@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d5db96e7-2007-4dcc-a8e3-bab73e2a15f5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/blueCity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/blueCity.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/blueHome.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/blueHome.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/greenCity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/greenCity.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/greenHome.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/greenHome.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/orangeCity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/orangeCity.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/orangeHome.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/orangeHome.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/redCity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/redCity.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/redHome.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/redHome.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Tiles/tile1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Tiles/tile1.prefab" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1goCZWE1j49uYpnVifeh59zWZ9W" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d5db96e7-2007-4dcc-a8e3-bab73e2a15f5" name="Default Changelist" comment="" />
+      <created>1598771617968</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598771617968</updated>
+      <workItem from="1598771625251" duration="22000" />
+    </task>
+    <servers />
+  </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
