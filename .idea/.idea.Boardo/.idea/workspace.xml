@@ -19,10 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="other player score board added">
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="player score board added">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/card.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/card.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/maskCircle.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/maskCircle.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/playerCard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/playerCard.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +44,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Colors.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
+        <option value="$PROJECT_DIR$/Assets/testtt.cs" />
       </list>
     </option>
   </component>
@@ -89,7 +95,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1598771647891</updated>
-      <workItem from="1598771663455" duration="6401000" />
+      <workItem from="1598771663455" duration="6636000" />
+      <workItem from="1598866451396" duration="634000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -105,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598796752321</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="player score board added">
+      <created>1598810419851</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1598810419851</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,12 +137,14 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="settlements and road click handling finished" />
     <MESSAGE value="other player score board added" />
-    <option name="LAST_COMMIT_MESSAGE" value="other player score board added" />
+    <MESSAGE value="player score board added" />
+    <option name="LAST_COMMIT_MESSAGE" value="player score board added" />
   </component>
   <component name="WindowStateProjectService">
     <state x="535" y="158" key="RiderGenerateDialog" timestamp="1598774550393">
@@ -139,9 +155,9 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="279" y="78" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1598773735398" />
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1598796765041">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1598810429200">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1598796765041" />
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1598810429200" />
   </component>
 </project>
