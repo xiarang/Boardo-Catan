@@ -20,12 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="buy dialog added">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/RTLTMPro/Scripts/Runtime/RTLTextMeshPro.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RTLTMPro/Scripts/Runtime/RTLTextMeshPro.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Buy/buyItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Buy/buyItem.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Dialogs/Dialog.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Dialogs/Dialog.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/otherPlayerCard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/otherPlayerCard.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/playerCard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/playerCard.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +34,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -43,6 +45,9 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Colors.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
         <option value="$PROJECT_DIR$/Assets/testtt.cs" />
+        <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Counter.cs" />
+        <option value="$PROJECT_DIR$/Assets/RTLTMPro/Scripts/Runtime/RTLTextMeshPro.cs" />
       </list>
     </option>
   </component>
@@ -55,6 +60,7 @@
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Assets/TextMesh Pro" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -95,6 +101,7 @@
       <updated>1598771647891</updated>
       <workItem from="1598771663455" duration="6636000" />
       <workItem from="1598866451396" duration="2773000" />
+      <workItem from="1598968134860" duration="6965000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -153,6 +160,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="buy dialog added" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="550" y="188" key="FileChooserDialogImpl" timestamp="1598972762287">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="550" y="188" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1598972762287" />
     <state x="535" y="158" key="RiderGenerateDialog" timestamp="1598774550393">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -165,5 +176,9 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1598880640250" />
+    <state x="449" y="32" width="639" height="801" key="find.popup" timestamp="1598972779546">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="449" y="32" width="639" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1598972779546" />
   </component>
 </project>
