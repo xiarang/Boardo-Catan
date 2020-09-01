@@ -19,14 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="player score board added">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" afterDir="false" />
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="buy dialog added">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/card.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/card.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/maskCircle.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/maskCircle.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Buy/buyItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Buy/buyItem.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Dialogs/Dialog.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Dialogs/Dialog.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/otherPlayerCard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/otherPlayerCard.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/playerCard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Scoreboard/playerCard.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +94,7 @@
       <option name="presentableId" value="Default" />
       <updated>1598771647891</updated>
       <workItem from="1598771663455" duration="6636000" />
-      <workItem from="1598866451396" duration="634000" />
+      <workItem from="1598866451396" duration="2773000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -119,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598810419851</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="buy dialog added">
+      <created>1598880623976</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1598880623976</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,7 +149,8 @@
     <MESSAGE value="settlements and road click handling finished" />
     <MESSAGE value="other player score board added" />
     <MESSAGE value="player score board added" />
-    <option name="LAST_COMMIT_MESSAGE" value="player score board added" />
+    <MESSAGE value="buy dialog added" />
+    <option name="LAST_COMMIT_MESSAGE" value="buy dialog added" />
   </component>
   <component name="WindowStateProjectService">
     <state x="535" y="158" key="RiderGenerateDialog" timestamp="1598774550393">
@@ -155,9 +161,9 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="279" y="78" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1598773735398" />
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1598810429200">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1598880640250">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1598810429200" />
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1598880640250" />
   </component>
 </project>
