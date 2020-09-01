@@ -18,6 +18,7 @@ public class Counter : MonoBehaviour
 
     public void OnMinusPressed()
     {
+        if (currentNumber == 0) return;
         Debug.Log(currentNumber.ToString());
         currentNumber--;
         SetText();
