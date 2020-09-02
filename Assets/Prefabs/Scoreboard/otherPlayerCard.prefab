@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 7114775138687149012}
   - component: {fileID: 7500545747069570109}
   - component: {fileID: 8128079088859531791}
+  - component: {fileID: 1457248499135860524}
   m_Layer: 5
   m_Name: otherPlayerCard
   m_TagString: Untagged
@@ -237,6 +238,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &1457248499135860524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2213451997162757512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8ac3d066e182a4d9374dccc721cd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _palyerCard: 0
+  name: {fileID: 2953474823429382498}
+  cards: {fileID: 2953474824775212809}
+  resources: {fileID: 2953474824692716140}
+  road: {fileID: 2953474822841750891}
+  point: {fileID: 2953474824401447229}
+  profile: {fileID: 1301970612617102701}
 --- !u!1 &2953474822841750893
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +269,7 @@ GameObject:
   - component: {fileID: 2953474822841750888}
   - component: {fileID: 2953474822841750891}
   m_Layer: 5
-  m_Name: Text - RTLTMP (2)
+  m_Name: road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -703,7 +723,7 @@ GameObject:
   - component: {fileID: 2953474823429382499}
   - component: {fileID: 2953474823429382498}
   m_Layer: 5
-  m_Name: Text - RTLTMP (4)
+  m_Name: playerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1011,7 +1031,7 @@ GameObject:
   - component: {fileID: 2953474824401447226}
   - component: {fileID: 2953474824401447229}
   m_Layer: 5
-  m_Name: Text - RTLTMP (3)
+  m_Name: point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1173,7 +1193,7 @@ GameObject:
   - component: {fileID: 2953474824692716141}
   - component: {fileID: 2953474824692716140}
   m_Layer: 5
-  m_Name: Text - RTLTMP (1)
+  m_Name: res
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1481,7 +1501,7 @@ GameObject:
   - component: {fileID: 2953474824775212822}
   - component: {fileID: 2953474824775212809}
   m_Layer: 5
-  m_Name: Text - RTLTMP
+  m_Name: cards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2115,8 +2135,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 65213ec1b691f8045b7643e0cf656fb0,
         type: 3}
+    - target: {fileID: 7524805155920480453, guid: 66d32ea9756c119438497ba35e56d2ef,
+        type: 3}
+      propertyPath: m_Name
+      value: profile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66d32ea9756c119438497ba35e56d2ef, type: 3}
+--- !u!114 &1301970612617102701 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4246154389434077619, guid: 66d32ea9756c119438497ba35e56d2ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2953474824017892574}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4034046585063839885 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2235780249860099155, guid: 66d32ea9756c119438497ba35e56d2ef,

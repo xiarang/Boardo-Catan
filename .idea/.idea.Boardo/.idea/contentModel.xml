@@ -61,6 +61,7 @@
             <e p="Player.cs" t="Include" />
             <e p="Tile.cs" t="Include" />
           </e>
+          <e p="PlayerScores.cs" t="Include" />
           <e p="Road.cs" t="Include" />
           <e p="Settlement.cs" t="Include" />
           <e p="Test.cs" t="Include" />
@@ -68,6 +69,7 @@
             <e p="Colors.cs" t="Include" />
             <e p="Counter.cs" t="Include" />
             <e p="LoadingView.cs" t="Include" />
+            <e p="Network.cs" t="Include" />
             <e p="URL.cs" t="Include" />
           </e>
         </e>

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine;
+using UnityEngine.UI;
 using Utils;
 
 public class MainScreen : MonoBehaviour
@@ -16,10 +13,8 @@ public class MainScreen : MonoBehaviour
     [SerializeField] Sprite[] numbers;
 
     private Tiles _catanBoard;
-    private Players _players;
-
-
-    // string[] res = { "field", "forest", "hill", "mountain", "pasture" };
+    public static Players Players;
+    private PlayerScores[] _playersScoreboard;
 
     private void InitBoard()
     {
@@ -33,6 +28,7 @@ public class MainScreen : MonoBehaviour
 
     void Start()
     {
+        _playersScoreboard = GameObject.Find("Canvas").GetComponent<Canvas>().GetComponentsInChildren<PlayerScores>();
         GetBoardInfo();
         GetPlayers();
         SetPlayerColor("green");
@@ -41,52 +37,25 @@ public class MainScreen : MonoBehaviour
     private void GetPlayers()
     {
         string url = URL.BaseURL + URL.GetPlayers + "9b717be4-a042-4b94-837f-b673f13d3241";
-        StartCoroutine(GetRequest(url, "player_init"));
+        StartCoroutine(Network.GetRequest(url, PlayerInit));
     }
 
     private void GetBoardInfo()
     {
         string url = URL.BaseURL + URL.GetBoard + "9b717be4-a042-4b94-837f-b673f13d3241";
-        StartCoroutine(GetRequest(url, "board_init"));
+        StartCoroutine(Network.GetRequest(url, BoardInit));
     }
 
-    IEnumerator GetRequest(string uri, string func)
-    {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
-        {
-            //todo: get token from browser
-            webRequest.SetRequestHeader("Authorization", "Token 58998a8632efec6b3810f7a2833dc300fe2a937f");
-            yield return webRequest.SendWebRequest();
-
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
-
-            if (webRequest.isNetworkError)
-            {
-                Debug.Log(pages[page] + ": Error: " + webRequest.error);
-            }
-            else
-            {
-                string response = webRequest.downloadHandler.text;
-                switch (func)
-                {
-                    case "board_init":
-                        BoardInit(response);
-                        break;
-                    case "player_init":
-                        PlayerInit(response);
-                        break;
-                }
-            }
-        }
-    }
 
     private void PlayerInit(string response)
     {
-        Debug.Log(response);
         response = "{\"otherPlayers\":" + response + "}";
-        _players = JsonUtility.FromJson<Players>(response);
-        Debug.Log(_players.otherPlayers.ToString());
+        Players = JsonUtility.FromJson<Players>(response);
+        for (var index = 0; index < _playersScoreboard.Length; index++)
+        {
+            var item =  _playersScoreboard[index];
+            item.InitViews(Players.otherPlayers[index]);
+        }
     }
 
     private void BoardInit(string response)
@@ -134,10 +103,5 @@ public class MainScreen : MonoBehaviour
         }
 
         return -1;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

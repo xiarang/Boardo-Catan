@@ -12,7 +12,8 @@ public class Player
     public int resources;
     public int point;
     public int road_length;
-    
+    public string player_avatar;
+    public string player_username;
 }
 
 [Serializable]
