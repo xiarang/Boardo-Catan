@@ -58,6 +58,7 @@
         <e p="Scripts" t="Include">
           <e p="Colors.cs" t="Include" />
           <e p="Counter.cs" t="Include" />
+          <e p="LoadingView.cs" t="Include" />
           <e p="MainScreen.cs" t="Include" />
           <e p="Road.cs" t="Include" />
           <e p="Settlement.cs" t="Include" />
