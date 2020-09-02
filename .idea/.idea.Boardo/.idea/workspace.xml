@@ -19,17 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="tags added">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" afterDir="false" />
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="init board by server">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,8 +48,8 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/LoadingView.cs" />
         <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
         <option value="$PROJECT_DIR$/Assets/testtt.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
       </list>
@@ -111,7 +106,7 @@
       <workItem from="1598771663455" duration="6636000" />
       <workItem from="1598866451396" duration="2773000" />
       <workItem from="1598968134860" duration="9174000" />
-      <workItem from="1599030915635" duration="14657000" />
+      <workItem from="1599030915635" duration="18381000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -169,7 +164,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599038758937</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="init board by server">
+      <created>1599054856771</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1599054856771</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +201,8 @@
     <MESSAGE value="refactored" />
     <MESSAGE value="bank ui completed" />
     <MESSAGE value="tags added" />
-    <option name="LAST_COMMIT_MESSAGE" value="tags added" />
+    <MESSAGE value="init board by server" />
+    <option name="LAST_COMMIT_MESSAGE" value="init board by server" />
   </component>
   <component name="WindowStateProjectService">
     <state x="550" y="188" key="FileChooserDialogImpl" timestamp="1598972762287">

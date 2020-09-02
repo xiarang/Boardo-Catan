@@ -16,6 +16,7 @@ public class MainScreen : MonoBehaviour
     [SerializeField] Sprite[] numbers;
 
     private Tiles _catanBoard;
+    private Players _players;
 
 
     // string[] res = { "field", "forest", "hill", "mountain", "pasture" };
@@ -33,16 +34,23 @@ public class MainScreen : MonoBehaviour
     void Start()
     {
         GetBoardInfo();
+        GetPlayers();
         SetPlayerColor("green");
+    }
+
+    private void GetPlayers()
+    {
+        string url = URL.BaseURL + URL.GetPlayers + "9b717be4-a042-4b94-837f-b673f13d3241";
+        StartCoroutine(GetRequest(url, "player_init"));
     }
 
     private void GetBoardInfo()
     {
-        (string, int) t1;
-        StartCoroutine(GetRequest(URL.BaseURL + URL.GetBoard + "9b717be4-a042-4b94-837f-b673f13d3241"));
+        string url = URL.BaseURL + URL.GetBoard + "9b717be4-a042-4b94-837f-b673f13d3241";
+        StartCoroutine(GetRequest(url, "board_init"));
     }
 
-    IEnumerator GetRequest(string uri)
+    IEnumerator GetRequest(string uri, string func)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
@@ -59,11 +67,33 @@ public class MainScreen : MonoBehaviour
             }
             else
             {
-                string response = "{\"board\":" + webRequest.downloadHandler.text + "}";
-                _catanBoard = JsonUtility.FromJson<Tiles>(response);
-                InitBoard();
+                string response = webRequest.downloadHandler.text;
+                switch (func)
+                {
+                    case "board_init":
+                        BoardInit(response);
+                        break;
+                    case "player_init":
+                        PlayerInit(response);
+                        break;
+                }
             }
         }
+    }
+
+    private void PlayerInit(string response)
+    {
+        Debug.Log(response);
+        response = "{\"otherPlayers\":" + response + "}";
+        _players = JsonUtility.FromJson<Players>(response);
+        Debug.Log(_players.otherPlayers.ToString());
+    }
+
+    private void BoardInit(string response)
+    {
+        response = "{\"board\":" + response + "}";
+        _catanBoard = JsonUtility.FromJson<Tiles>(response);
+        InitBoard();
     }
 
     void SetPlayerColor(string color)

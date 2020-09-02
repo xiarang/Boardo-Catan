@@ -5,8 +5,8 @@ public class Player
 {
     public int catan_event;
     public int player;
-    public int has_long_road_card;
-    public int has_largest_army;
+    public bool has_long_road_card;
+    public bool has_largest_army;
     public int knight_card_played;
     public int cards;
     public int resources;
@@ -20,4 +20,5 @@ public class Players
 {
     public Player[] otherPlayers;
 }
+
 
