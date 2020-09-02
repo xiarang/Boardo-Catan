@@ -56,13 +56,15 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
-          <e p="Colors.cs" t="Include" />
-          <e p="Counter.cs" t="Include" />
-          <e p="LoadingView.cs" t="Include" />
           <e p="MainScreen.cs" t="Include" />
           <e p="Road.cs" t="Include" />
           <e p="Settlement.cs" t="Include" />
           <e p="Test.cs" t="Include" />
+          <e p="Utils" t="Include">
+            <e p="Colors.cs" t="Include" />
+            <e p="Counter.cs" t="Include" />
+            <e p="LoadingView.cs" t="Include" />
+          </e>
         </e>
         <e p="testtt.cs" t="Include" />
         <e p="TextMesh Pro" t="Include">

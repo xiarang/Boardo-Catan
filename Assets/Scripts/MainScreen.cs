@@ -6,18 +6,33 @@ using UnityEngine;
 public class MainScreen : MonoBehaviour
 {
     [SerializeField] SpriteRenderer[] boardTiles;
+    [SerializeField] SpriteRenderer[] tilTags;
     [SerializeField] Sprite[] resources;
+    [SerializeField] Sprite[] numbers;
+
     public static Color PlayerColor;
+    public static int ThiefResourceNumber;
     // string[] res = { "field", "forest", "hill", "mountain", "pasture" };
-    
+
     void Start()
     {
         InitTiles();
+        InitTileTags();
         SetPlayerColor("green");
     }
 
-    private void InitTiles() { 
-        for (var i = 1; i < 19; i++) { 
+    private void InitTileTags()
+    {
+        for (var i = 0; i < 19; i++)
+        {
+            tilTags[i].sprite = numbers[i % 11];
+        }
+    }
+
+    private void InitTiles()
+    {
+        for (var i = 1; i < 19; i++)
+        {
             var r = UnityEngine.Random.Range(0, 5);
             boardTiles[i].sprite = resources[r];
         }
@@ -45,6 +60,5 @@ public class MainScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
