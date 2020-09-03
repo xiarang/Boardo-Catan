@@ -71,6 +71,7 @@
             <e p="LoadingView.cs" t="Include" />
             <e p="Network.cs" t="Include" />
             <e p="URL.cs" t="Include" />
+            <e p="Utility.cs" t="Include" />
           </e>
         </e>
         <e p="testtt.cs" t="Include" />

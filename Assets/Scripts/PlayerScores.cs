@@ -7,7 +7,6 @@ using TMPro;
 
 public class PlayerScores : MonoBehaviour
 {
-    [SerializeField] private int _palyerCard;
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private TextMeshProUGUI cards;
     [SerializeField] private TextMeshProUGUI resources;
@@ -20,20 +19,25 @@ public class PlayerScores : MonoBehaviour
         
     }
 
-    public void InitViews(Player _playersInfo)
+    public void InitViews(Player playersInfo)
     {
-        name.text = _playersInfo.player_username;
-        cards.text = _playersInfo.cards.ToString();
-        resources.text = _playersInfo.resources.ToString();
-        road.text = _playersInfo.road_length.ToString();
-        point.text = _playersInfo.point.ToString();
+        name.text = playersInfo.player_username;
+        cards.text = playersInfo.cards.ToString();
+        resources.text = playersInfo.resources.ToString();
+        road.text = playersInfo.road_length.ToString();
+        point.text = playersInfo.point.ToString();
+        GetProfileImage(playersInfo.player_avatar);
     }
 
-    // private void GetProfileImage()
-    // {
-    //     StartCoroutine(Network.GetRequest(_playersInfo[_palyerCard].player_avatar, setProfileImage));
-    // }
-    //
-    // private void 
+    private void GetProfileImage(string url)
+    {
+        StartCoroutine(Network.GetTexture(url, SetProfileImage));
+    }
+
+    private void SetProfileImage(Texture response)
+    {
+        Debug.Log(response.ToString());
+        profile.sprite = response.ToSprite();
+    }
     
 }

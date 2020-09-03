@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -22,9 +23,24 @@ public class Network
             }
             else
             {
-                string response = webRequest.downloadHandler.text;
+                var response = webRequest.downloadHandler.text;
                 func(response);
             }
+        }
+    }
+
+    public static IEnumerator GetTexture(string resource, Action<Texture> func)
+    {
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(resource);
+        yield return request.SendWebRequest();
+        if (request.isNetworkError || request.isHttpError)
+        {
+            Debug.Log(request.error);
+        }
+        else
+        {
+            Texture myTexture = DownloadHandlerTexture.GetContent(request);
+            func(myTexture);
         }
     }
 }
