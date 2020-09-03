@@ -19,25 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e5ce0ca-048f-415f-a349-9b5559d69346" name="Default Changelist" comment="PostMerge age">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BuyButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BuyButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/TabPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/TabPanel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Road.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Road.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Test.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/LoadingView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/LoadingView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Utility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Utility.cs" afterDir="false" />
-    </list>
+    <list default="true" id="4e5ce0ca-048f-415f-a349-9b5559d69346" name="Default Changelist" comment="UpdatePlayer fixed." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,13 +30,15 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Prefabs/Utils/TabPanel.prefab" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/MainScreen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/PlayerScores.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/PlayerScores.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/BuyButton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/URL.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Prefabs/Utils/TabPanel.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Prefabs/Utils/TabPanel.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/PlayerScores.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/BuyButton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/URL.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/MainScreen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/URL.cs" root0="SKIP_HIGHLIGHTING" />
@@ -130,7 +114,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1599118720351</updated>
-      <workItem from="1599118743169" duration="22776000" />
+      <workItem from="1599118743169" duration="23382000" />
     </task>
     <task id="LOCAL‎۰۰۰۰۱" summary="Some Network improvements">
       <created>1599127741135</created>
@@ -150,7 +134,13 @@
       <option name="presentableId" value="LOCAL‎۰۰۰۰۳" />
       <updated>1599140125840</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL‎۰۰۰۰۴" summary="UpdatePlayer fixed.">
+      <created>1599153571622</created>
+      <option name="number" value="LOCAL‎۰۰۰۰۴" />
+      <option name="presentableId" value="LOCAL‎۰۰۰۰۴" />
+      <updated>1599153571622</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,29 +164,30 @@
     <MESSAGE value="Some Network improvements" />
     <MESSAGE value="Added MyPlayer update." />
     <MESSAGE value="PostMerge age" />
-    <option name="LAST_COMMIT_MESSAGE" value="PostMerge age" />
+    <MESSAGE value="UpdatePlayer fixed." />
+    <option name="LAST_COMMIT_MESSAGE" value="UpdatePlayer fixed." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="147" y="65" key="MergeDialog" timestamp="1599139860100">
+    <state x="147" y="65" key="MergeDialog" timestamp="1599153616604">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599139860100" />
-    <state x="399" y="166" key="MultipleFileMergeDialog" timestamp="1599139860131">
+    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599153616604" />
+    <state x="399" y="166" key="MultipleFileMergeDialog" timestamp="1599153619796">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="399" y="166" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599139860131" />
+    <state x="399" y="166" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599153619796" />
     <state x="93" y="93" width="1350" height="638" key="VCS.FileHistoryDialog" timestamp="1599142617867">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="VCS.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1599142617867" />
-    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1599140135379">
+    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1599153625978">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599140135379" />
-    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599139456367">
+    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599153625978" />
+    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599153582879">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599139456367" />
+    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599153582879" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599142787489">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
