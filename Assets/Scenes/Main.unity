@@ -5833,6 +5833,11 @@ PrefabInstance:
       propertyPath: palyerCard
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1457248499135860524, guid: 2857f9d7fa52a644e8e385e1a3ca8c31,
+        type: 3}
+      propertyPath: _palyerCard
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2213451997162757512, guid: 2857f9d7fa52a644e8e385e1a3ca8c31,
         type: 3}
       propertyPath: m_Name
@@ -10169,6 +10174,11 @@ PrefabInstance:
         type: 3}
       propertyPath: palyerCard
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457248499135860524, guid: 2857f9d7fa52a644e8e385e1a3ca8c31,
+        type: 3}
+      propertyPath: _palyerCard
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2213451997162757512, guid: 2857f9d7fa52a644e8e385e1a3ca8c31,
         type: 3}

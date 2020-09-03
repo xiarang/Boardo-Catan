@@ -58,6 +58,7 @@
         <e p="Scripts" t="Include">
           <e p="MainScreen.cs" t="Include" />
           <e p="Model" t="Include">
+            <e p="Personal.cs" t="Include" />
             <e p="Player.cs" t="Include" />
             <e p="Tile.cs" t="Include" />
           </e>
@@ -71,6 +72,7 @@
             <e p="LoadingView.cs" t="Include" />
             <e p="Network.cs" t="Include" />
             <e p="URL.cs" t="Include" />
+            <e p="Utility.cs" t="Include" />
           </e>
         </e>
         <e p="testtt.cs" t="Include" />

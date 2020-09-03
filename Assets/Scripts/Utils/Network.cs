@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,18 +9,21 @@ namespace Utils
 {
     public static class Network
     {
-        public static IEnumerator GetRequest(string uri, Action<string> onResponse,Dictionary<string, string> headers = null, Action onError = null)
+        public static IEnumerator GetRequest(string uri, Action<string> onResponse,
+            Dictionary<string, string> headers = null, Action onError = null)
         {
             if (headers == null)
             {
                 headers = new Dictionary<string, string>();
             }
+
             using (var webRequest = UnityWebRequest.Get(uri))
             {
                 foreach (var keyValuePair in headers)
                 {
                     webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
                 }
+
                 yield return webRequest.SendWebRequest();
 
                 var pages = uri.Split('/');
@@ -39,18 +43,21 @@ namespace Utils
             }
         }
 
-        public static IEnumerator PostRequest(string uri, string body, Action<string> onResponse, Dictionary<string, string> headers = null, Action onError = null)
+        public static IEnumerator PostRequest(string uri, string body, Action<string> onResponse,
+            Dictionary<string, string> headers = null, Action onError = null)
         {
             if (headers == null)
             {
                 headers = new Dictionary<string, string>();
             }
+
             using (var webRequest = UnityWebRequest.Post(uri, body))
             {
                 foreach (var keyValuePair in headers)
                 {
                     webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
                 }
+
                 yield return webRequest.SendWebRequest();
                 var pages = uri.Split('/');
                 var page = pages.Length - 1;
@@ -65,6 +72,32 @@ namespace Utils
                     var response = webRequest.downloadHandler.text;
                     onResponse(response);
                 }
+            }
+        }
+
+        public static IEnumerator GetTexture(string resource, Action<Texture> func,
+            Dictionary<string, string> headers = null)
+        {
+            if (headers == null)
+            {
+                headers = new Dictionary<string, string>();
+            }
+
+            UnityWebRequest request = UnityWebRequestTexture.GetTexture(resource);
+            foreach (var keyValuePair in headers)
+            {
+                request.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
+            }
+
+            yield return request.SendWebRequest();
+            if (request.isNetworkError || request.isHttpError)
+            {
+                Debug.Log(request.error);
+            }
+            else
+            {
+                Texture myTexture = DownloadHandlerTexture.GetContent(request);
+                func(myTexture);
             }
         }
     }

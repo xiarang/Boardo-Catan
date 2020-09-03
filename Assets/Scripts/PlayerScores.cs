@@ -1,40 +1,45 @@
-﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Model;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using Utils;
+using Network = Utils.Network;
 
 public class PlayerScores : MonoBehaviour
 {
-    [SerializeField] private int _palyerCard;
-    [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private TextMeshProUGUI cards;
     [SerializeField] private TextMeshProUGUI resources;
     [SerializeField] private TextMeshProUGUI road;
     [SerializeField] private TextMeshProUGUI point;
     [SerializeField] private Image profile;
-    
+
     void Start()
     {
-        
     }
 
-    public void InitViews(Player _playersInfo)
+    public void InitViews(Player playersInfo)
     {
-        name.text = _playersInfo.player_username;
-        cards.text = _playersInfo.cards.ToString();
-        resources.text = _playersInfo.resources.ToString();
-        road.text = _playersInfo.road_length.ToString();
-        point.text = _playersInfo.point.ToString();
+        playerName.text = playersInfo.player_username;
+        cards.text = playersInfo.cards.ToString();
+        resources.text = playersInfo.resources.ToString();
+        road.text = playersInfo.road_length.ToString();
+        point.text = playersInfo.point.ToString();
+        GetProfileImage(playersInfo.player_avatar);
     }
 
-    // private void GetProfileImage()
-    // {
-    //     StartCoroutine(Network.GetRequest(_playersInfo[_palyerCard].player_avatar, setProfileImage));
-    // }
-    //
-    // private void 
-    
+    private void GetProfileImage(string url)
+    {
+        var header = new Dictionary<string, string>
+        {
+            {"Authorization", URL.Token}
+        };
+        StartCoroutine(Network.GetTexture(url, SetProfileImage, header));
+    }
+
+    private void SetProfileImage(Texture response)
+    {
+        profile.sprite = response.ToSprite();
+    }
 }
