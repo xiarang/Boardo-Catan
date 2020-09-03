@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Model;
+using UnityEngine;
 using Utils;
 using Network = Utils.Network;
 
@@ -42,13 +43,13 @@ public class MainScreen : MonoBehaviour
     private void GetPlayers()
     {
         URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
-        StartCoroutine(Network.GetRequest(URL.GetPlayers, PlayerInit));
+        StartCoroutine(Network.GetRequest(URL.GetPlayers(), PlayerInit));
     }
 
     private void GetBoardInfo()
     {
         URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
-        StartCoroutine(Network.GetRequest(URL.GetBoard, BoardInit));
+        StartCoroutine(Network.GetRequest(URL.GetBoard(), BoardInit));
     }
 
 

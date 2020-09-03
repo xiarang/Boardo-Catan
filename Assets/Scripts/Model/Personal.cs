@@ -8,6 +8,7 @@ namespace Model
         public int id;
         public int point;
         public int brick_count;
+        public int sheep_count;
         public int stone_count;
         public int wood_count;
         public int wheat_count;
