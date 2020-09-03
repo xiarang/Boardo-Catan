@@ -9,7 +9,7 @@
         public static string GetBoard() => $"{BaseURL}/catan/map/{RoomName}";
         public static string GetPlayers() => $"{BaseURL}/catan/player_info/{RoomName}";
         public static string Personal() => $"{BaseURL}/catan/personal/{RoomName}";
-        public static string Pass() => $"{BaseURL}/catan/";
+        public static string Pass() => $"{BaseURL}/catan/end/${RoomName}";
 
     }
 }
