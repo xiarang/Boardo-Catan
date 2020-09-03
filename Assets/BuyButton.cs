@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BuyButton : MonoBehaviour
 {
@@ -8,10 +6,6 @@ public class BuyButton : MonoBehaviour
 
     public void OnBuySellable()
     {
-        // switch (id)
-        // {
-        //     case 0:
-        //         yield break;
-        // }
+        
     }
 }

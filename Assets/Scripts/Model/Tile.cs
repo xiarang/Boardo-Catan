@@ -1,15 +1,18 @@
 ﻿using System;
 
-[Serializable]
-public class Tile
+namespace Model
 {
-    public int identify;
-    public string resource;
-    public int number;
-}
+    [Serializable]
+    public class Tile
+    {
+        public int identify;
+        public string resource;
+        public int number;
+    }
 
-[Serializable]
-public class Tiles
-{
-    public Tile[] board;
+    [Serializable]
+    public class Tiles
+    {
+        public Tile[] board;
+    }
 }

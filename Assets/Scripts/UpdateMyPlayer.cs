@@ -1,51 +1,62 @@
-﻿using System.Collections.Generic;
-using Model;
+﻿using Model;
 using RTLTMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils;
 using Network = Utils.Network;
 
 public class UpdateMyPlayer : MonoBehaviour
 {
     [SerializeField] private RTLTextMeshPro longestArmy;
-    [SerializeField] private RTLTextMeshPro armySize;
+    [SerializeField] private RTLTextMeshPro playedSoldiers;
+    [SerializeField] private RTLTextMeshPro soldiers;
     [SerializeField] private RTLTextMeshPro longestRoad;
-    [SerializeField] private RTLTextMeshPro YearOfPlenty;
-    [SerializeField] private RTLTextMeshPro Monopoly;
-    [SerializeField] private RTLTextMeshPro RoadBuilding;
-    [SerializeField] private RTLTextMeshPro Wheat;
-    [SerializeField] private RTLTextMeshPro Wood;
-    [SerializeField] private RTLTextMeshPro Brick;
-    [SerializeField] private RTLTextMeshPro Stone;
-    [SerializeField] private RTLTextMeshPro Sheep;
+    [SerializeField] private RTLTextMeshPro yearOfPlenty;
+    [SerializeField] private RTLTextMeshPro monopoly;
+    [SerializeField] private RTLTextMeshPro roadBuilding;
+    [SerializeField] private RTLTextMeshPro wheat;
+    [SerializeField] private RTLTextMeshPro wood;
+    [SerializeField] private RTLTextMeshPro brick;
+    [SerializeField] private RTLTextMeshPro stone;
+    [SerializeField] private RTLTextMeshPro sheep;
+    [SerializeField] private RTLTextMeshPro victoryPoint;
+    [SerializeField] private RTLTextMeshPro totalPoint;
+    [SerializeField] private RTLTextMeshPro username;
+    [SerializeField] private Image profileImage;
+
 
     public void UpdatePlayer()
     {
-        // ReSharper disable once IteratorMethodResultIsIgnored
-        Network.GetRequest(URL.Personal(), response =>
+        StartCoroutine(Network.GetRequest(URL.Personal(), response =>
         {
             var personal = JsonUtility.FromJson<Personal>(response);
-            Brick.text = personal.brick_count.ToString();
+            brick.text = personal.brick_count.ToString();
             longestArmy.text = personal.has_largest_army ? "2" : "0";
-            armySize.text = personal.knight.ToString();
+            playedSoldiers.text = personal.knight_card_played.ToString();
+            soldiers.text = personal.knight.ToString();
             longestRoad.text = personal.has_long_road_card ? "2" : "0";
-            YearOfPlenty.text = personal.year_of_plenty.ToString();
-            Monopoly.text = personal.monopoly_count.ToString();
-            RoadBuilding.text = personal.road_building_count.ToString();
-            Wheat.text = personal.wheat_count.ToString();
-            Wood.text = personal.wood_count.ToString();
-            Stone.text = personal.stone_count.ToString();
-            Sheep.text = personal.sheep_count.ToString();
-        }, new Dictionary<string, string>());
+            yearOfPlenty.text = personal.year_of_plenty.ToString();
+            monopoly.text = personal.monopoly_count.ToString();
+            roadBuilding.text = personal.road_building_count.ToString();
+            wheat.text = personal.wheat_count.ToString();
+            wood.text = personal.wood_count.ToString();
+            stone.text = personal.stone_count.ToString();
+            sheep.text = personal.sheep_count.ToString();
+            victoryPoint.text = personal.victory_point.ToString();
+            totalPoint.text = $"امتیاز کل: {personal.point}";
+            username.text = personal.player_username;
+            MainScreen.ID = personal.player;
+            StartCoroutine(Network.GetTexture(personal.player_avatar,
+                texture => { profileImage.sprite = texture.ToSprite(); }, URL.Headers()));
+        }, URL.Headers()));
     }
 
     public void Pass()
     {
-        
+        StartCoroutine(Network.PostRequest(URL.Pass(), string.Empty, s => { }, URL.Headers()));
     }
 
     public void StartBuy()
     {
-        
     }
 }

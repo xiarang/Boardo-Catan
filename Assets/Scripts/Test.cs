@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 
 public class Test : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        Debug.Log(gameObject.ToString() + "ali");
+        Debug.Log(gameObject + "ali");
     }
 }

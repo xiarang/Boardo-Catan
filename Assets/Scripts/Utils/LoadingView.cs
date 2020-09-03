@@ -1,19 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LoadingView : MonoBehaviour
+namespace Utils
 {
-    private RectTransform rectComponent;
-    private float rotateSpeed = 200f;
-
-    private void Start()
+    public class LoadingView : MonoBehaviour
     {
-        rectComponent = GetComponent<RectTransform>();
-    }
+        private RectTransform _rectComponent;
+        private readonly float rotateSpeed = 200f;
 
-    private void Update()
-    {
-        rectComponent.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);
+        private void Start()
+        {
+            _rectComponent = GetComponent<RectTransform>();
+        }
+
+        private void Update()
+        {
+            _rectComponent.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);
+        }
     }
 }
