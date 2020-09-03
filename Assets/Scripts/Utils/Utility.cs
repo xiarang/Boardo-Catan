@@ -1,13 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public static class Utility
+namespace Utils
 {
-    public static Sprite ToSprite(this Texture resource)
+    public static class Utility
     {
-        Texture2D tex = (Texture2D) resource;
-        Sprite sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f),
-            100.0f);
-        return sprite;
+        public static Sprite ToSprite(this Texture resource)
+        {
+            var tex = (Texture2D) resource;
+            var sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f),
+                100.0f);
+            return sprite;
+        }
     }
 }

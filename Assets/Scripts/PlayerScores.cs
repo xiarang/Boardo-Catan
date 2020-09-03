@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Model;
 using TMPro;
 using UnityEngine;
@@ -15,10 +14,6 @@ public class PlayerScores : MonoBehaviour
     [SerializeField] private TextMeshProUGUI point;
     [SerializeField] private Image profile;
 
-    void Start()
-    {
-    }
-
     public void InitViews(Player playersInfo)
     {
         playerName.text = playersInfo.player_username;
@@ -31,11 +26,7 @@ public class PlayerScores : MonoBehaviour
 
     private void GetProfileImage(string url)
     {
-        var header = new Dictionary<string, string>
-        {
-            {"Authorization", URL.Token}
-        };
-        StartCoroutine(Network.GetTexture(url, SetProfileImage, header));
+        StartCoroutine(Network.GetTexture(url, SetProfileImage, URL.Headers()));
     }
 
     private void SetProfileImage(Texture response)

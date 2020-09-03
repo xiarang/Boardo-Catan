@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Model;
 using UnityEngine;
 using Utils;
@@ -16,11 +15,15 @@ public class MainScreen : MonoBehaviour
 
     private Tiles _catanBoard;
     private static Players _players;
+    private UpdateMyPlayer _myPlayer;
+    
 
     //todo: remove id after get personal
-    private int id = 22;
-    private string _personalProfileResource;
+    public static int ID;
+    public static string Username;
+    public static string PersonalProfileResource;
     private PlayerScores[] _playersScoreboard;
+    private Canvas _canvas;
 
     private void InitBoard()
     {
@@ -32,14 +35,14 @@ public class MainScreen : MonoBehaviour
         }
     }
 
-    private void UpdatePersonal()
-    {
-        
-    }
-
     private void Start()
     {
-        _playersScoreboard = GameObject.Find("Canvas").GetComponent<Canvas>().GetComponentsInChildren<PlayerScores>();
+        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
+        _myPlayer = _canvas.GetComponentInChildren<UpdateMyPlayer>();
+        URL.SetToken("58998a8632efec6b3810f7a2833dc300fe2a937f");
+        URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
+        _myPlayer.UpdatePlayer();
         GetBoardInfo();
         GetPlayers();
         SetPlayerColor("green");
@@ -47,54 +50,38 @@ public class MainScreen : MonoBehaviour
 
     private void GetPlayers()
     {
-        // URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
-        var header = new Dictionary<string, string>
+        StartCoroutine(Network.GetRequest(URL.GetPlayers(), response =>
         {
-            {"Authorization", "Token 58998a8632efec6b3810f7a2833dc300fe2a937f"}
-        };
-        URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
-        StartCoroutine(Network.GetRequest(URL.GetPlayers(), PlayerInit, header));
+            response = "{\"otherPlayers\":" + response + "}";
+            _players = JsonUtility.FromJson<Players>(response);
+            var index = 0;
+            foreach (var player in _playersScoreboard)
+            {
+                if (_players.otherPlayers[index].player == ID)
+                {
+                    var myPlayer = _players.otherPlayers[index];
+                    PersonalProfileResource = myPlayer.player_avatar;
+                    Username = myPlayer.player_username;
+                    index++;
+                }
+
+                player.InitViews(_players.otherPlayers[index]);
+                index++;
+            }
+        }, URL.Headers()));
     }
 
     private void GetBoardInfo()
     {
-        URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
-        // URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
-        var header = new Dictionary<string, string>
+        StartCoroutine(Network.GetRequest(URL.GetBoard(), response =>
         {
-            {"Authorization", "Token 58998a8632efec6b3810f7a2833dc300fe2a937f"}
-        };
-        StartCoroutine(Network.GetRequest(URL.GetBoard(), BoardInit, header));
+            response = $"{{\"board\":{response}}}";
+            _catanBoard = JsonUtility.FromJson<Tiles>(response);
+            InitBoard();
+        }, URL.Headers()));
     }
 
-
-    private void PlayerInit(string response)
-    {
-        response = "{\"otherPlayers\":" + response + "}";
-        _players = JsonUtility.FromJson<Players>(response);
-        int index = 0;
-        foreach (var player in _playersScoreboard)
-        {
-            if (_players.otherPlayers[index].player == id)
-            {
-                _personalProfileResource = _players.otherPlayers[index].player_avatar;
-                index++;
-            }
-            player.InitViews(_players.otherPlayers[index]);
-
-
-            index++;
-        }
-    }
-
-    private void BoardInit(string response)
-    {
-        response = "{\"board\":" + response + "}";
-        _catanBoard = JsonUtility.FromJson<Tiles>(response);
-        InitBoard();
-    }
-
-    static void SetPlayerColor(string color)
+    private static void SetPlayerColor(string color)
     {
         switch (color)
         {
@@ -113,7 +100,7 @@ public class MainScreen : MonoBehaviour
         }
     }
 
-    static int GetResourceID(string resource)
+    public static int GetResourceID(string resource)
     {
         switch (resource)
         {

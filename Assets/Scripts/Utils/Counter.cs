@@ -1,36 +1,31 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
-public class Counter : MonoBehaviour
+namespace Utils
 {
-    [SerializeField] int currentNumber = 0;
-
-    public void OnPlusPressed()
+    public class Counter : MonoBehaviour
     {
-        Debug.Log(currentNumber.ToString());
-        currentNumber++;
-        SetText();
-    }
+        [SerializeField] private int currentNumber;
 
-    public void OnMinusPressed()
-    {
-        if (currentNumber == 0) return;
-        Debug.Log(currentNumber.ToString());
-        currentNumber--;
-        SetText();
-    }
+        public void OnPlusPressed()
+        {
+            Debug.Log(currentNumber.ToString());
+            currentNumber++;
+            SetText();
+        }
 
-    public void SetText()
-    {
-        var textComponent = GetComponent<TextMeshProUGUI>();
-        textComponent.text = (currentNumber).ToString();
-    }
+        public void OnMinusPressed()
+        {
+            if (currentNumber == 0) return;
+            Debug.Log(currentNumber.ToString());
+            currentNumber--;
+            SetText();
+        }
 
-    void Start()
-    {
+        public void SetText()
+        {
+            var textComponent = GetComponent<TextMeshProUGUI>();
+            textComponent.text = (currentNumber).ToString();
+        }
     }
 }
