@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using Model;
 using UnityEngine;
 using Utils;
 using Network = Utils.Network;
@@ -14,7 +15,6 @@ public class MainScreen : MonoBehaviour
     [SerializeField] private Sprite[] numbers;
 
     private Tiles _catanBoard;
-
     private static Players _players;
 
     //todo: remove id after get personal
@@ -34,6 +34,7 @@ public class MainScreen : MonoBehaviour
 
     private void UpdatePersonal()
     {
+        
     }
 
     private void Start()
@@ -51,17 +52,19 @@ public class MainScreen : MonoBehaviour
         {
             {"Authorization", "Token 58998a8632efec6b3810f7a2833dc300fe2a937f"}
         };
-        StartCoroutine(Network.GetRequest(URL.GetPlayers + "9b717be4-a042-4b94-837f-b673f13d3241", PlayerInit, header));
+        URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
+        StartCoroutine(Network.GetRequest(URL.GetPlayers(), PlayerInit, header));
     }
 
     private void GetBoardInfo()
     {
+        URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
         // URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
         var header = new Dictionary<string, string>
         {
             {"Authorization", "Token 58998a8632efec6b3810f7a2833dc300fe2a937f"}
         };
-        StartCoroutine(Network.GetRequest(URL.GetBoard + "9b717be4-a042-4b94-837f-b673f13d3241", BoardInit, header));
+        StartCoroutine(Network.GetRequest(URL.GetBoard(), BoardInit, header));
     }
 
 
