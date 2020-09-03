@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Utils;
 using Network = Utils.Network;
 
@@ -13,7 +14,12 @@ public class MainScreen : MonoBehaviour
     [SerializeField] private Sprite[] numbers;
 
     private Tiles _catanBoard;
+
     private static Players _players;
+
+    //todo: remove id after get personal
+    private int id = 22;
+    private string _personalProfileResource;
     private PlayerScores[] _playersScoreboard;
 
     private void InitBoard()
@@ -28,7 +34,6 @@ public class MainScreen : MonoBehaviour
 
     private void UpdatePersonal()
     {
-        
     }
 
     private void Start()
@@ -41,14 +46,22 @@ public class MainScreen : MonoBehaviour
 
     private void GetPlayers()
     {
-        URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
-        StartCoroutine(Network.GetRequest(URL.GetPlayers, PlayerInit));
+        // URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
+        var header = new Dictionary<string, string>
+        {
+            {"Authorization", "Token 58998a8632efec6b3810f7a2833dc300fe2a937f"}
+        };
+        StartCoroutine(Network.GetRequest(URL.GetPlayers + "9b717be4-a042-4b94-837f-b673f13d3241", PlayerInit, header));
     }
 
     private void GetBoardInfo()
     {
-        URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
-        StartCoroutine(Network.GetRequest(URL.GetBoard, BoardInit));
+        // URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
+        var header = new Dictionary<string, string>
+        {
+            {"Authorization", "Token 58998a8632efec6b3810f7a2833dc300fe2a937f"}
+        };
+        StartCoroutine(Network.GetRequest(URL.GetBoard + "9b717be4-a042-4b94-837f-b673f13d3241", BoardInit, header));
     }
 
 
@@ -56,10 +69,18 @@ public class MainScreen : MonoBehaviour
     {
         response = "{\"otherPlayers\":" + response + "}";
         _players = JsonUtility.FromJson<Players>(response);
-        for (var index = 0; index < _playersScoreboard.Length; index++)
+        int index = 0;
+        foreach (var player in _playersScoreboard)
         {
-            var item = _playersScoreboard[index];
-            item.InitViews(_players.otherPlayers[index]);
+            if (_players.otherPlayers[index].player == id)
+            {
+                _personalProfileResource = _players.otherPlayers[index].player_avatar;
+                index++;
+            }
+            player.InitViews(_players.otherPlayers[index]);
+
+
+            index++;
         }
     }
 

@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Serialization;
+using Utils;
+using Network = Utils.Network;
 
 public class PlayerScores : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private TextMeshProUGUI cards;
     [SerializeField] private TextMeshProUGUI resources;
     [SerializeField] private TextMeshProUGUI road;
     [SerializeField] private TextMeshProUGUI point;
     [SerializeField] private Image profile;
-    
+
     void Start()
     {
-        
     }
 
     public void InitViews(Player playersInfo)
     {
-        name.text = playersInfo.player_username;
+        playerName.text = playersInfo.player_username;
         cards.text = playersInfo.cards.ToString();
         resources.text = playersInfo.resources.ToString();
         road.text = playersInfo.road_length.ToString();
@@ -31,13 +31,15 @@ public class PlayerScores : MonoBehaviour
 
     private void GetProfileImage(string url)
     {
-        StartCoroutine(Network.GetTexture(url, SetProfileImage));
+        var header = new Dictionary<string, string>
+        {
+            {"Authorization", URL.Token}
+        };
+        StartCoroutine(Network.GetTexture(url, SetProfileImage, header));
     }
 
     private void SetProfileImage(Texture response)
     {
-        Debug.Log(response.ToString());
         profile.sprite = response.ToSprite();
     }
-    
 }

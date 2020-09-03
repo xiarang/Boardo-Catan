@@ -250,8 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8ac3d066e182a4d9374dccc721cd75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _palyerCard: 0
-  name: {fileID: 2953474823429382498}
+  playerName: {fileID: 2953474823429382498}
   cards: {fileID: 2953474824775212809}
   resources: {fileID: 2953474824692716140}
   road: {fileID: 2953474822841750891}

@@ -58,6 +58,7 @@
         <e p="Scripts" t="Include">
           <e p="MainScreen.cs" t="Include" />
           <e p="Model" t="Include">
+            <e p="Personal.cs" t="Include" />
             <e p="Player.cs" t="Include" />
             <e p="Tile.cs" t="Include" />
           </e>
