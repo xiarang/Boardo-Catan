@@ -19,14 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="some bugs fixed + merged">
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="buy dialog added to trade tab">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyItem.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyLayout.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyLayout.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/Counter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/Counter.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/TabPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/TabPanel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +109,7 @@
       <workItem from="1598968134860" duration="9174000" />
       <workItem from="1599030915635" duration="30177000" />
       <workItem from="1599118722151" duration="17909000" />
-      <workItem from="1599142583774" duration="2720000" />
+      <workItem from="1599142583774" duration="3556000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -207,7 +202,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599139362242</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="buy dialog added to trade tab">
+      <created>1599153101332</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1599153101332</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +244,8 @@
     <MESSAGE value="players scoreboard updated by server" />
     <MESSAGE value="other player profile image set by server" />
     <MESSAGE value="some bugs fixed + merged" />
-    <option name="LAST_COMMIT_MESSAGE" value="some bugs fixed + merged" />
+    <MESSAGE value="buy dialog added to trade tab" />
+    <option name="LAST_COMMIT_MESSAGE" value="buy dialog added to trade tab" />
   </component>
   <component name="WindowStateProjectService">
     <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599130846827">
@@ -273,14 +276,14 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599135510614" />
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599139383432">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599153147056">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599139383432" />
-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599139365742">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599153147056" />
+    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599153118339">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599139365742" />
+    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599153118339" />
     <state x="394" y="31" width="639" height="801" key="find.popup" timestamp="1599129684923">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
