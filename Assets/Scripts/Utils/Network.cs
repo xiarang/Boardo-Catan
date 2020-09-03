@@ -1,29 +1,70 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Network
+namespace Utils
 {
-    public static IEnumerator GetRequest(string uri, Action<string> func)
+    public static class Network
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        public static IEnumerator GetRequest(string uri, Action<string> onResponse,Dictionary<string, string> headers = null, Action onError = null)
         {
-            //todo: get token from browser
-            webRequest.SetRequestHeader("Authorization", "Token 58998a8632efec6b3810f7a2833dc300fe2a937f");
-            yield return webRequest.SendWebRequest();
-
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
-
-            if (webRequest.isNetworkError)
+            if (headers == null)
             {
-                Debug.Log(pages[page] + ": Error: " + webRequest.error);
+                headers = new Dictionary<string, string>();
             }
-            else
+            using (var webRequest = UnityWebRequest.Get(uri))
             {
-                string response = webRequest.downloadHandler.text;
-                func(response);
+                foreach (var keyValuePair in headers)
+                {
+                    webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
+                }
+                yield return webRequest.SendWebRequest();
+
+                var pages = uri.Split('/');
+                var page = pages.Length - 1;
+
+                if (webRequest.isNetworkError)
+                {
+                    // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
+                    Debug.Log(pages[page] + ": Error: " + webRequest.error);
+                    onError?.Invoke();
+                }
+                else
+                {
+                    var response = webRequest.downloadHandler.text;
+                    onResponse(response);
+                }
+            }
+        }
+
+        public static IEnumerator PostRequest(string uri, string body, Action<string> onResponse, Dictionary<string, string> headers = null, Action onError = null)
+        {
+            if (headers == null)
+            {
+                headers = new Dictionary<string, string>();
+            }
+            using (var webRequest = UnityWebRequest.Post(uri, body))
+            {
+                foreach (var keyValuePair in headers)
+                {
+                    webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
+                }
+                yield return webRequest.SendWebRequest();
+                var pages = uri.Split('/');
+                var page = pages.Length - 1;
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log(pages[page] + ": Error: " + webRequest.error);
+                    onError?.Invoke();
+                }
+                else
+                {
+                    var response = webRequest.downloadHandler.text;
+                    onResponse(response);
+                }
             }
         }
     }

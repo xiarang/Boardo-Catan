@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using Utils;
+using Network = Utils.Network;
 
 public class MainScreen : MonoBehaviour
 {
     public static Color PlayerColor;
     public static int ThiefResourceNumber;
 
-    [SerializeField] SpriteRenderer[] boardTiles;
-    [SerializeField] SpriteRenderer[] tilTags;
-    [SerializeField] Sprite[] resources;
-    [SerializeField] Sprite[] numbers;
+    [SerializeField] private SpriteRenderer[] boardTiles;
+    [SerializeField] private SpriteRenderer[] tilTags;
+    [SerializeField] private Sprite[] resources;
+    [SerializeField] private Sprite[] numbers;
 
     private Tiles _catanBoard;
-    public static Players Players;
+    private static Players _players;
     private PlayerScores[] _playersScoreboard;
 
     private void InitBoard()
     {
-        for (int i = 0; i < 19; i++)
+        for (var i = 0; i < 19; i++)
         {
             var tile = _catanBoard.board[i];
             tilTags[i].sprite = numbers[tile.number - 2];
@@ -26,7 +26,12 @@ public class MainScreen : MonoBehaviour
         }
     }
 
-    void Start()
+    private void UpdatePersonal()
+    {
+        
+    }
+
+    private void Start()
     {
         _playersScoreboard = GameObject.Find("Canvas").GetComponent<Canvas>().GetComponentsInChildren<PlayerScores>();
         GetBoardInfo();
@@ -36,25 +41,25 @@ public class MainScreen : MonoBehaviour
 
     private void GetPlayers()
     {
-        string url = URL.BaseURL + URL.GetPlayers + "9b717be4-a042-4b94-837f-b673f13d3241";
-        StartCoroutine(Network.GetRequest(url, PlayerInit));
+        URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
+        StartCoroutine(Network.GetRequest(URL.GetPlayers, PlayerInit));
     }
 
     private void GetBoardInfo()
     {
-        string url = URL.BaseURL + URL.GetBoard + "9b717be4-a042-4b94-837f-b673f13d3241";
-        StartCoroutine(Network.GetRequest(url, BoardInit));
+        URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
+        StartCoroutine(Network.GetRequest(URL.GetBoard, BoardInit));
     }
 
 
     private void PlayerInit(string response)
     {
         response = "{\"otherPlayers\":" + response + "}";
-        Players = JsonUtility.FromJson<Players>(response);
+        _players = JsonUtility.FromJson<Players>(response);
         for (var index = 0; index < _playersScoreboard.Length; index++)
         {
-            var item =  _playersScoreboard[index];
-            item.InitViews(Players.otherPlayers[index]);
+            var item = _playersScoreboard[index];
+            item.InitViews(_players.otherPlayers[index]);
         }
     }
 
@@ -65,7 +70,7 @@ public class MainScreen : MonoBehaviour
         InitBoard();
     }
 
-    void SetPlayerColor(string color)
+    static void SetPlayerColor(string color)
     {
         switch (color)
         {
@@ -84,7 +89,7 @@ public class MainScreen : MonoBehaviour
         }
     }
 
-    int GetResourceID(string resource)
+    static int GetResourceID(string resource)
     {
         switch (resource)
         {
