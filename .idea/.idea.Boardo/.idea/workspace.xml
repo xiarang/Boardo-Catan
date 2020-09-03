@@ -19,15 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="other player profile image set by server">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" afterDir="false" />
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="some bugs fixed + merged">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scoreboard/otherPlayerCard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scoreboard/otherPlayerCard.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scoreboard/playerCard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scoreboard/playerCard.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyItem.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyLayout.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyLayout.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/Counter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/Counter.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/TabPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/TabPanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,13 +38,6 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/MainScreen.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/Utils/Network.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/Utils/Network.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/Utils/Network.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/Utils/Network.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/MainScreen.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/Utils/Network.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -59,13 +51,13 @@
         <option value="$PROJECT_DIR$/Assets/testtt.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
-        <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Utility.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
+        <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
       </list>
     </option>
   </component>
@@ -121,7 +113,8 @@
       <workItem from="1598866451396" duration="2773000" />
       <workItem from="1598968134860" duration="9174000" />
       <workItem from="1599030915635" duration="30177000" />
-      <workItem from="1599118722151" duration="16607000" />
+      <workItem from="1599118722151" duration="17909000" />
+      <workItem from="1599142583774" duration="2720000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -207,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599127820958</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="some bugs fixed + merged">
+      <created>1599139362242</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1599139362242</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,7 +241,8 @@
     <MESSAGE value="players receive by server" />
     <MESSAGE value="players scoreboard updated by server" />
     <MESSAGE value="other player profile image set by server" />
-    <option name="LAST_COMMIT_MESSAGE" value="other player profile image set by server" />
+    <MESSAGE value="some bugs fixed + merged" />
+    <option name="LAST_COMMIT_MESSAGE" value="some bugs fixed + merged" />
   </component>
   <component name="WindowStateProjectService">
     <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599130846827">
@@ -272,14 +273,14 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599135510614" />
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599071642701">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599139383432">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599071642701" />
-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599127833757">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599139383432" />
+    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599139365742">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599127833757" />
+    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599139365742" />
     <state x="394" y="31" width="639" height="801" key="find.popup" timestamp="1599129684923">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
