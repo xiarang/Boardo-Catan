@@ -5,7 +5,7 @@ using Network = Utils.Network;
 
 public class MainScreen : MonoBehaviour
 {
-    public static Color PlayerColor;
+    public static Color[] PlayersColor = {Colors.Blue, Colors.Green, Colors.Orange, Colors.Red};
     public static int ThiefResourceNumber;
 
     [SerializeField] private SpriteRenderer[] boardTiles;
@@ -16,7 +16,7 @@ public class MainScreen : MonoBehaviour
     private Tiles _catanBoard;
     private static Players _players;
     private UpdateMyPlayer _myPlayer;
-    
+
 
     //todo: remove id after get personal
     public static int ID;
@@ -45,7 +45,6 @@ public class MainScreen : MonoBehaviour
         _myPlayer.UpdatePlayer();
         GetBoardInfo();
         GetPlayers();
-        SetPlayerColor("green");
     }
 
     private void GetPlayers()
@@ -79,25 +78,6 @@ public class MainScreen : MonoBehaviour
             _catanBoard = JsonUtility.FromJson<Tiles>(response);
             InitBoard();
         }, URL.Headers()));
-    }
-
-    private static void SetPlayerColor(string color)
-    {
-        switch (color)
-        {
-            case "blue":
-                PlayerColor = Colors.Blue;
-                break;
-            case "green":
-                PlayerColor = Colors.Green;
-                break;
-            case "red":
-                PlayerColor = Colors.Red;
-                break;
-            case "orange":
-                PlayerColor = Colors.Orange;
-                break;
-        }
     }
 
     public static int GetResourceID(string resource)

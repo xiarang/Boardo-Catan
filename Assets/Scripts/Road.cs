@@ -11,6 +11,6 @@ public class Road : MonoBehaviour
     private void ChangeRoadColor()
     {
         var road = GetComponent<SpriteRenderer>();
-        road.color = MainScreen.PlayerColor;
+        // road.color = MainScreen.PlayerColor;
     }
 }
