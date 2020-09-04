@@ -61,9 +61,11 @@ public class MainScreen : MonoBehaviour
                     var myPlayer = _players.otherPlayers[index];
                     PersonalProfileResource = myPlayer.player_avatar;
                     Username = myPlayer.player_username;
+                    _myPlayer.UpdateColor(PlayersColor[index]);
                     index++;
                 }
 
+                _players.otherPlayers[index].Color = PlayersColor[index];
                 player.InitViews(_players.otherPlayers[index]);
                 index++;
             }

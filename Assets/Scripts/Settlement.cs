@@ -15,6 +15,6 @@ public class Settlement : MonoBehaviour
     {
         var holder = GetComponent<SpriteRenderer>();
         holder.sprite = house;
-        holder.color = MainScreen.PlayerColor;
+        // holder.color = MainScreen.PlayerColor;
     }
 }

@@ -256,6 +256,7 @@ MonoBehaviour:
   road: {fileID: 2953474822841750891}
   point: {fileID: 2953474824401447229}
   profile: {fileID: 1301970612617102701}
+  playerColor: {fileID: 563530721475518791}
 --- !u!1 &2953474822841750893
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,6 +2019,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 68.73
       objectReference: {fileID: 0}
+    - target: {fileID: 758904902387491025, guid: 66d32ea9756c119438497ba35e56d2ef,
+        type: 3}
+      propertyPath: m_Name
+      value: playerColor
+      objectReference: {fileID: 0}
     - target: {fileID: 2235780249860099155, guid: 66d32ea9756c119438497ba35e56d2ef,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2141,6 +2147,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66d32ea9756c119438497ba35e56d2ef, type: 3}
+--- !u!114 &563530721475518791 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3399876323847714201, guid: 66d32ea9756c119438497ba35e56d2ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2953474824017892574}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1301970612617102701 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4246154389434077619, guid: 66d32ea9756c119438497ba35e56d2ef,

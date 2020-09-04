@@ -23,7 +23,7 @@ public class UpdateMyPlayer : MonoBehaviour
     [SerializeField] private RTLTextMeshPro totalPoint;
     [SerializeField] private RTLTextMeshPro username;
     [SerializeField] private Image profileImage;
-
+    [SerializeField] private Image pColor;
 
     public void UpdatePlayer()
     {
@@ -49,6 +49,11 @@ public class UpdateMyPlayer : MonoBehaviour
             StartCoroutine(Network.GetTexture(personal.player_avatar,
                 texture => { profileImage.sprite = texture.ToSprite(); }, URL.Headers()));
         }, URL.Headers()));
+    }
+
+    public void UpdateColor(Color color)
+    {
+        pColor.color = color;
     }
 
     public void Pass()

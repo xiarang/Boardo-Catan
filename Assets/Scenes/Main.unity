@@ -1452,6 +1452,7 @@ MonoBehaviour:
   totalPoint: {fileID: 904296065}
   username: {fileID: 998480818}
   profileImage: {fileID: 1582175352}
+  pColor: {fileID: 1392353722}
 --- !u!1001 &122161401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15191,6 +15192,11 @@ PrefabInstance:
       propertyPath: m_padding
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5701432222056700202, guid: d3fd2b4b76f71844c9fec4779b002a24,
+        type: 3}
+      propertyPath: m_Name
+      value: myplayerColor
+      objectReference: {fileID: 0}
     - target: {fileID: 6483284394615086113, guid: d3fd2b4b76f71844c9fec4779b002a24,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -21616,6 +21622,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 802e627b32d7fc742b79dee8a2f042c4, type: 3}
+--- !u!114 &1392353722 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7690296698518113378, guid: d3fd2b4b76f71844c9fec4779b002a24,
+    type: 3}
+  m_PrefabInstance: {fileID: 947671319}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1398900458
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using Model;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class PlayerScores : MonoBehaviour
     [SerializeField] private TextMeshProUGUI road;
     [SerializeField] private TextMeshProUGUI point;
     [SerializeField] private Image profile;
+    [SerializeField] private Image playerColor;
 
     public void InitViews(Player playersInfo)
     {
@@ -21,6 +23,7 @@ public class PlayerScores : MonoBehaviour
         resources.text = playersInfo.resources.ToString();
         road.text = playersInfo.road_length.ToString();
         point.text = playersInfo.point.ToString();
+        playerColor.color = playersInfo.Color;
         GetProfileImage(playersInfo.player_avatar);
     }
 
