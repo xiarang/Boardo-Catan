@@ -61,6 +61,7 @@
           <e p="Model" t="Include">
             <e p="Personal.cs" t="Include" />
             <e p="Player.cs" t="Include" />
+            <e p="Resources.cs" t="Include" />
             <e p="Tile.cs" t="Include" />
           </e>
           <e p="PlayerScores.cs" t="Include" />

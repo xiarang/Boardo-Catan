@@ -1,5 +1,6 @@
 using Model;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils;
 using Network = Utils.Network;
 
@@ -40,12 +41,15 @@ public class MainScreen : MonoBehaviour
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
         _myPlayer = _canvas.GetComponentInChildren<UpdateMyPlayer>();
+        foreach (var o in GameObject.FindGameObjectsWithTag("Loading"))
+        {
+            o.SetActive(false);
+        }
         URL.SetToken("58998a8632efec6b3810f7a2833dc300fe2a937f");
         URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
         _myPlayer.UpdatePlayer();
         GetBoardInfo();
         GetPlayers();
-        SetPlayerColor("green");
     }
 
     private void GetPlayers()
@@ -79,25 +83,6 @@ public class MainScreen : MonoBehaviour
             _catanBoard = JsonUtility.FromJson<Tiles>(response);
             InitBoard();
         }, URL.Headers()));
-    }
-
-    private static void SetPlayerColor(string color)
-    {
-        switch (color)
-        {
-            case "blue":
-                PlayerColor = Colors.Blue;
-                break;
-            case "green":
-                PlayerColor = Colors.Green;
-                break;
-            case "red":
-                PlayerColor = Colors.Red;
-                break;
-            case "orange":
-                PlayerColor = Colors.Orange;
-                break;
-        }
     }
 
     public static int GetResourceID(string resource)
