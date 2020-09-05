@@ -19,10 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="initializing road and settlements rule checking">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="settlements now knows their roads">
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +113,7 @@
       <workItem from="1599118722151" duration="17909000" />
       <workItem from="1599142583774" duration="4877000" />
       <workItem from="1599199288649" duration="19975000" />
-      <workItem from="1599314374580" duration="8089000" />
+      <workItem from="1599314374580" duration="8915000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -243,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599323621966</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="settlements now knows their roads">
+      <created>1599329561137</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1599329561137</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,7 +288,8 @@
     <MESSAGE value="init players color" />
     <MESSAGE value="players colors added to cards" />
     <MESSAGE value="initializing road and settlements rule checking" />
-    <option name="LAST_COMMIT_MESSAGE" value="initializing road and settlements rule checking" />
+    <MESSAGE value="settlements now knows their roads" />
+    <option name="LAST_COMMIT_MESSAGE" value="settlements now knows their roads" />
   </component>
   <component name="WindowStateProjectService">
     <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599315264426">
