@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2213855453308167141}
   - component: {fileID: 2213855453308167142}
-  - component: {fileID: 4713627313420306441}
   - component: {fileID: 5381078696801893248}
+  - component: {fileID: 3738028260498351178}
   m_Layer: 0
   m_Name: road
   m_TagString: Untagged
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2213855453308167143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.77, y: 3.99, z: 3}
-  m_LocalScale: {x: 0.2, y: 1.168, z: 1}
+  m_LocalPosition: {x: 10.77, y: 3.9644, z: 3}
+  m_LocalScale: {x: 0.21706174, y: 1.065694, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -83,18 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4713627313420306441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2213855453308167143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16311e17680ea6f4798bce600cb9e303, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &5381078696801893248
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -108,3 +96,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.99999994, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3738028260498351178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2213855453308167143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16311e17680ea6f4798bce600cb9e303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

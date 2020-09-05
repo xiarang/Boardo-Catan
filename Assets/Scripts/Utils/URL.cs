@@ -17,6 +17,8 @@ namespace Utils
         public static string GetPlayers() => $"{BaseURL}/catan/player_info/{RoomName}";
         public static string Personal() => $"{BaseURL}/catan/personal/{RoomName}";
         public static string Pass() => $"{BaseURL}/catan/end/{RoomName}";
+        public static string Init1() => $"{BaseURL}/catan/init1/{RoomName}";
+        public static string Init2() => $"{BaseURL}/catan/init2/{RoomName}";
 
     }
 }

@@ -45,7 +45,7 @@ public class UpdateMyPlayer : MonoBehaviour
             victoryPoint.text = personal.victory_point.ToString();
             totalPoint.text = $"امتیاز کل: {personal.point}";
             username.text = personal.player_username;
-            MainScreen.ID = personal.player;
+            MainScreen.ThisPlayerID = personal.player;
             StartCoroutine(Network.GetTexture(personal.player_avatar,
                 texture => { profileImage.sprite = texture.ToSprite(); }, URL.Headers()));
         }, URL.Headers()));

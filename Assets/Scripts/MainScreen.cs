@@ -1,36 +1,40 @@
 using Model;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Utils;
 using Network = Utils.Network;
 
 public class MainScreen : MonoBehaviour
 {
-    public static Color[] PlayersColor = {Colors.Blue, Colors.Green, Colors.Orange, Colors.Red};
     public static int ThiefResourceNumber;
 
     [SerializeField] private SpriteRenderer[] boardTiles;
-    [SerializeField] private SpriteRenderer[] tilTags;
+    [SerializeField] private SpriteRenderer[] tileTags;
     [SerializeField] private Sprite[] resources;
     [SerializeField] private Sprite[] numbers;
 
     private Tiles _catanBoard;
     private static Players _players;
     private UpdateMyPlayer _myPlayer;
-
-
-    //todo: remove id after get personal
-    public static int ID;
-    public static string Username;
-    public static string PersonalProfileResource;
     private PlayerScores[] _playersScoreboard;
     private Canvas _canvas;
+    private Scene _scene;
+    private Road[] _boardRoads;
+    private Settlement[] _boardSettlements;
+    private readonly Color[] _playersColor = {Colors.Blue, Colors.Green, Colors.Orange, Colors.Red};
+
+    public static int ThisPlayerID;
+    public static Color ThisPlayerColor;
+    public static bool RoadBought = false;
+    public static bool CityBought = false;
 
     private void InitBoard()
     {
         for (var i = 0; i < 19; i++)
         {
             var tile = _catanBoard.board[i];
-            tilTags[i].sprite = numbers[tile.number - 2];
+            tileTags[i].sprite = numbers[tile.number - 2];
             boardTiles[i].sprite = resources[GetResourceID(tile.resource)];
         }
     }
@@ -38,13 +42,32 @@ public class MainScreen : MonoBehaviour
     private void Start()
     {
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
+        
+        FindBoardElements();
+
         _myPlayer = _canvas.GetComponentInChildren<UpdateMyPlayer>();
         URL.SetToken("58998a8632efec6b3810f7a2833dc300fe2a937f");
         URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
         _myPlayer.UpdatePlayer();
         GetBoardInfo();
         GetPlayers();
+    }
+
+    private void FindBoardElements()
+    {
+        foreach (var item in SceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            if (item.name == "roads")
+            {
+                _boardRoads = item.GetComponentsInChildren<Road>();
+                Debug.Log(_boardRoads.Length + " h " + _boardSettlements.Length);
+            }
+            else if (item.name == "settelments")
+                _boardSettlements = item.GetComponentsInChildren<Settlement>();
+            
+        }
     }
 
     private void GetPlayers()
@@ -56,16 +79,14 @@ public class MainScreen : MonoBehaviour
             var index = 0;
             foreach (var player in _playersScoreboard)
             {
-                if (_players.otherPlayers[index].player == ID)
+                if (_players.otherPlayers[index].player == ThisPlayerID)
                 {
-                    var myPlayer = _players.otherPlayers[index];
-                    PersonalProfileResource = myPlayer.player_avatar;
-                    Username = myPlayer.player_username;
-                    _myPlayer.UpdateColor(PlayersColor[index]);
+                    ThisPlayerColor = _playersColor[index];
+                    _myPlayer.UpdateColor(ThisPlayerColor);
                     index++;
                 }
 
-                _players.otherPlayers[index].Color = PlayersColor[index];
+                _players.otherPlayers[index].Color = _playersColor[index];
                 player.InitViews(_players.otherPlayers[index]);
                 index++;
             }
