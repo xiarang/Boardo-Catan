@@ -64,7 +64,7 @@ public class MainScreen : MonoBehaviour
                 _boardRoads = item.GetComponentsInChildren<Road>();
                 Debug.Log(_boardRoads.Length + " h " + _boardSettlements.Length);
             }
-            else if (item.name == "settelments")
+            else if (item.name == "settlements")
                 _boardSettlements = item.GetComponentsInChildren<Settlement>();
             
         }

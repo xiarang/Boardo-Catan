@@ -19,16 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="players colors added to cards">
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="initializing road and settlements rule checking">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Road.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Road.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/holder.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Settlement/holder.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/road.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Settlement/road.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,11 +52,11 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
         <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
       </list>
     </option>
   </component>
@@ -121,7 +115,7 @@
       <workItem from="1599118722151" duration="17909000" />
       <workItem from="1599142583774" duration="4877000" />
       <workItem from="1599199288649" duration="19975000" />
-      <workItem from="1599314374580" duration="4353000" />
+      <workItem from="1599314374580" duration="8089000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -242,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599204863406</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="initializing road and settlements rule checking">
+      <created>1599323621966</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1599323621966</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,7 +282,8 @@
     <MESSAGE value="ui little change" />
     <MESSAGE value="init players color" />
     <MESSAGE value="players colors added to cards" />
-    <option name="LAST_COMMIT_MESSAGE" value="players colors added to cards" />
+    <MESSAGE value="initializing road and settlements rule checking" />
+    <option name="LAST_COMMIT_MESSAGE" value="initializing road and settlements rule checking" />
   </component>
   <component name="WindowStateProjectService">
     <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599315264426">
@@ -312,10 +314,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599135510614" />
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599153147056">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599323705129">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599153147056" />
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599323705129" />
     <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599202216219">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
