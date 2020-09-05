@@ -25,6 +25,7 @@ public class UpdateMyPlayer : MonoBehaviour
     [SerializeField] private Image profileImage;
     public static Personal Personal;
 
+    [SerializeField] private Image pColor;
 
     public void UpdatePlayer()
     {
@@ -47,10 +48,15 @@ public class UpdateMyPlayer : MonoBehaviour
             victoryPoint.text = personal.victory_point.ToString();
             totalPoint.text = $"امتیاز کل: {personal.point}";
             username.text = personal.player_username;
-            MainScreen.ID = personal.player;
+            MainScreen.ThisPlayerID = personal.player;
             StartCoroutine(Network.GetTexture(personal.player_avatar,
                 texture => { profileImage.sprite = texture.ToSprite(); }, URL.Headers()));
         }, URL.Headers()));
+    }
+
+    public void UpdateColor(Color color)
+    {
+        pColor.color = color;
     }
 
     public void Pass()

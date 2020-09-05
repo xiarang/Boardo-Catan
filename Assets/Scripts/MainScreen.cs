@@ -1,37 +1,42 @@
 using Model;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Utils;
 using Network = Utils.Network;
 
 public class MainScreen : MonoBehaviour
 {
-    public static Color PlayerColor;
     public static int ThiefResourceNumber;
 
     [SerializeField] private SpriteRenderer[] boardTiles;
-    [SerializeField] private SpriteRenderer[] tilTags;
+    [SerializeField] private SpriteRenderer[] tileTags;
     [SerializeField] private Sprite[] resources;
     [SerializeField] private Sprite[] numbers;
 
     private Tiles _catanBoard;
     private static Players _players;
     private UpdateMyPlayer _myPlayer;
-    
-
-    //todo: remove id after get personal
-    public static int ID;
-    public static string Username;
-    public static string PersonalProfileResource;
     private PlayerScores[] _playersScoreboard;
     private Canvas _canvas;
+    private Scene _scene;
+    private Road[] _boardRoads;
+    private Settlement[] _boardSettlements;
+
+    public static int ThisPlayerID;
+    public static Colors ThisPlayerColor;
+    public static bool RoadBought = false;
+    public static bool CityBought = false;
+
 
     private void InitBoard()
     {
         for (var i = 0; i < 19; i++)
         {
             var tile = _catanBoard.board[i];
-            tilTags[i].sprite = numbers[tile.number - 2];
+            tileTags[i].sprite = numbers[tile.number - 2];
             boardTiles[i].sprite = resources[GetResourceID(tile.resource)];
         }
     }
@@ -40,6 +45,7 @@ public class MainScreen : MonoBehaviour
     {
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
+        FindBoardElements();
         _myPlayer = _canvas.GetComponentInChildren<UpdateMyPlayer>();
         foreach (var o in GameObject.FindGameObjectsWithTag("Loading"))
         {
@@ -52,6 +58,21 @@ public class MainScreen : MonoBehaviour
         GetPlayers();
     }
 
+    private void FindBoardElements()
+    {
+        foreach (var item in SceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            if (item.name == "roads")
+            {
+                _boardRoads = item.GetComponentsInChildren<Road>();
+                Debug.Log(_boardRoads.Length + " h " + _boardSettlements.Length);
+            }
+            else if (item.name == "settelments")
+                _boardSettlements = item.GetComponentsInChildren<Settlement>();
+            
+        }
+    }
+
     private void GetPlayers()
     {
         StartCoroutine(Network.GetRequest(URL.GetPlayers(), response =>
@@ -61,14 +82,14 @@ public class MainScreen : MonoBehaviour
             var index = 0;
             foreach (var player in _playersScoreboard)
             {
-                if (_players.otherPlayers[index].player == ID)
+                if (_players.otherPlayers[index].player == ThisPlayerID)
                 {
-                    var myPlayer = _players.otherPlayers[index];
-                    PersonalProfileResource = myPlayer.player_avatar;
-                    Username = myPlayer.player_username;
+                    ThisPlayerColor = (Colors)index;
+                    _myPlayer.UpdateColor(ThisPlayerColor.GetColor());
                     index++;
                 }
 
+                _players.otherPlayers[index].Color = (Colors)index;
                 player.InitViews(_players.otherPlayers[index]);
                 index++;
             }

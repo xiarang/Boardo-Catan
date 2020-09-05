@@ -19,14 +19,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="some bugs fixed + merged">
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="players colors added to cards">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyItem.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyLayout.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Buy/buyLayout.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/Counter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/Counter.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/TabPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/TabPanel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Road.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Road.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/holder.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Settlement/holder.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Settlement/road.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Settlement/road.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,27 +39,30 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/Utils/URL.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Colors.cs" />
         <option value="$PROJECT_DIR$/Assets/RTLTMPro/Scripts/Runtime/RTLTextMeshPro.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Counter.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/LoadingView.cs" />
         <option value="$PROJECT_DIR$/Assets/testtt.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Utility.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
         <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
       </list>
     </option>
   </component>
@@ -114,7 +119,9 @@
       <workItem from="1598968134860" duration="9174000" />
       <workItem from="1599030915635" duration="30177000" />
       <workItem from="1599118722151" duration="17909000" />
-      <workItem from="1599142583774" duration="2720000" />
+      <workItem from="1599142583774" duration="4877000" />
+      <workItem from="1599199288649" duration="19975000" />
+      <workItem from="1599314374580" duration="4353000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -207,7 +214,35 @@
       <option name="project" value="LOCAL" />
       <updated>1599139362242</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="buy dialog added to trade tab">
+      <created>1599153101332</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1599153101332</updated>
+    </task>
+    <task id="LOCAL-00015" summary="ui little change">
+      <created>1599153929649</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1599153929649</updated>
+    </task>
+    <task id="LOCAL-00016" summary="init players color">
+      <created>1599200226585</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1599200226585</updated>
+    </task>
+    <task id="LOCAL-00017" summary="players colors added to cards">
+      <created>1599204863406</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1599204863406</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,13 +277,17 @@
     <MESSAGE value="players scoreboard updated by server" />
     <MESSAGE value="other player profile image set by server" />
     <MESSAGE value="some bugs fixed + merged" />
-    <option name="LAST_COMMIT_MESSAGE" value="some bugs fixed + merged" />
+    <MESSAGE value="buy dialog added to trade tab" />
+    <MESSAGE value="ui little change" />
+    <MESSAGE value="init players color" />
+    <MESSAGE value="players colors added to cards" />
+    <option name="LAST_COMMIT_MESSAGE" value="players colors added to cards" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599130846827">
+    <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599315264426">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="94" y="94" width="1349" height="677" key="DiffContextDialog/0.0.1536.864@0.0.1536.864" timestamp="1599130846827" />
+    <state x="94" y="94" width="1349" height="677" key="DiffContextDialog/0.0.1536.864@0.0.1536.864" timestamp="1599315264426" />
     <state x="550" y="188" key="FileChooserDialogImpl" timestamp="1598972762287">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -265,22 +304,22 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="535" y="158" key="RiderGenerateDialog/0.0.1536.864@0.0.1536.864" timestamp="1598774550393" />
-    <state x="279" y="78" key="SettingsEditor" timestamp="1598773735398">
+    <state x="279" y="78" key="SettingsEditor" timestamp="1599318773149">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="279" y="78" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1598773735398" />
+    <state x="279" y="78" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1599318773149" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1599135510614">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599135510614" />
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599139383432">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599153147056">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599139383432" />
-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599139365742">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599153147056" />
+    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599202216219">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599139365742" />
+    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599202216219" />
     <state x="394" y="31" width="639" height="801" key="find.popup" timestamp="1599129684923">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

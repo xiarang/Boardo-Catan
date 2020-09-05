@@ -6,6 +6,7 @@
     <e p="C:\Users\smrz\Documents\Boardo" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="BuyButton.cs" t="Include" />
         <e p="RTLTMPro" t="Include">
           <e p="Ranges" t="Include">
             <e p="LetterRanges.txt" t="Include" />
@@ -66,6 +67,7 @@
           <e p="Road.cs" t="Include" />
           <e p="Settlement.cs" t="Include" />
           <e p="Test.cs" t="Include" />
+          <e p="UpdateMyPlayer.cs" t="Include" />
           <e p="Utils" t="Include">
             <e p="Colors.cs" t="Include" />
             <e p="Counter.cs" t="Include" />
@@ -104,6 +106,7 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
+        <e p="Tradition.cs" t="Include" />
       </e>
       <e p="Boardo.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />
