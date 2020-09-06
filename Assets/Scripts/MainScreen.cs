@@ -33,8 +33,6 @@ public class MainScreen : MonoBehaviour
 
     public static int ThisPlayerID;
     public static Color ThisPlayerColor;
-    public static bool ShouldRoadClickable = false;
-    public static bool ShouldCityClickable = false;
 
     private void InitBoard()
     {
@@ -48,6 +46,10 @@ public class MainScreen : MonoBehaviour
 
     private void Start()
     {
+        //todo: change by getting init1 from server and cityClickable
+        GameController.Action = GameState.init1;
+        GameController.ShouldSettlementClickable = true;
+        
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();

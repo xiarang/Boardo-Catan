@@ -71,7 +71,7 @@
           <e p="Utils" t="Include">
             <e p="Colors.cs" t="Include" />
             <e p="Counter.cs" t="Include" />
-            <e p="GameState.cs" t="Include" />
+            <e p="GameController.cs" t="Include" />
             <e p="LoadingView.cs" t="Include" />
             <e p="Network.cs" t="Include" />
             <e p="URL.cs" t="Include" />
