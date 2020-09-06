@@ -5,6 +5,13 @@ using UnityEngine.Serialization;
 using Utils;
 using Network = Utils.Network;
 
+// actions -> init1, init2 : first enable settlement click and after that road click
+// play_development_card -> if has any dev card: play or not=> need rolled dice button | else -> post to dice
+// trade_buy_build -> enable buy button in my player ui
+// thief_tile -> tell player to select new thief position and post that to server
+// dice -> need a button
+// trade_question -> show a dialog accept or not
+
 public class MainScreen : MonoBehaviour
 {
     public static int ThiefResourceNumber;
@@ -26,8 +33,8 @@ public class MainScreen : MonoBehaviour
 
     public static int ThisPlayerID;
     public static Color ThisPlayerColor;
-    public static bool RoadBought = false;
-    public static bool CityBought = false;
+    public static bool ShouldRoadClickable = false;
+    public static bool ShouldCityClickable = false;
 
     private void InitBoard()
     {

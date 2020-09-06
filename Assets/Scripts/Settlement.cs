@@ -9,16 +9,17 @@ public class Settlement : MonoBehaviour
     [SerializeField] private Sprite house;
     [SerializeField] private Road[] roads;
     private int _builtID = -1;
-    
+
     private bool _isCity = false;
 
     private void OnMouseDown()
     {
+        if (!MainScreen.ShouldCityClickable) return;
         if (_builtID != -1 && (_builtID != MainScreen.ThisPlayerID || _isCity)) return;
         //todo: set the owner road id to _buildID
         ChangeHolderColor();
         Debug.Log(gameObject.name);
-        MainScreen.RoadBought = false;
+        MainScreen.ShouldRoadClickable = false;
     }
 
     private void ChangeHolderColor()

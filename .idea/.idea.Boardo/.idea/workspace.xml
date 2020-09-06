@@ -19,8 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="settlements now knows their roads">
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="homes connected to roads to implementing rules">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/GameState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/GameState.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Road.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Road.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +37,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/Utils/URL.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -55,6 +60,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/GameState.cs" />
       </list>
     </option>
   </component>
@@ -113,7 +119,8 @@
       <workItem from="1599118722151" duration="17909000" />
       <workItem from="1599142583774" duration="4877000" />
       <workItem from="1599199288649" duration="19975000" />
-      <workItem from="1599314374580" duration="8915000" />
+      <workItem from="1599314374580" duration="9011000" />
+      <workItem from="1599401283811" duration="4660000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -248,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599329561137</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="homes connected to roads to implementing rules">
+      <created>1599331221998</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1599331221998</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -289,7 +303,8 @@
     <MESSAGE value="players colors added to cards" />
     <MESSAGE value="initializing road and settlements rule checking" />
     <MESSAGE value="settlements now knows their roads" />
-    <option name="LAST_COMMIT_MESSAGE" value="settlements now knows their roads" />
+    <MESSAGE value="homes connected to roads to implementing rules" />
+    <option name="LAST_COMMIT_MESSAGE" value="homes connected to roads to implementing rules" />
   </component>
   <component name="WindowStateProjectService">
     <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599315264426">
@@ -320,18 +335,18 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599135510614" />
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599323705129">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599331226711">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599323705129" />
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599331226711" />
     <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599202216219">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599202216219" />
-    <state x="394" y="31" width="639" height="801" key="find.popup" timestamp="1599129684923">
+    <state x="394" y="31" width="639" height="801" key="find.popup" timestamp="1599402533383">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="394" y="31" width="639" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1599129684923" />
+    <state x="394" y="31" width="639" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1599402533383" />
     <state x="426" y="197" key="run.anything.popup" timestamp="1599124128123">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

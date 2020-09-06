@@ -8,11 +8,12 @@ public class Road : MonoBehaviour
     private void OnMouseDown()
     {
         //todo: check road bought
+        if (!MainScreen.ShouldRoadClickable) return;
         if (_builtID != -1) return;
         _builtID = MainScreen.ThisPlayerID;
         ChangeRoadColor();
         Debug.Log(gameObject.name);
-        MainScreen.RoadBought = true;
+        MainScreen.ShouldRoadClickable = true;
     }
 
     private void ChangeRoadColor()
