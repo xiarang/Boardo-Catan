@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using Model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Utils;
 using Network = Utils.Network;
+using RTLTMPro;
 
 // actions -> init1, init2 : first enable settlement click and after that road click
 // play_development_card -> if has any dev card: play or not=> need rolled dice button | else -> post to dice
@@ -20,6 +22,8 @@ public class MainScreen : MonoBehaviour
     [SerializeField] private SpriteRenderer[] tileTags;
     [SerializeField] private Sprite[] resources;
     [SerializeField] private Sprite[] numbers;
+    [SerializeField] private RTLTextMeshPro boxMessage;
+    
 
     private Tiles _catanBoard;
     private static Players _players;
@@ -49,7 +53,8 @@ public class MainScreen : MonoBehaviour
         //todo: change by getting init1 from server and cityClickable
         GameController.Action = GameState.init1;
         GameController.ShouldSettlementClickable = true;
-        
+        boxMessage.text = "مکان خانه اول را مشخص کنید.";
+
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();

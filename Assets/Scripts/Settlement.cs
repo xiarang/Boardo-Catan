@@ -17,7 +17,7 @@ public class Settlement : MonoBehaviour
     {
         if (!GameController.ShouldSettlementClickable) return;
         if (builtID != -1 && (builtID != MainScreen.ThisPlayerID || isCity)) return;
-        if (!IsُSettlementPositionValid()) return;
+        if (!IsُSettlementPositionValid()) return; 
         //todo: set the owner road id to _buildID
         ChangeHolderColor();
         Debug.Log(gameObject.name);

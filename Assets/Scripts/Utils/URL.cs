@@ -12,7 +12,7 @@ namespace Utils
         {
             {"Authorization", $"Token {Token}"}
         };
-        private const string BaseURL = "http://192.168.1.8:8000";
+        private const string BaseURL = "http://192.168.1.6:8000";
         public static string GetBoard() => $"{BaseURL}/catan/map/{RoomName}";
         public static string GetPlayers() => $"{BaseURL}/catan/player_info/{RoomName}";
         public static string Personal() => $"{BaseURL}/catan/personal/{RoomName}";
