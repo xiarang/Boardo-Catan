@@ -3,29 +3,29 @@ using UnityEngine;
 
 namespace Utils
 {
-    public enum Colors
+    public enum PlayerColors
     {
-        Red,
         Blue,
         Green,
-        Orange
+        Orange,
+        Red,
     }
     public static class Utils
     {
-        public static Color GetColor(this Colors colors)
+        public static Color GetColor(this PlayerColors playerColors)
         {
-            switch (colors)
+            switch (playerColors)
             {
-                case Colors.Red:
+                case PlayerColors.Red:
                     return new Color(254f / 255f, 0f, 0f, 1f);
-                case Colors.Blue:
+                case PlayerColors.Blue:
                     return new Color(0f, 174f/255f, 240f/255f, 1f);
-                case Colors.Green:
+                case PlayerColors.Green:
                     return new Color(96f/255f, 207f/255f, 64f/255f, 1f);
-                case Colors.Orange:
+                case PlayerColors.Orange:
                     return new Color(255f/255f, 153f/255f, 51f/255f, 1f);
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(colors), colors, null);
+                    throw new ArgumentOutOfRangeException(nameof(playerColors), playerColors, null);
             }
         }
     }

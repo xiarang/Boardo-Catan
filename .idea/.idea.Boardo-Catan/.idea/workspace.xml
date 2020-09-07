@@ -19,18 +19,26 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e5ce0ca-048f-415f-a349-9b5559d69346" name="Default Changelist" comment="Tradition open and close functional">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs.meta" afterDir="false" />
+    <list default="true" id="4e5ce0ca-048f-415f-a349-9b5559d69346" name="Default Changelist" comment="Players color improved.">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/TradeRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/TradeRequest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/TradeProfileHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Road.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Road.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/PlayerColors.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/PlayerColors.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,33 +50,42 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Tradition.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Dropdown.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/11BD515F-D2A0-4526-8509-D23726DE0F46/49/8b97d2f6/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TradeHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/BuyButton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TradeProfileHandler.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/UpdatePlayer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
         <option value="$PROJECT_DIR$/Assets/BuyButton.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Utility.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Test.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/LoadingView.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" />
         <option value="$PROJECT_DIR$/Assets/Tradition.cs" />
-        <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/PlayerColors.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
+        <option value="$PROJECT_DIR$/Assets/TradeProfileHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Model/TradeRequest.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" />
+        <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
+        <option value="$PROJECT_DIR$/Assets/TradeHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
+        <option value="$PROJECT_DIR$/Assets/BankTradeHandler.cs" />
       </list>
     </option>
   </component>
@@ -92,7 +109,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
@@ -123,7 +140,11 @@
       <option name="presentableId" value="Default" />
       <updated>1599118720351</updated>
       <workItem from="1599118743169" duration="26668000" />
-      <workItem from="1599315341745" duration="6498000" />
+      <workItem from="1599315341745" duration="12220000" />
+      <workItem from="1599330673716" duration="150000" />
+      <workItem from="1599332467883" duration="940000" />
+      <workItem from="1599401877204" duration="17972000" />
+      <workItem from="1599486564802" duration="959000" />
     </task>
     <task id="LOCAL‎۰۰۰۰۱" summary="Some Network improvements">
       <created>1599127741135</created>
@@ -167,7 +188,13 @@
       <option name="presentableId" value="LOCAL‎۰۰۰۰۷" />
       <updated>1599199790156</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL‎۰۰۰۰۸" summary="Players color improved.">
+      <created>1599324932073</created>
+      <option name="number" value="LOCAL‎۰۰۰۰۸" />
+      <option name="presentableId" value="LOCAL‎۰۰۰۰۸" />
+      <updated>1599324932073</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,9 +221,14 @@
     <MESSAGE value="PostMerge age" />
     <MESSAGE value="UpdatePlayer fixed." />
     <MESSAGE value="Tradition open and close functional" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tradition open and close functional" />
+    <MESSAGE value="Players color improved." />
+    <option name="LAST_COMMIT_MESSAGE" value="Players color improved." />
   </component>
   <component name="WindowStateProjectService">
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1599327042950">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1599327042950" />
     <state width="1493" height="280" key="GridCell.Tab.0.bottom" timestamp="1599314583842">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -261,33 +293,37 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="280" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1599314583864" />
-    <state x="147" y="65" key="MergeDialog" timestamp="1599153616604">
+    <state x="349" y="147" key="IDE.errors.dialog" timestamp="1599325934783">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599153616604" />
-    <state x="399" y="166" key="MultipleFileMergeDialog" timestamp="1599153619796">
+    <state x="349" y="147" key="IDE.errors.dialog/0.0.1536.824@0.0.1536.824" timestamp="1599325934783" />
+    <state x="147" y="65" key="MergeDialog" timestamp="1599325354746">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="399" y="166" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599153619796" />
-    <state x="277" y="57" key="SettingsEditor" timestamp="1599318785224">
+    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599325354746" />
+    <state x="399" y="166" key="MultipleFileMergeDialog" timestamp="1599325508097">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1599318785224" />
+    <state x="399" y="166" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599325508097" />
+    <state x="277" y="57" key="SettingsEditor" timestamp="1599416556112">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1599416556112" />
     <state x="93" y="93" width="1350" height="638" key="VCS.FileHistoryDialog" timestamp="1599142617867">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="VCS.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1599142617867" />
-    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1599199795195">
+    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1599324938952">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599199795195" />
-    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599153582879">
+    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599324938952" />
+    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599324941286">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599153582879" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599142787489">
+    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599324941286" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599487168764">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1599142787489" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1599487168764" />
   </component>
 </project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -50,6 +51,74 @@ namespace Utils
                 headers = new Dictionary<string, string>();
             }
 
+            using (var webRequest = new UnityWebRequest(uri, "post"))
+            {
+                foreach (var keyValuePair in headers)
+                {
+                    webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
+                }
+
+                var bodyRaw = Encoding.UTF8.GetBytes(body);
+                webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                webRequest.downloadHandler = new DownloadHandlerBuffer();
+
+                yield return webRequest.SendWebRequest();
+                var pages = uri.Split('/');
+                var page = pages.Length - 1;
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log(pages[page] + ": Error: " + webRequest.error);
+                    onError?.Invoke();
+                }
+                else
+                {
+                    var response = webRequest.downloadHandler.text;
+                    onResponse(response);
+                }
+            }
+        }
+
+        public static IEnumerator PostRequest(string uri, Dictionary<string, string> body, Action<string> onResponse,
+            Dictionary<string, string> headers = null, Action onError = null)
+        {
+            if (headers == null)
+            {
+                headers = new Dictionary<string, string>();
+            }
+
+            using (var webRequest = UnityWebRequest.Post(uri, body))
+            {
+                foreach (var keyValuePair in headers)
+                {
+                    webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
+                }
+
+                yield return webRequest.SendWebRequest();
+                var pages = uri.Split('/');
+                var page = pages.Length - 1;
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log(pages[page] + ": Error: " + webRequest.error);
+                    onError?.Invoke();
+                }
+                else
+                {
+                    var response = webRequest.downloadHandler.text;
+                    onResponse(response);
+                }
+            }
+        }
+        
+        public static IEnumerator PostRequest(string uri, WWWForm body, Action<string> onResponse,
+            Dictionary<string, string> headers = null, Action onError = null)
+        {
+            if (headers == null)
+            {
+                headers = new Dictionary<string, string>();
+            }
+
             using (var webRequest = UnityWebRequest.Post(uri, body))
             {
                 foreach (var keyValuePair in headers)
@@ -82,7 +151,7 @@ namespace Utils
                 headers = new Dictionary<string, string>();
             }
 
-            UnityWebRequest request = UnityWebRequestTexture.GetTexture(resource);
+            var request = UnityWebRequestTexture.GetTexture(resource);
             foreach (var keyValuePair in headers)
             {
                 request.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);

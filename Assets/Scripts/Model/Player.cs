@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Drawing;
 using Utils;
-using Color = UnityEngine.Color;
 
 namespace Model
 {
@@ -19,7 +17,7 @@ namespace Model
         public int road_length;
         public string player_avatar;
         public string player_username;
-        [NonSerialized] public Color Color;
+        [NonSerialized] public PlayerColors Color;
     }
 
     [Serializable]

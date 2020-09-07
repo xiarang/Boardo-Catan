@@ -54,17 +54,14 @@ public class UpdateMyPlayer : MonoBehaviour
         }, URL.Headers()));
     }
 
-    public void UpdateColor(Color color)
+    public void UpdateColor(PlayerColors color)
     {
-        pColor.color = color;
+        pColor.color = color.GetColor();
+        Personal.Color = color;
     }
 
     public void Pass()
     {
         StartCoroutine(Network.PostRequest(URL.Pass(), string.Empty, s => { }, URL.Headers()));
-    }
-
-    public void StartBuy()
-    {
     }
 }

@@ -75,5 +75,11 @@ namespace Utils
             var textComponent = GetComponent<TextMeshProUGUI>();
             textComponent.text = _currentNumber.ToString();
         }
+
+        public void OnReset()
+        {
+            _currentNumber = 0;
+            SetText();
+        }
     }
 }

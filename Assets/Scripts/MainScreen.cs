@@ -1,9 +1,6 @@
 using Model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using Utils;
 using Network = Utils.Network;
 
@@ -17,7 +14,7 @@ public class MainScreen : MonoBehaviour
     [SerializeField] private Sprite[] numbers;
 
     private Tiles _catanBoard;
-    private static Players _players;
+    public static Players Players;
     private UpdateMyPlayer _myPlayer;
     private PlayerScores[] _playersScoreboard;
     private Canvas _canvas;
@@ -26,7 +23,7 @@ public class MainScreen : MonoBehaviour
     private Settlement[] _boardSettlements;
 
     public static int ThisPlayerID;
-    public static Colors ThisPlayerColor;
+    public static PlayerColors ThisPlayerPlayerColor;
     public static bool RoadBought = false;
     public static bool CityBought = false;
 
@@ -47,10 +44,6 @@ public class MainScreen : MonoBehaviour
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
         FindBoardElements();
         _myPlayer = _canvas.GetComponentInChildren<UpdateMyPlayer>();
-        foreach (var o in GameObject.FindGameObjectsWithTag("Loading"))
-        {
-            o.SetActive(false);
-        }
         URL.SetToken("58998a8632efec6b3810f7a2833dc300fe2a937f");
         URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
         _myPlayer.UpdatePlayer();
@@ -62,14 +55,16 @@ public class MainScreen : MonoBehaviour
     {
         foreach (var item in SceneManager.GetActiveScene().GetRootGameObjects())
         {
-            if (item.name == "roads")
+            switch (item.name)
             {
-                _boardRoads = item.GetComponentsInChildren<Road>();
-                Debug.Log(_boardRoads.Length + " h " + _boardSettlements.Length);
+                case "roads":
+                    _boardRoads = item.GetComponentsInChildren<Road>();
+                    Debug.Log(_boardRoads.Length + " h " + _boardSettlements.Length);
+                    break;
+                case "settlements":
+                    _boardSettlements = item.GetComponentsInChildren<Settlement>();
+                    break;
             }
-            else if (item.name == "settelments")
-                _boardSettlements = item.GetComponentsInChildren<Settlement>();
-            
         }
     }
 
@@ -78,19 +73,19 @@ public class MainScreen : MonoBehaviour
         StartCoroutine(Network.GetRequest(URL.GetPlayers(), response =>
         {
             response = "{\"otherPlayers\":" + response + "}";
-            _players = JsonUtility.FromJson<Players>(response);
+            Players = JsonUtility.FromJson<Players>(response);
             var index = 0;
             foreach (var player in _playersScoreboard)
             {
-                if (_players.otherPlayers[index].player == ThisPlayerID)
+                if (Players.otherPlayers[index].player == ThisPlayerID)
                 {
-                    ThisPlayerColor = (Colors)index;
-                    _myPlayer.UpdateColor(ThisPlayerColor.GetColor());
+                    ThisPlayerPlayerColor = (PlayerColors)index;
+                    _myPlayer.UpdateColor(ThisPlayerPlayerColor);
                     index++;
                 }
 
-                _players.otherPlayers[index].Color = (Colors)index;
-                player.InitViews(_players.otherPlayers[index]);
+                Players.otherPlayers[index].Color = (PlayerColors)index;
+                player.InitViews(Players.otherPlayers[index]);
                 index++;
             }
         }, URL.Headers()));

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utils;
 
 public class Road : MonoBehaviour
 {
@@ -18,6 +19,6 @@ public class Road : MonoBehaviour
     private void ChangeRoadColor()
     {
         var road = GetComponent<SpriteRenderer>();
-        road.color = MainScreen.ThisPlayerColor;
+        road.color = MainScreen.ThisPlayerPlayerColor.GetColor();
     }
 }

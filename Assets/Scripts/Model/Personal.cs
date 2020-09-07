@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Utils;
 
 namespace Model
 {
@@ -26,5 +27,6 @@ namespace Model
         public int player;
         public string player_username;
         public string player_avatar;
+        [NonSerialized] public PlayerColors Color;
     }
 }

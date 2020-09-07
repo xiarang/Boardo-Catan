@@ -23,7 +23,7 @@ public class PlayerScores : MonoBehaviour
         resources.text = playersInfo.resources.ToString();
         road.text = playersInfo.road_length.ToString();
         point.text = playersInfo.point.ToString();
-        playerColor.color = playersInfo.Color;
+        playerColor.color = playersInfo.Color.GetColor();
         GetProfileImage(playersInfo.player_avatar);
     }
 

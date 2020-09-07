@@ -1,7 +1,5 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using Utils;
 
 public class Settlement : MonoBehaviour
 {
@@ -25,6 +23,6 @@ public class Settlement : MonoBehaviour
     {
         var holder = GetComponent<SpriteRenderer>();
         holder.sprite = house;
-        holder.color = MainScreen.ThisPlayerColor;
+        holder.color = MainScreen.ThisPlayerPlayerColor.GetColor();
     }
 }
