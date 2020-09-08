@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 using Utils;
 using Network = Utils.Network;
 using RTLTMPro;
+using UnityEditor;
 
 // actions -> init1, init2 : first enable settlement click and after that road click
 // play_development_card -> if has any dev card: play or not=> need rolled dice button | else -> post to dice
@@ -25,7 +26,6 @@ public class MainScreen : MonoBehaviour
     [SerializeField] private Sprite[] resources;
     [SerializeField] private Sprite[] numbers;
 
-
     private Tiles _catanBoard;
     public static Players Players;
     private UpdateMyPlayer _myPlayer;
@@ -38,6 +38,8 @@ public class MainScreen : MonoBehaviour
     public static int ThisPlayerID;
     public static PlayerColors ThisPlayerPlayerColor;
     public static RTLTextMeshPro BoxMessage;
+    public static string SelectedSettlement;
+    public static string[] SelectedRoad = {"0", "0"};
 
     [DllImport("__Internal")]
     public static extern void showDialog(string label, string body);
@@ -60,7 +62,7 @@ public class MainScreen : MonoBehaviour
 
     private void Start()
     {
-        
+        // PlayerSettings.SetAspectRatio(AspectRatio.Aspect16by10, true);
         //todo: change by getting init1 from server and cityClickable
         GameController.Action = GameState.init1;
         GameController.ShouldSettlementClickable = true;
@@ -106,12 +108,12 @@ public class MainScreen : MonoBehaviour
             {
                 if (Players.otherPlayers[index].player == ThisPlayerID)
                 {
-                    ThisPlayerPlayerColor = (PlayerColors)index;
+                    ThisPlayerPlayerColor = (PlayerColors) index;
                     _myPlayer.UpdateColor(ThisPlayerPlayerColor);
                     index++;
                 }
 
-                Players.otherPlayers[index].Color = (PlayerColors)index;
+                Players.otherPlayers[index].Color = (PlayerColors) index;
                 player.InitViews(Players.otherPlayers[index]);
                 index++;
             }
@@ -148,11 +150,11 @@ public class MainScreen : MonoBehaviour
 
         return -1;
     }
-    
+
     /*
      * These are functions that will be called by js.
      **/
-    
+
     /*
      * if it's your turn, play it.
      */
@@ -173,7 +175,7 @@ public class MainScreen : MonoBehaviour
         var road1 = int.Parse(args[2]);
         var road2 = int.Parse(args[3]);
     }
-    
+
     public void PlayedInit2(string[] args)
     {
         var turn = int.Parse(args[0]);
@@ -197,6 +199,4 @@ public class MainScreen : MonoBehaviour
         var r2v1 = int.Parse(args[3]);
         var r2v2 = int.Parse(args[4]);
     }
-    
-    
 }

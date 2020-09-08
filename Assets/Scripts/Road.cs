@@ -2,6 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utils;
+using Network = Utils.Network;
 
 public class Road : MonoBehaviour
 {
@@ -18,6 +19,12 @@ public class Road : MonoBehaviour
         ChangeRoadColor();
         Debug.Log(gameObject.name);
         GameController.ShouldRoadClickable = false;
+        if (GameController.Action == GameState.init1)
+        {
+            var body = "{\"vertex\": " + MainScreen.SelectedSettlement + ", \"road_v1\": " + s1.name +
+                       ", \"road_v2\": " + s2.name + "}";
+            StartCoroutine(Network.PostRequest(URL.Init1, body, s => { }, URL.Headers(), true));
+        }
     }
 
     private void ChangeRoadColor()

@@ -62,7 +62,11 @@ public class UpdateMyPlayer : MonoBehaviour
 
     public void Pass()
     {
-        // StartCoroutine(Network.PostRequest(URL.Pass, string.Empty, s => { }, URL.Headers()));
+        StartCoroutine(Network.PostRequest(URL.Pass, string.Empty, s => { }, URL.Headers()));
+    }
+
+    public void ONDicePressed()
+    {
         MainScreen.rollDice("2", "3");
     }
 }
