@@ -20,21 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e5ce0ca-048f-415f-a349-9b5559d69346" name="Default Changelist" comment="BankTrade partially functional">
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Sellable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Sellable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/sweetalert.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BankTradeHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BankTradeHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BankTradeHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BankTradeHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BankTradeHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TradeHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TradeHandler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,17 +39,30 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Tradition.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Dropdown.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/Downloads/Dukto/MyGameHandler.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/11BD515F-D2A0-4526-8509-D23726DE0F46/49/8b97d2f6/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TradeHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scenes/Main.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Dropdown.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/BuyHandler.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/BankTradeHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/11BD515F-D2A0-4526-8509-D23726DE0F46/49/8b97d2f6/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/BuyButton.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TradeProfileHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Model/Sellable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Model/Sellable.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/BuyHandler.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/TradeHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/TradeHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Downloads/Dukto/MyGameHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scenes/Main.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scenes/Main.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Model/Sellable.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/Network.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/Dukto/TextUpdater.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/TradeHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/BankTradeHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/BankTradeHandler.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Model/Sellable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/BankTradeHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/Network.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -80,14 +87,18 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Sellable.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
         <option value="$PROJECT_DIR$/Assets/TradeHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/BankTradeHandler.cs" />
         <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
-        <option value="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Sellable.cs.meta" />
+        <option value="$PROJECT_DIR$/Assets/Scenes/Main.unity" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/BankTradeHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/sweetalert.min.js" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
       </list>
     </option>
   </component>
@@ -147,7 +158,7 @@
       <workItem from="1599332467883" duration="940000" />
       <workItem from="1599401877204" duration="17972000" />
       <workItem from="1599486564802" duration="11689000" />
-      <workItem from="1599551166267" duration="8310000" />
+      <workItem from="1599551166267" duration="16164000" />
     </task>
     <task id="LOCAL‎۰۰۰۰۱" summary="Some Network improvements">
       <created>1599127741135</created>
@@ -203,7 +214,13 @@
       <option name="presentableId" value="LOCAL‎۰۰۰۰۹" />
       <updated>1599487674949</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL‎۰۰۰۱۰" summary="initializing socket">
+      <created>1599566695406</created>
+      <option name="number" value="LOCAL‎۰۰۰۱۰" />
+      <option name="presentableId" value="LOCAL‎۰۰۰۱۰" />
+      <updated>1599566695406</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,7 +249,8 @@
     <MESSAGE value="Tradition open and close functional" />
     <MESSAGE value="Players color improved." />
     <MESSAGE value="BankTrade partially functional" />
-    <option name="LAST_COMMIT_MESSAGE" value="BankTrade partially functional" />
+    <MESSAGE value="initializing socket" />
+    <option name="LAST_COMMIT_MESSAGE" value="initializing socket" />
   </component>
   <component name="WindowStateProjectService">
     <state x="523" y="202" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599551423733">
@@ -311,14 +329,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="349" y="147" key="IDE.errors.dialog/0.0.1536.824@0.0.1536.824" timestamp="1599325934783" />
-    <state x="147" y="65" key="MergeDialog" timestamp="1599488145901">
+    <state x="147" y="65" key="MergeDialog" timestamp="1599567101563">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599488145901" />
-    <state x="399" y="166" key="MultipleFileMergeDialog" timestamp="1599488214451">
+    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599567101563" />
+    <state x="399" y="166" key="MultipleFileMergeDialog" timestamp="1599567104453">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="399" y="166" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599488214451" />
+    <state x="399" y="166" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599567104453" />
     <state x="277" y="57" key="SettingsEditor" timestamp="1599416556112">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -331,10 +349,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599488221746" />
-    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599487705699">
+    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599566726886">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599487705699" />
+    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599566726886" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599557121803">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

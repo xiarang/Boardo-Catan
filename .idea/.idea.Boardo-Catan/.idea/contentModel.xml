@@ -58,6 +58,8 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="BankTradeHandler.cs" t="Include" />
+          <e p="BuyButton.cs" t="Include" />
           <e p="BuyHandler.cs" t="Include" />
           <e p="MainScreen.cs" t="Include" />
           <e p="Model" t="Include">
@@ -72,9 +74,13 @@
           <e p="Road.cs" t="Include" />
           <e p="Settlement.cs" t="Include" />
           <e p="Test.cs" t="Include" />
+          <e p="TradeHandler.cs" t="Include" />
+          <e p="TradeProfileHandler.cs" t="Include" />
+          <e p="Tradition.cs" t="Include" />
           <e p="UpdateMyPlayer.cs" t="Include" />
           <e p="Utils" t="Include">
             <e p="Counter.cs" t="Include" />
+            <e p="GameController.cs" t="Include" />
             <e p="LoadingView.cs" t="Include" />
             <e p="Network.cs" t="Include" />
             <e p="PlayerColors.cs" t="Include" />
@@ -111,9 +117,6 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
-        <e p="TradeHandler.cs" t="Include" />
-        <e p="TradeProfileHandler.cs" t="Include" />
-        <e p="Tradition.cs" t="Include" />
       </e>
       <e p="Boardo-Catan.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

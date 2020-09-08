@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -37,6 +38,9 @@ public class MainScreen : MonoBehaviour
     public static PlayerColors ThisPlayerPlayerColor;
     public static RTLTextMeshPro BoxMessage;
 
+    [DllImport("__Internal")]
+    public static extern void showDialog(string title, string body);
+
     private void InitBoard()
     {
         for (var i = 0; i < 19; i++)
@@ -49,6 +53,7 @@ public class MainScreen : MonoBehaviour
 
     private void Start()
     {
+        showDialog("Foo", "Bar");
         //todo: change by getting init1 from server and cityClickable
         GameController.Action = GameState.init1;
         GameController.ShouldSettlementClickable = true;
@@ -169,5 +174,22 @@ public class MainScreen : MonoBehaviour
         var road1 = int.Parse(args[2]);
         var road2 = int.Parse(args[3]);
     }
+
+    public void PlayYearOfPlenty(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var resource1 = args[1];
+        var resource2 = args[2];
+    }
+
+    public void PlayRoadBuilding(string[] args)
+    {
+        var turn = args[0];
+        var r1v1 = int.Parse(args[1]);
+        var r1v2 = int.Parse(args[2]);
+        var r2v1 = int.Parse(args[3]);
+        var r2v2 = int.Parse(args[4]);
+    }
+    
     
 }
