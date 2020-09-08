@@ -1,19 +1,42 @@
 ﻿mergeInto(LibraryManager.library, {
-    WebSocketInit: (url) => {
-        this.socket = new WebSocket(Pointer_stringify(url));
-        this.socket.onmessage = (msg) => {
-            const data = JSON.parse(msg.data);
-            const [object, method, args] = onMessageReceived(data);
-            unityInstance.SendMessage(
-                object,
-                method,
-                args
-            );
-        };
+    showDialogWithImage: function (label, body, image) {
+        const title = Pointer_stringify(label);
+        const text = Pointer_stringify(body);
+        const imageUrl = Pointer_stringify(image);
+        Swal.fire({
+            title: title,
+            text: text,
+            imageUrl: imageUrl,
+            imageWidth: 200,
+            imageHeight: 200
+        });
     },
-    showDialog: (title, body) => {
-        swal(title, body);
+    showDialog: function (label, body) {
+        const title = Pointer_stringify(label);
+        const text = Pointer_stringify(body);
+        Swal.fire({
+            title: title,
+            text: text,
+        });
+    },
+    rollDice: function (dice1, dice2) {
+        const d1 = Pointer_stringify(dice1);
+        const d2 = Pointer_stringify(dice2);
+        rollADie({element: document.getElementById("dice-container"), numberOfDice: 2, callback: function(a) {}, values: [parseInt(d1), parseInt(d2)]});
     }
+    
+    // WebSocketInit: (url) => {
+    //     this.socket = new WebSocket(Pointer_stringify(url));
+    //     this.socket.onmessage = (msg) => {
+    //         const data = JSON.parse(msg.data);
+    //         const [object, method, args] = onMessageReceived(data);
+    //         unityInstance.SendMessage(
+    //             object,
+    //             method,
+    //             args
+    //         );
+    //     };
+    // },
 });
 
 const gameObject = 'GameController';

@@ -23,6 +23,7 @@ public class Settlement : MonoBehaviour
         Debug.Log(gameObject.name);
         GameController.ShouldSettlementClickable = false;
         builtID = MainScreen.ThisPlayerID;
+        MainScreen.showDialogWithImage("دمت گرم", "تو خبی.", "/assets/monopoly.png");
         if (GameController.Action == GameState.init1)
         {
             MainScreen.BoxMessage.text = "مکان جاده اول را مشخص کنید.";

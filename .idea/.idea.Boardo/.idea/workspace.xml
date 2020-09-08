@@ -8,11 +8,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="scene merge bugs fixed">
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="network error in post solved">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/sweetalert.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/sweetalert.min.js.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +27,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/BuyHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../UnityProjects/HelloWorld/TextGame/TextGame/Assets/Scripts/MyGameHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Desktop/BuyHandler.cs" root0="SKIP_HIGHLIGHTING" />
@@ -54,11 +59,13 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/TradeHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Sellable.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" />
+        <option value="$PROJECT_DIR$/../UnityProjects/HelloWorld/TextGame/TextGame/Assets/Plugins/WebSocketHanler.jslib" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" />
       </list>
     </option>
   </component>
@@ -81,7 +88,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Assets/TextMesh Pro" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.folding" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
@@ -130,7 +137,7 @@
       <workItem from="1599401283811" duration="15796000" />
       <workItem from="1599459977374" duration="4887000" />
       <workItem from="1599552094184" duration="13567000" />
-      <workItem from="1599569926465" duration="1272000" />
+      <workItem from="1599569926465" duration="12766000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -314,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599566608011</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="network error in post solved">
+      <created>1599577695754</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1599577695754</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -336,7 +350,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="player score board added" />
     <MESSAGE value="buy dialog added" />
     <MESSAGE value="initializing counter compenent" />
     <MESSAGE value="refactored" />
@@ -361,7 +374,8 @@
     <MESSAGE value="tmp commite" />
     <MESSAGE value="two scenes merged manually" />
     <MESSAGE value="scene merge bugs fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="scene merge bugs fixed" />
+    <MESSAGE value="network error in post solved" />
+    <option name="LAST_COMMIT_MESSAGE" value="network error in post solved" />
   </component>
   <component name="WindowStateProjectService">
     <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599557509121">
@@ -384,22 +398,22 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="535" y="158" key="RiderGenerateDialog/0.0.1536.864@0.0.1536.864" timestamp="1598774550393" />
-    <state x="279" y="28" width="979" height="758" key="SettingsEditor" timestamp="1599551450020">
+    <state x="279" y="28" width="979" height="758" key="SettingsEditor" timestamp="1599578157862">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="279" y="28" width="979" height="758" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1599551450020" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1599568617030">
+    <state x="279" y="28" width="979" height="758" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1599578157862" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1599585577379">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599568617030" />
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599566709444">
+    <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599585577379" />
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599577782846">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599566709444" />
-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599566702094">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599577782846" />
+    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599577936543">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599566702094" />
+    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599577936543" />
     <state x="394" y="31" width="639" height="801" key="find.popup" timestamp="1599566015964">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
