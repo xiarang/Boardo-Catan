@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
+    <expand />
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="seems settlement rules added fully">
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="two scenes merged manually">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Sellable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Sellable.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/shelf/Uncommitted_changes_before_Update_at_9_3_2020_10_05_PM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/shelf/Uncommitted_changes_before_Update_at_9_3_2020_10_05_PM__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/shelf/Uncommitted_changes_before_Update_at_9_8_2020_11_34_AM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/shelf/Uncommitted_changes_before_Update_at_9_8_2020_11_34_AM__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BankTradeHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BankTradeHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BankTradeHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BankTradeHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BuyButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BuyButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BuyButton.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BuyButton.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scoreboard/otherPlayerCard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scoreboard/otherPlayerCard.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TradeHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TradeHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TradeHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TradeHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TradeProfileHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TradeProfileHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TradeProfileHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TradeProfileHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tradition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tradition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tradition.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tradition.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnityYAMLMerge.exe" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +47,13 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scenes/Main.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scenes/Main.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../UnityProjects/HelloWorld/TextGame/TextGame/Assets/Scripts/MyGameHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Desktop/BuyHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../Program Files/Unity/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/SelectableEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/MainScreen.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../UnityProjects/HelloWorld/TextGame/TextGame/Assets/Scripts/TextUpdater.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -48,23 +66,38 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Utility.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/GameState.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/GameController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
         <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MessageController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scenes/Main.unity" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/BankTradeHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/TradeHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Sellable.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
       </list>
     </option>
   </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
   <component name="ProjectId" id="1goCdpjppdyCr0ML14Y50op6VrR" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -74,7 +107,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Assets/TextMesh Pro" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.folding" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
@@ -122,6 +155,7 @@
       <workItem from="1599314374580" duration="9011000" />
       <workItem from="1599401283811" duration="15796000" />
       <workItem from="1599459977374" duration="4887000" />
+      <workItem from="1599552094184" duration="10557000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -277,7 +311,28 @@
       <option name="project" value="LOCAL" />
       <updated>1599419908043</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="after merge">
+      <created>1599549205679</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1599549205679</updated>
+    </task>
+    <task id="LOCAL-00024" summary="tmp commite">
+      <created>1599552230542</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1599552230542</updated>
+    </task>
+    <task id="LOCAL-00025" summary="two scenes merged manually">
+      <created>1599554808491</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1599554808491</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,7 +354,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="settlements and road click handling finished" />
     <MESSAGE value="other player score board added" />
     <MESSAGE value="player score board added" />
     <MESSAGE value="buy dialog added" />
@@ -321,52 +375,56 @@
     <MESSAGE value="homes connected to roads to implementing rules" />
     <MESSAGE value="game state initialize" />
     <MESSAGE value="seems settlement rules added fully" />
-    <option name="LAST_COMMIT_MESSAGE" value="seems settlement rules added fully" />
+    <MESSAGE value="after merge" />
+    <MESSAGE value="after merge after merge" />
+    <MESSAGE value="tmp commite" />
+    <MESSAGE value="two scenes merged manually" />
+    <option name="LAST_COMMIT_MESSAGE" value="two scenes merged manually" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599315264426">
+    <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599557509121">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="94" y="94" width="1349" height="677" key="DiffContextDialog/0.0.1536.864@0.0.1536.864" timestamp="1599315264426" />
+    <state x="94" y="94" width="1349" height="677" key="DiffContextDialog/0.0.1536.864@0.0.1536.864" timestamp="1599557509121" />
     <state x="550" y="188" key="FileChooserDialogImpl" timestamp="1598972762287">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="550" y="188" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1598972762287" />
-    <state x="149" y="70" key="MergeDialog" timestamp="1599127974841">
+    <state x="149" y="70" key="MergeDialog" timestamp="1599551964774">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="149" y="70" key="MergeDialog/0.0.1536.864@0.0.1536.864" timestamp="1599127974841" />
-    <state x="409" y="195" key="MultipleFileMergeDialog" timestamp="1599127974841">
+    <state x="149" y="70" key="MergeDialog/0.0.1536.864@0.0.1536.864" timestamp="1599551964774" />
+    <state x="409" y="195" key="MultipleFileMergeDialog" timestamp="1599552059602">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="409" y="195" key="MultipleFileMergeDialog/0.0.1536.864@0.0.1536.864" timestamp="1599127974841" />
+    <state x="409" y="195" key="MultipleFileMergeDialog/0.0.1536.864@0.0.1536.864" timestamp="1599552059602" />
     <state x="535" y="158" key="RiderGenerateDialog" timestamp="1598774550393">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="535" y="158" key="RiderGenerateDialog/0.0.1536.864@0.0.1536.864" timestamp="1598774550393" />
-    <state x="279" y="78" key="SettingsEditor" timestamp="1599318773149">
+    <state x="279" y="28" width="979" height="758" key="SettingsEditor" timestamp="1599551450020">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="279" y="78" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1599318773149" />
+    <state x="279" y="28" width="979" height="758" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1599551450020" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1599135510614">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599135510614" />
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599406272273">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599550815101">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599406272273" />
-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599406275885">
+    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599550815101" />
+    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599552115362">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599406275885" />
-    <state x="394" y="31" width="639" height="801" key="find.popup" timestamp="1599402533383">
+    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599552115362" />
+    <state x="394" y="31" width="639" height="801" key="find.popup" timestamp="1599566015964">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="394" y="31" width="639" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1599402533383" />
-    <state x="426" y="197" key="run.anything.popup" timestamp="1599124128123">
+    <state x="394" y="31" width="639" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1599566015964" />
+    <state x="426" y="197" key="run.anything.popup" timestamp="1599561563616">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="426" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1599124128123" />
+    <state x="426" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1599561563616" />
   </component>
 </project>

@@ -22,8 +22,7 @@ public class MainScreen : MonoBehaviour
     [SerializeField] private SpriteRenderer[] tileTags;
     [SerializeField] private Sprite[] resources;
     [SerializeField] private Sprite[] numbers;
-    [SerializeField] private RTLTextMeshPro boxMessage;
-    
+
 
     private Tiles _catanBoard;
     public static Players Players;
@@ -36,6 +35,7 @@ public class MainScreen : MonoBehaviour
 
     public static int ThisPlayerID;
     public static PlayerColors ThisPlayerPlayerColor;
+    public static RTLTextMeshPro BoxMessage;
 
     private void InitBoard()
     {
@@ -52,7 +52,8 @@ public class MainScreen : MonoBehaviour
         //todo: change by getting init1 from server and cityClickable
         GameController.Action = GameState.init1;
         GameController.ShouldSettlementClickable = true;
-        boxMessage.text = "مکان خانه اول را مشخص کنید.";
+        BoxMessage = GameObject.Find("notifyMessage").GetComponent<RTLTextMeshPro>();
+        BoxMessage.text = "مکان خانه اول را مشخص کنید.";
 
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
@@ -84,7 +85,7 @@ public class MainScreen : MonoBehaviour
 
     private void GetPlayers()
     {
-        StartCoroutine(Network.GetRequest(URL.GetPlayers(), response =>
+        StartCoroutine(Network.GetRequest(URL.GetPlayers, response =>
         {
             response = "{\"otherPlayers\":" + response + "}";
             Players = JsonUtility.FromJson<Players>(response);
@@ -107,7 +108,7 @@ public class MainScreen : MonoBehaviour
 
     private void GetBoardInfo()
     {
-        StartCoroutine(Network.GetRequest(URL.GetBoard(), response =>
+        StartCoroutine(Network.GetRequest(URL.GetBoard, response =>
         {
             response = $"{{\"board\":{response}}}";
             _catanBoard = JsonUtility.FromJson<Tiles>(response);

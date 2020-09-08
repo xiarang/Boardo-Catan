@@ -29,7 +29,7 @@ public class UpdateMyPlayer : MonoBehaviour
 
     public void UpdatePlayer()
     {
-        StartCoroutine(Network.GetRequest(URL.Personal(), response =>
+        StartCoroutine(Network.GetRequest(URL.Personal, response =>
         {
             var personal = JsonUtility.FromJson<Personal>(response);
             Personal = personal;
@@ -62,6 +62,6 @@ public class UpdateMyPlayer : MonoBehaviour
 
     public void Pass()
     {
-        StartCoroutine(Network.PostRequest(URL.Pass(), string.Empty, s => { }, URL.Headers()));
+        StartCoroutine(Network.PostRequest(URL.Pass, string.Empty, s => { }, URL.Headers()));
     }
 }
