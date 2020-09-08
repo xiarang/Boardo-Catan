@@ -60,7 +60,6 @@ public class MainScreen : MonoBehaviour
 
     private void Start()
     {
-        
         //todo: change by getting init1 from server and cityClickable
         GameController.Action = GameState.init1;
         GameController.ShouldSettlementClickable = true;
@@ -106,12 +105,12 @@ public class MainScreen : MonoBehaviour
             {
                 if (Players.otherPlayers[index].player == ThisPlayerID)
                 {
-                    ThisPlayerPlayerColor = (PlayerColors)index;
+                    ThisPlayerPlayerColor = (PlayerColors) index;
                     _myPlayer.UpdateColor(ThisPlayerPlayerColor);
                     index++;
                 }
 
-                Players.otherPlayers[index].Color = (PlayerColors)index;
+                Players.otherPlayers[index].Color = (PlayerColors) index;
                 player.InitViews(Players.otherPlayers[index]);
                 index++;
             }
@@ -148,24 +147,30 @@ public class MainScreen : MonoBehaviour
 
         return -1;
     }
-    
+
     /*
      * These are functions that will be called by js.
      **/
-    
-    /*
-     * if it's your turn, play it.
+
+    /**
+     * if it's your first init turn, play it.
      */
-    public void PlayInit1(string[] args)
+    public void Init1(string[] args)
     {
         var turn = int.Parse(args[0]);
     }
 
-    public void PlayInit2(string[] args)
+    /**
+     * if it's your second init turn, play it.
+     */
+    public void Init2(string[] args)
     {
         var turn = int.Parse(args[0]);
     }
 
+    /**
+     * Update UI based on other players first init.
+     */
     public void PlayedInit1(string[] args)
     {
         var turn = int.Parse(args[0]);
@@ -174,6 +179,9 @@ public class MainScreen : MonoBehaviour
         var road2 = int.Parse(args[3]);
     }
     
+    /**
+     * Update UI based on other players second init.
+     */
     public void PlayedInit2(string[] args)
     {
         var turn = int.Parse(args[0]);
@@ -182,6 +190,9 @@ public class MainScreen : MonoBehaviour
         var road2 = int.Parse(args[3]);
     }
 
+    /**
+     * A player played it's Year of Plenty card. Update UI accordingly.
+     */
     public void PlayYearOfPlenty(string[] args)
     {
         var turn = int.Parse(args[0]);
@@ -189,14 +200,148 @@ public class MainScreen : MonoBehaviour
         var resource2 = args[2];
     }
 
+    /**
+     * A player played it's Road building card. Update UI accordingly.
+     */
     public void PlayRoadBuilding(string[] args)
     {
-        var turn = args[0];
+        var turn = int.Parse(args[0]);
         var r1v1 = int.Parse(args[1]);
         var r1v2 = int.Parse(args[2]);
         var r2v1 = int.Parse(args[3]);
         var r2v2 = int.Parse(args[4]);
     }
-    
-    
+
+    /**
+     * A player played it's Monopoly card. Update UI accordingly.
+     */
+    public void PlayMonopoly(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var resource = args[1];
+    }
+
+    /**
+     * A player played it's Knight card. Update UI accordingly.
+     */
+    public void PlayKnightCard(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var tile = int.Parse(args[1]);
+    }
+
+    /**
+     * It's time to roll the dice. Post to server if it's your turn.
+     */
+    public void Dice(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+    }
+
+    /**
+     * A player rolled the dice. If it's you, update your personal.
+     */
+    public void PlayedDice(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+    }
+
+    /**
+     * It's about moving thief tile. Move it if it's your turn. 
+     */
+    public void ThiefTile(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+    }
+
+    /**
+     * Trade, buy or build time. Do it if it's your turn.
+     */
+    public void TradeBuyBuild(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+    }
+
+    /**
+     * Player built a home. Update UI accordingly.
+     */
+    public void BuildHome(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var vertex = int.Parse(args[1]);
+    }
+
+    /**
+     * Player built a road. Update UI accordingly.
+     */
+    public void BuildRoad(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var vertex1 = int.Parse(args[1]);
+        var vertex2 = int.Parse(args[2]);
+    }
+
+    /**
+     * Player built a city. Update UI accordingly.
+     */
+    public void BuildCity(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var vertex = int.Parse(args[1]);
+    }
+
+    /**
+     * Player bought a development card. Notify other players.
+     */
+    public void BoughtDevelopmentCard(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+    }
+
+    /**
+     * Someone has offered a tradition. If you want and can, accept it.
+     */
+    public void TradeOffer(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var trade = args[1];
+        var tradeRequest = JsonUtility.FromJson<TradeRequest>(trade);
+    }
+
+    /**
+     * Someone has answered to a trade. If it was to you, update UI.
+     */
+    public void AnsweredTrade(string[] args)
+    {
+        var player = int.Parse(args[0]);
+        var answer = bool.Parse(args[1]);
+        var tradeId = int.Parse(args[2]);
+    }
+
+    /**
+     * A player chose an accept to a trade request. Update UI.
+     */
+    public void AcceptedTrade(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var player = int.Parse(args[0]);
+    }
+
+    /**
+     * A player traded with bank. Update UI accordingly.
+     */
+    public void TradeBank(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var give = args[1];
+        var want = args[2];
+    }
+
+    /**
+     * Game finished.
+     */
+    public void Finish(string[] args)
+    {
+        var winner = int.Parse(args[0]);
+    }
 }

@@ -19,11 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e5ce0ca-048f-415f-a349-9b5559d69346" name="Default Changelist" comment="BankTrade partially functional">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml" afterDir="false" />
+    <list default="true" id="4e5ce0ca-048f-415f-a349-9b5559d69346" name="Default Changelist" comment="Some web socket contracts added.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/sweetalert.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,8 +76,8 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/BankTradeHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Plugins/sweetalert.min.js" />
         <option value="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
         <option value="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
       </list>
     </option>
   </component>
@@ -139,7 +138,7 @@
       <workItem from="1599401877204" duration="17972000" />
       <workItem from="1599486564802" duration="11689000" />
       <workItem from="1599551166267" duration="16164000" />
-      <workItem from="1599577628366" duration="2614000" />
+      <workItem from="1599577628366" duration="8968000" />
     </task>
     <task id="LOCAL‎۰۰۰۰۱" summary="Some Network improvements">
       <created>1599127741135</created>
@@ -207,7 +206,13 @@
       <option name="presentableId" value="LOCAL‎۰۰۰۱۱" />
       <updated>1599577745717</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL‎۰۰۰۱۲" summary="Some web socket contracts added.">
+      <created>1599596424319</created>
+      <option name="number" value="LOCAL‎۰۰۰۱۲" />
+      <option name="presentableId" value="LOCAL‎۰۰۰۱۲" />
+      <updated>1599596424319</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,7 +243,8 @@
     <MESSAGE value="BankTrade partially functional" />
     <MESSAGE value="initializing socket" />
     <MESSAGE value="initializing dialog" />
-    <option name="LAST_COMMIT_MESSAGE" value="initializing dialog" />
+    <MESSAGE value="Some web socket contracts added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Some web socket contracts added." />
   </component>
   <component name="WindowStateProjectService">
     <state x="523" y="202" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599551423733">
@@ -317,14 +323,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="349" y="147" key="IDE.errors.dialog/0.0.1536.824@0.0.1536.824" timestamp="1599595255993" />
-    <state x="147" y="65" key="MergeDialog" timestamp="1599577896128">
+    <state x="147" y="65" key="MergeDialog" timestamp="1599596547236">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599577896128" />
-    <state x="399" y="166" key="MultipleFileMergeDialog" timestamp="1599577896156">
+    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599596547236" />
+    <state x="399" y="166" key="MultipleFileMergeDialog" timestamp="1599596547256">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="399" y="166" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599577896156" />
+    <state x="399" y="166" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599596547256" />
     <state x="277" y="57" key="SettingsEditor" timestamp="1599416556112">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -337,13 +343,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599577907899" />
-    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599577792375">
+    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599596433109">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599577792375" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599594958486">
+    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599596433109" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599601217849">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1599594958486" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1599601217849" />
   </component>
 </project>
