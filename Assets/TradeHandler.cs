@@ -67,6 +67,6 @@ public class TradeHandler : MonoBehaviour
                 wood = int.Parse(_willingWood.text)
             }
         };
-        StartCoroutine(Network.PostRequest(URL.Trade(), JsonUtility.ToJson(data), s => { }, new Dictionary<string, string>(URL.Headers()){{"Content-Type", "application/json"}}));
+        StartCoroutine(Network.PostRequest(URL.Trade, JsonUtility.ToJson(data), s => { }, URL.Headers(), true));
     }
 }

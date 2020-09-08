@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    enum Resource
+    public enum Resource
     {
         Brick,
         Wood,

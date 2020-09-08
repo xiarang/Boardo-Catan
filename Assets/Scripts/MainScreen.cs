@@ -70,7 +70,7 @@ public class MainScreen : MonoBehaviour
 
     private void GetPlayers()
     {
-        StartCoroutine(Network.GetRequest(URL.GetPlayers(), response =>
+        StartCoroutine(Network.GetRequest(URL.GetPlayers, response =>
         {
             response = "{\"otherPlayers\":" + response + "}";
             Players = JsonUtility.FromJson<Players>(response);
@@ -93,7 +93,7 @@ public class MainScreen : MonoBehaviour
 
     private void GetBoardInfo()
     {
-        StartCoroutine(Network.GetRequest(URL.GetBoard(), response =>
+        StartCoroutine(Network.GetRequest(URL.GetBoard, response =>
         {
             response = $"{{\"board\":{response}}}";
             _catanBoard = JsonUtility.FromJson<Tiles>(response);
@@ -121,4 +121,38 @@ public class MainScreen : MonoBehaviour
 
         return -1;
     }
+    
+    /*
+     * These are functions that will be called by js.
+     **/
+    
+    /*
+     * if it's your turn, play it.
+     */
+    public void PlayInit1(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+    }
+
+    public void PlayInit2(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+    }
+
+    public void PlayedInit1(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var vertex = int.Parse(args[1]);
+        var road1 = int.Parse(args[2]);
+        var road2 = int.Parse(args[3]);
+    }
+    
+    public void PlayedInit2(string[] args)
+    {
+        var turn = int.Parse(args[0]);
+        var vertex = int.Parse(args[1]);
+        var road1 = int.Parse(args[2]);
+        var road2 = int.Parse(args[3]);
+    }
+    
 }

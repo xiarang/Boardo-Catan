@@ -44,7 +44,7 @@ namespace Utils
         }
 
         public static IEnumerator PostRequest(string uri, string body, Action<string> onResponse,
-            Dictionary<string, string> headers = null, Action onError = null)
+            Dictionary<string, string> headers = null, bool json = false, Action onError = null)
         {
             if (headers == null)
             {
@@ -56,6 +56,11 @@ namespace Utils
                 foreach (var keyValuePair in headers)
                 {
                     webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
+                }
+
+                if (json)
+                {
+                    webRequest.SetRequestHeader("Content-Type", "application/json");
                 }
 
                 var bodyRaw = Encoding.UTF8.GetBytes(body);
@@ -166,6 +171,47 @@ namespace Utils
             {
                 Texture myTexture = DownloadHandlerTexture.GetContent(request);
                 func(myTexture);
+            }
+        }
+
+        public static IEnumerator PutRequest(string uri, string body, Action<string> onResponse,
+            Dictionary<string, string> headers = null, bool json = false, Action onError = null)
+        {
+            if (headers == null)
+            {
+                headers = new Dictionary<string, string>();
+            }
+
+            using (var webRequest = new UnityWebRequest(uri, "put"))
+            {
+                foreach (var keyValuePair in headers)
+                {
+                    webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
+                }
+
+                if (json)
+                {
+                    webRequest.SetRequestHeader("Content-Type", "application/json");
+                }
+
+                var bodyRaw = Encoding.UTF8.GetBytes(body);
+                webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                webRequest.downloadHandler = new DownloadHandlerBuffer();
+
+                yield return webRequest.SendWebRequest();
+                var pages = uri.Split('/');
+                var page = pages.Length - 1;
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log(pages[page] + ": Error: " + webRequest.error);
+                    onError?.Invoke();
+                }
+                else
+                {
+                    var response = webRequest.downloadHandler.text;
+                    onResponse(response);
+                }
             }
         }
     }
