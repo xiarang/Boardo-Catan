@@ -1,8 +1,18 @@
+using System.Collections.Generic;
 using Model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Utils;
 using Network = Utils.Network;
+using RTLTMPro;
+
+// actions -> init1, init2 : first enable settlement click and after that road click
+// play_development_card -> if has any dev card: play or not=> need rolled dice button | else -> post to dice
+// trade_buy_build -> enable buy button in my player ui
+// thief_tile -> tell player to select new thief position and post that to server
+// dice -> need a button
+// trade_question -> show a dialog accept or not
 
 public class MainScreen : MonoBehaviour
 {
@@ -12,6 +22,7 @@ public class MainScreen : MonoBehaviour
     [SerializeField] private SpriteRenderer[] tileTags;
     [SerializeField] private Sprite[] resources;
     [SerializeField] private Sprite[] numbers;
+
 
     private Tiles _catanBoard;
     public static Players Players;
@@ -24,9 +35,7 @@ public class MainScreen : MonoBehaviour
 
     public static int ThisPlayerID;
     public static PlayerColors ThisPlayerPlayerColor;
-    public static bool RoadBought = false;
-    public static bool CityBought = false;
-
+    public static RTLTextMeshPro BoxMessage;
 
     private void InitBoard()
     {
@@ -40,6 +49,12 @@ public class MainScreen : MonoBehaviour
 
     private void Start()
     {
+        //todo: change by getting init1 from server and cityClickable
+        GameController.Action = GameState.init1;
+        GameController.ShouldSettlementClickable = true;
+        BoxMessage = GameObject.Find("notifyMessage").GetComponent<RTLTextMeshPro>();
+        BoxMessage.text = "مکان خانه اول را مشخص کنید.";
+
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
         FindBoardElements();
