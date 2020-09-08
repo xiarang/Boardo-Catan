@@ -1,0 +1,1830 @@
+Index: Assets/Scripts/MainScreen.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System.Collections.Generic;\r\nusing Model;\r\nusing UnityEngine;\r\nusing UnityEngine.SceneManagement;\r\nusing UnityEngine.Serialization;\r\nusing Utils;\r\nusing Network = Utils.Network;\r\nusing RTLTMPro;\r\n\r\n// actions -> init1, init2 : first enable settlement click and after that road click\r\n// play_development_card -> if has any dev card: play or not=> need rolled dice button | else -> post to dice\r\n// trade_buy_build -> enable buy button in my player ui\r\n// thief_tile -> tell player to select new thief position and post that to server\r\n// dice -> need a button\r\n// trade_question -> show a dialog accept or not\r\n\r\npublic class MainScreen : MonoBehaviour\r\n{\r\n    public static int ThiefResourceNumber;\r\n\r\n    [SerializeField] private SpriteRenderer[] boardTiles;\r\n    [SerializeField] private SpriteRenderer[] tileTags;\r\n    [SerializeField] private Sprite[] resources;\r\n    [SerializeField] private Sprite[] numbers;\r\n    [SerializeField] private RTLTextMeshPro boxMessage;\r\n    \r\n\r\n    private Tiles _catanBoard;\r\n    private static Players _players;\r\n    private UpdateMyPlayer _myPlayer;\r\n    private PlayerScores[] _playersScoreboard;\r\n    private Canvas _canvas;\r\n    private Scene _scene;\r\n    private Road[] _boardRoads;\r\n    private Settlement[] _boardSettlements;\r\n    private readonly Color[] _playersColor = {Colors.Blue, Colors.Green, Colors.Orange, Colors.Red};\r\n\r\n    public static int ThisPlayerID;\r\n    public static Color ThisPlayerColor;\r\n\r\n    private void InitBoard()\r\n    {\r\n        for (var i = 0; i < 19; i++)\r\n        {\r\n            var tile = _catanBoard.board[i];\r\n            tileTags[i].sprite = numbers[tile.number - 2];\r\n            boardTiles[i].sprite = resources[GetResourceID(tile.resource)];\r\n        }\r\n    }\r\n\r\n    private void Start()\r\n    {\r\n        //todo: change by getting init1 from server and cityClickable\r\n        GameController.Action = GameState.init1;\r\n        GameController.ShouldSettlementClickable = true;\r\n        boxMessage.text = \"مکان خانه اول را مشخص کنید.\";\r\n\r\n        _canvas = GameObject.Find(\"Canvas\").GetComponent<Canvas>();\r\n\r\n        _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();\r\n        \r\n        FindBoardElements();\r\n\r\n        _myPlayer = _canvas.GetComponentInChildren<UpdateMyPlayer>();\r\n        URL.SetToken(\"58998a8632efec6b3810f7a2833dc300fe2a937f\");\r\n        URL.SetRoomName(\"9b717be4-a042-4b94-837f-b673f13d3241\");\r\n        _myPlayer.UpdatePlayer();\r\n        GetBoardInfo();\r\n        GetPlayers();\r\n    }\r\n\r\n    private void FindBoardElements()\r\n    {\r\n        foreach (var item in SceneManager.GetActiveScene().GetRootGameObjects())\r\n        {\r\n            if (item.name == \"roads\")\r\n            {\r\n                _boardRoads = item.GetComponentsInChildren<Road>();\r\n                Debug.Log(_boardRoads.Length + \" h \" + _boardSettlements.Length);\r\n            }\r\n            else if (item.name == \"settlements\")\r\n                _boardSettlements = item.GetComponentsInChildren<Settlement>();\r\n            \r\n        }\r\n    }\r\n\r\n    private void GetPlayers()\r\n    {\r\n        StartCoroutine(Network.GetRequest(URL.GetPlayers(), response =>\r\n        {\r\n            response = \"{\\\"otherPlayers\\\":\" + response + \"}\";\r\n            _players = JsonUtility.FromJson<Players>(response);\r\n            var index = 0;\r\n            foreach (var player in _playersScoreboard)\r\n            {\r\n                if (_players.otherPlayers[index].player == ThisPlayerID)\r\n                {\r\n                    ThisPlayerColor = _playersColor[index];\r\n                    _myPlayer.UpdateColor(ThisPlayerColor);\r\n                    index++;\r\n                }\r\n\r\n                _players.otherPlayers[index].Color = _playersColor[index];\r\n                player.InitViews(_players.otherPlayers[index]);\r\n                index++;\r\n            }\r\n        }, URL.Headers()));\r\n    }\r\n\r\n    private void GetBoardInfo()\r\n    {\r\n        StartCoroutine(Network.GetRequest(URL.GetBoard(), response =>\r\n        {\r\n            response = $\"{{\\\"board\\\":{response}}}\";\r\n            _catanBoard = JsonUtility.FromJson<Tiles>(response);\r\n            InitBoard();\r\n        }, URL.Headers()));\r\n    }\r\n\r\n    public static int GetResourceID(string resource)\r\n    {\r\n        switch (resource)\r\n        {\r\n            case \"brick\":\r\n                return 2;\r\n            case \"sheep\":\r\n                return 4;\r\n            case \"wheat\":\r\n                return 0;\r\n            case \"wood\":\r\n                return 1;\r\n            case \"stone\":\r\n                return 3;\r\n            case \"desert\":\r\n                return 5;\r\n        }\r\n\r\n        return -1;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scripts/MainScreen.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/MainScreen.cs	(date 1599488975696)
+@@ -2,7 +2,6 @@
+ using Model;
+ using UnityEngine;
+ using UnityEngine.SceneManagement;
+-using UnityEngine.Serialization;
+ using Utils;
+ using Network = Utils.Network;
+ using RTLTMPro;
+@@ -26,17 +25,16 @@
+     
+ 
+     private Tiles _catanBoard;
+-    private static Players _players;
++    public static Players Players;
+     private UpdateMyPlayer _myPlayer;
+     private PlayerScores[] _playersScoreboard;
+     private Canvas _canvas;
+     private Scene _scene;
+     private Road[] _boardRoads;
+     private Settlement[] _boardSettlements;
+-    private readonly Color[] _playersColor = {Colors.Blue, Colors.Green, Colors.Orange, Colors.Red};
+ 
+     public static int ThisPlayerID;
+-    public static Color ThisPlayerColor;
++    public static PlayerColors ThisPlayerPlayerColor;
+ 
+     private void InitBoard()
+     {
+@@ -56,11 +54,8 @@
+         boxMessage.text = "مکان خانه اول را مشخص کنید.";
+ 
+         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+-
+         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
+-        
+         FindBoardElements();
+-
+         _myPlayer = _canvas.GetComponentInChildren<UpdateMyPlayer>();
+         URL.SetToken("58998a8632efec6b3810f7a2833dc300fe2a937f");
+         URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
+@@ -73,14 +68,16 @@
+     {
+         foreach (var item in SceneManager.GetActiveScene().GetRootGameObjects())
+         {
+-            if (item.name == "roads")
++            switch (item.name)
+             {
+-                _boardRoads = item.GetComponentsInChildren<Road>();
+-                Debug.Log(_boardRoads.Length + " h " + _boardSettlements.Length);
+-            }
+-            else if (item.name == "settlements")
+-                _boardSettlements = item.GetComponentsInChildren<Settlement>();
+-            
++                case "roads":
++                    _boardRoads = item.GetComponentsInChildren<Road>();
++                    Debug.Log(_boardRoads.Length + " h " + _boardSettlements.Length);
++                    break;
++                case "settlements":
++                    _boardSettlements = item.GetComponentsInChildren<Settlement>();
++                    break;
++            }
+         }
+     }
+ 
+@@ -89,19 +86,19 @@
+         StartCoroutine(Network.GetRequest(URL.GetPlayers(), response =>
+         {
+             response = "{\"otherPlayers\":" + response + "}";
+-            _players = JsonUtility.FromJson<Players>(response);
++            Players = JsonUtility.FromJson<Players>(response);
+             var index = 0;
+             foreach (var player in _playersScoreboard)
+             {
+-                if (_players.otherPlayers[index].player == ThisPlayerID)
++                if (Players.otherPlayers[index].player == ThisPlayerID)
+                 {
+-                    ThisPlayerColor = _playersColor[index];
+-                    _myPlayer.UpdateColor(ThisPlayerColor);
++                    ThisPlayerPlayerColor = (PlayerColors)index;
++                    _myPlayer.UpdateColor(ThisPlayerPlayerColor);
+                     index++;
+                 }
+ 
+-                _players.otherPlayers[index].Color = _playersColor[index];
+-                player.InitViews(_players.otherPlayers[index]);
++                Players.otherPlayers[index].Color = (PlayerColors)index;
++                player.InitViews(Players.otherPlayers[index]);
+                 index++;
+             }
+         }, URL.Headers()));
+Index: Assets/Scripts/Road.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System.Linq;\r\nusing UnityEngine;\r\nusing UnityEngine.Serialization;\r\nusing Utils;\r\n\r\npublic class Road : MonoBehaviour\r\n{\r\n    public int builtID = -1;\r\n    [SerializeField] private Settlement s1, s2;\r\n\r\n    private void OnMouseDown()\r\n    {\r\n        //todo: check road bought\r\n        if (!GameController.ShouldRoadClickable) return;\r\n        if (builtID != -1) return;\r\n        if (!IsRoadPositionValid()) return;\r\n        builtID = MainScreen.ThisPlayerID;\r\n        ChangeRoadColor();\r\n        Debug.Log(gameObject.name);\r\n        GameController.ShouldRoadClickable = false;\r\n    }\r\n\r\n    private void ChangeRoadColor()\r\n    {\r\n        var road = GetComponent<SpriteRenderer>();\r\n        road.color = MainScreen.ThisPlayerColor;\r\n    }\r\n\r\n    private bool IsRoadPositionValid()\r\n    {\r\n        if (s1.builtID == MainScreen.ThisPlayerID || s2.builtID == MainScreen.ThisPlayerID) return true;\r\n        if (s1.roads.Any(s1Road => s1Road.builtID == MainScreen.ThisPlayerID))\r\n            return s1.builtID == MainScreen.ThisPlayerID || s1.builtID == -1;\r\n        if (s2.roads.Any(s2Road => s2Road.builtID == MainScreen.ThisPlayerID))\r\n            return s2.builtID == MainScreen.ThisPlayerID || s2.builtID == -1;\r\n        return false;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scripts/Road.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/Road.cs	(date 1599489944441)
+@@ -23,7 +23,7 @@
+     private void ChangeRoadColor()
+     {
+         var road = GetComponent<SpriteRenderer>();
+-        road.color = MainScreen.ThisPlayerColor;
++        road.color = MainScreen.ThisPlayerPlayerColor.GetColor();
+     }
+ 
+     private bool IsRoadPositionValid()
+Index: Assets/Scripts/PlayerScores.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing Model;\r\nusing TMPro;\r\nusing UnityEngine;\r\nusing UnityEngine.UI;\r\nusing Utils;\r\nusing Network = Utils.Network;\r\n\r\npublic class PlayerScores : MonoBehaviour\r\n{\r\n    [SerializeField] private TextMeshProUGUI playerName;\r\n    [SerializeField] private TextMeshProUGUI cards;\r\n    [SerializeField] private TextMeshProUGUI resources;\r\n    [SerializeField] private TextMeshProUGUI road;\r\n    [SerializeField] private TextMeshProUGUI point;\r\n    [SerializeField] private Image profile;\r\n    [SerializeField] private Image playerColor;\r\n\r\n    public void InitViews(Player playersInfo)\r\n    {\r\n        playerName.text = playersInfo.player_username;\r\n        cards.text = playersInfo.cards.ToString();\r\n        resources.text = playersInfo.resources.ToString();\r\n        road.text = playersInfo.road_length.ToString();\r\n        point.text = playersInfo.point.ToString();\r\n        playerColor.color = playersInfo.Color;\r\n        GetProfileImage(playersInfo.player_avatar);\r\n    }\r\n\r\n    private void GetProfileImage(string url)\r\n    {\r\n        StartCoroutine(Network.GetTexture(url, SetProfileImage, URL.Headers()));\r\n    }\r\n\r\n    private void SetProfileImage(Texture response)\r\n    {\r\n        profile.sprite = response.ToSprite();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scripts/PlayerScores.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/PlayerScores.cs	(date 1599488530124)
+@@ -23,7 +23,7 @@
+         resources.text = playersInfo.resources.ToString();
+         road.text = playersInfo.road_length.ToString();
+         point.text = playersInfo.point.ToString();
+-        playerColor.color = playersInfo.Color;
++        playerColor.color = playersInfo.Color.GetColor();
+         GetProfileImage(playersInfo.player_avatar);
+     }
+ 
+Index: Assets/Scripts/Settlement.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing System.Linq;\r\nusing UnityEngine;\r\nusing UnityEngine.Serialization;\r\nusing UnityEngine.UI;\r\nusing Utils;\r\n\r\npublic class Settlement : MonoBehaviour\r\n{\r\n    [SerializeField] private Sprite city;\r\n    [SerializeField] private Sprite house;\r\n    [SerializeField] public Road[] roads;\r\n    public int builtID = -1;\r\n    public bool isCity = false;\r\n\r\n    private void OnMouseDown()\r\n    {\r\n        if (!GameController.ShouldSettlementClickable) return;\r\n        if (builtID != -1 && (builtID != MainScreen.ThisPlayerID || isCity)) return;\r\n        if (!IsُSettlementPositionValid()) return; \r\n        //todo: set the owner road id to _buildID\r\n        ChangeHolderColor();\r\n        Debug.Log(gameObject.name);\r\n        GameController.ShouldSettlementClickable = false;\r\n        builtID = MainScreen.ThisPlayerID;\r\n        if (GameController.Action == GameState.init1) GameController.ShouldRoadClickable = true;\r\n    }\r\n\r\n    private bool IsُSettlementPositionValid()\r\n    {\r\n        if (roads.Any(road => road.builtID == MainScreen.ThisPlayerID))\r\n        {\r\n            return true;\r\n        }\r\n\r\n        return GameController.Action == GameState.init1;\r\n    }\r\n\r\n    private void ChangeHolderColor()\r\n    {\r\n        var holder = GetComponent<SpriteRenderer>();\r\n        holder.sprite = house;\r\n        holder.color = MainScreen.ThisPlayerColor;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scripts/Settlement.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/Settlement.cs	(date 1599489944467)
+@@ -40,6 +40,6 @@
+     {
+         var holder = GetComponent<SpriteRenderer>();
+         holder.sprite = house;
+-        holder.color = MainScreen.ThisPlayerColor;
++        holder.color = MainScreen.ThisPlayerPlayerColor.GetColor();
+     }
+ }
+\ No newline at end of file
+Index: Assets/Scripts/Utils/Colors.cs.meta
+===================================================================
+--- Assets/Scripts/Utils/Colors.cs.meta	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/Utils/Colors.cs.meta	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: d1295d8890e46fb41aa815feb33f9c94
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+Index: Assets/Scripts/Utils/Colors.cs
+===================================================================
+--- Assets/Scripts/Utils/Colors.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/Utils/Colors.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
+@@ -1,12 +0,0 @@
+-using UnityEngine;
+-
+-namespace Utils
+-{
+-    public static class Colors
+-    {
+-        public static Color Red = new Color(254f / 255f, 0f, 0f, 1f);
+-        public static Color Blue = new Color(0f, 174f/255f, 240f/255f, 1f);
+-        public static Color Green = new Color(96f/255f, 207f/255f, 64f/255f, 1f);
+-        public static Color Orange = new Color(255f/255f, 153f/255f, 51f/255f, 1f);
+-    }
+-}
+Index: Assets/Prefabs/Utils/tradeResult.prefab
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>%YAML 1.1\r\n%TAG !u! tag:unity3d.com,2011:\r\n--- !u!1 &8931476547941480557\r\nGameObject:\r\n  m_ObjectHideFlags: 0\r\n  m_CorrespondingSourceObject: {fileID: 0}\r\n  m_PrefabInstance: {fileID: 0}\r\n  m_PrefabAsset: {fileID: 0}\r\n  serializedVersion: 6\r\n  m_Component:\r\n  - component: {fileID: 8931476547941480556}\r\n  - component: {fileID: 8931476547941480547}\r\n  m_Layer: 5\r\n  m_Name: tradeResult\r\n  m_TagString: Untagged\r\n  m_Icon: {fileID: 0}\r\n  m_NavMeshLayer: 0\r\n  m_StaticEditorFlags: 0\r\n  m_IsActive: 1\r\n--- !u!224 &8931476547941480556\r\nRectTransform:\r\n  m_ObjectHideFlags: 0\r\n  m_CorrespondingSourceObject: {fileID: 0}\r\n  m_PrefabInstance: {fileID: 0}\r\n  m_PrefabAsset: {fileID: 0}\r\n  m_GameObject: {fileID: 8931476547941480557}\r\n  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}\r\n  m_LocalPosition: {x: 0, y: 0, z: 0}\r\n  m_LocalScale: {x: 1, y: 1, z: 1}\r\n  m_Children:\r\n  - {fileID: 8931476548157546810}\r\n  - {fileID: 7320037978763607372}\r\n  m_Father: {fileID: 0}\r\n  m_RootOrder: 0\r\n  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}\r\n  m_AnchorMin: {x: 0, y: 0.5}\r\n  m_AnchorMax: {x: 1, y: 0.5}\r\n  m_AnchoredPosition: {x: -17.174988, y: 15.24}\r\n  m_SizeDelta: {x: -1785.65, y: 69.52}\r\n  m_Pivot: {x: 0.5, y: 0.5}\r\n--- !u!114 &8931476547941480547\r\nMonoBehaviour:\r\n  m_ObjectHideFlags: 0\r\n  m_CorrespondingSourceObject: {fileID: 0}\r\n  m_PrefabInstance: {fileID: 0}\r\n  m_PrefabAsset: {fileID: 0}\r\n  m_GameObject: {fileID: 8931476547941480557}\r\n  m_Enabled: 1\r\n  m_EditorHideFlags: 0\r\n  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}\r\n  m_Name: \r\n  m_EditorClassIdentifier: \r\n  m_Padding:\r\n    m_Left: 0\r\n    m_Right: 0\r\n    m_Top: 0\r\n    m_Bottom: 0\r\n  m_ChildAlignment: 4\r\n  m_Spacing: 0\r\n  m_ChildForceExpandWidth: 1\r\n  m_ChildForceExpandHeight: 1\r\n  m_ChildControlWidth: 0\r\n  m_ChildControlHeight: 0\r\n  m_ChildScaleWidth: 0\r\n  m_ChildScaleHeight: 0\r\n--- !u!1001 &4573445171149871632\r\nPrefabInstance:\r\n  m_ObjectHideFlags: 0\r\n  serializedVersion: 2\r\n  m_Modification:\r\n    m_TransformParent: {fileID: 8931476547941480556}\r\n    m_Modifications:\r\n    - target: {fileID: 4939004855746033220, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_SizeDelta.x\r\n      value: 30\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855746033220, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_SizeDelta.y\r\n      value: 30\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855746033220, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_AnchoredPosition.x\r\n      value: 15.2\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855746033220, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_AnchoredPosition.y\r\n      value: -15.6\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_LocalPosition.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_LocalPosition.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_LocalPosition.z\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_LocalRotation.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_LocalRotation.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_LocalRotation.z\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_LocalRotation.w\r\n      value: 1\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_RootOrder\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_LocalEulerAnglesHint.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_LocalEulerAnglesHint.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_LocalEulerAnglesHint.z\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_AnchoredPosition.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_AnchoredPosition.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_SizeDelta.x\r\n      value: 30\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_SizeDelta.y\r\n      value: 30\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_AnchorMin.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_AnchorMin.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_AnchorMax.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_AnchorMax.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_Pivot.x\r\n      value: 0.5\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_Pivot.y\r\n      value: 0.5\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4939004855813716779, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_Name\r\n      value: LoadinView\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4947165434948724346, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_SizeDelta.x\r\n      value: 30\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 4947165434948724346, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_SizeDelta.y\r\n      value: 30\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 8904917206084352988, guid: d3412468dcdf025438a6229476d1fbfe,\r\n        type: 3}\r\n      propertyPath: m_IsActive\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    m_RemovedComponents: []\r\n  m_SourcePrefab: {fileID: 100100000, guid: d3412468dcdf025438a6229476d1fbfe, type: 3}\r\n--- !u!224 &8931476548157546810 stripped\r\nRectTransform:\r\n  m_CorrespondingSourceObject: {fileID: 4939004855813716778, guid: d3412468dcdf025438a6229476d1fbfe,\r\n    type: 3}\r\n  m_PrefabInstance: {fileID: 4573445171149871632}\r\n  m_PrefabAsset: {fileID: 0}\r\n--- !u!1001 &8931476547152479366\r\nPrefabInstance:\r\n  m_ObjectHideFlags: 0\r\n  serializedVersion: 2\r\n  m_Modification:\r\n    m_TransformParent: {fileID: 8931476547941480556}\r\n    m_Modifications:\r\n    - target: {fileID: 371335149279077404, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_Name\r\n      value: circularImage\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_LocalPosition.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_LocalPosition.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_LocalPosition.z\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_LocalRotation.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_LocalRotation.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_LocalRotation.z\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_LocalRotation.w\r\n      value: 1\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_RootOrder\r\n      value: 1\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_LocalEulerAnglesHint.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_LocalEulerAnglesHint.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_LocalEulerAnglesHint.z\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_AnchoredPosition.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_AnchoredPosition.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_SizeDelta.x\r\n      value: 60\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_SizeDelta.y\r\n      value: 60\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_AnchorMin.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_AnchorMin.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_AnchorMax.x\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_AnchorMax.y\r\n      value: 0\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_Pivot.x\r\n      value: 0.5\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_Pivot.y\r\n      value: 0.5\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 2485035128140854351, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_Sprite\r\n      value: \r\n      objectReference: {fileID: 21300000, guid: 82e909aed95e4f34ba08aae30b238f40,\r\n        type: 3}\r\n    - target: {fileID: 3084203059892138168, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_AnchoredPosition.x\r\n      value: 1\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 3084203059892138168, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_AnchoredPosition.y\r\n      value: -1.9\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 3084203059892138168, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_SizeDelta.x\r\n      value: 71.54\r\n      objectReference: {fileID: 0}\r\n    - target: {fileID: 3084203059892138168, guid: 913511c2959afea4db746e1e8f78a720,\r\n        type: 3}\r\n      propertyPath: m_SizeDelta.y\r\n      value: 71.537\r\n      objectReference: {fileID: 0}\r\n    m_RemovedComponents: []\r\n  m_SourcePrefab: {fileID: 100100000, guid: 913511c2959afea4db746e1e8f78a720, type: 3}\r\n--- !u!224 &7320037978763607372 stripped\r\nRectTransform:\r\n  m_CorrespondingSourceObject: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,\r\n    type: 3}\r\n  m_PrefabInstance: {fileID: 8931476547152479366}\r\n  m_PrefabAsset: {fileID: 0}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Prefabs/Utils/tradeResult.prefab	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Prefabs/Utils/tradeResult.prefab	(date 1599488530120)
+@@ -1,5 +1,229 @@
+ %YAML 1.1
+ %TAG !u! tag:unity3d.com,2011:
++--- !u!1 &1234742211251843462
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 7143054245891540019}
++  - component: {fileID: 8631496537577567011}
++  m_Layer: 5
++  m_Name: layout
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &7143054245891540019
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1234742211251843462}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_Children:
++  - {fileID: 7320037978763607372}
++  - {fileID: 4338475370294276549}
++  m_Father: {fileID: 8931476547941480556}
++  m_RootOrder: 1
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 0, y: 0}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 90.01, y: 90.01}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &8631496537577567011
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1234742211251843462}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  m_Padding:
++    m_Left: 0
++    m_Right: 0
++    m_Top: 0
++    m_Bottom: 0
++  m_ChildAlignment: 4
++  m_Spacing: 0
++  m_ChildForceExpandWidth: 1
++  m_ChildForceExpandHeight: 1
++  m_ChildControlWidth: 0
++  m_ChildControlHeight: 0
++  m_ChildScaleWidth: 0
++  m_ChildScaleHeight: 0
++--- !u!1 &8842323550698422726
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 4338475370294276549}
++  - component: {fileID: 4189980349108246302}
++  - component: {fileID: 195816905624044090}
++  m_Layer: 5
++  m_Name: name
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &4338475370294276549
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 8842323550698422726}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_Children: []
++  m_Father: {fileID: 7143054245891540019}
++  m_RootOrder: 1
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 0, y: 0}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 88.58, y: 26.77}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!222 &4189980349108246302
++CanvasRenderer:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 8842323550698422726}
++  m_CullTransparentMesh: 0
++--- !u!114 &195816905624044090
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 8842323550698422726}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: b9839c2d141529145a431aef4d757ff3, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  m_Material: {fileID: 0}
++  m_Color: {r: 1, g: 1, b: 1, a: 1}
++  m_RaycastTarget: 1
++  m_OnCullStateChanged:
++    m_PersistentCalls:
++      m_Calls: []
++  m_text: "\uFEE7\uFE8E\u0645"
++  m_isRightToLeft: 1
++  m_fontAsset: {fileID: 11400000, guid: 689ea645c4ff86b41aa0b2fe627b0f27, type: 2}
++  m_sharedMaterial: {fileID: -531441709560855843, guid: 689ea645c4ff86b41aa0b2fe627b0f27,
++    type: 2}
++  m_fontSharedMaterials: []
++  m_fontMaterial: {fileID: 0}
++  m_fontMaterials: []
++  m_fontColor32:
++    serializedVersion: 2
++    rgba: 4294967295
++  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
++  m_enableVertexGradient: 0
++  m_colorMode: 3
++  m_fontColorGradient:
++    topLeft: {r: 1, g: 1, b: 1, a: 1}
++    topRight: {r: 1, g: 1, b: 1, a: 1}
++    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
++    bottomRight: {r: 1, g: 1, b: 1, a: 1}
++  m_fontColorGradientPreset: {fileID: 0}
++  m_spriteAsset: {fileID: 0}
++  m_tintAllSprites: 0
++  m_overrideHtmlColors: 0
++  m_faceColor:
++    serializedVersion: 2
++    rgba: 4294967295
++  m_outlineColor:
++    serializedVersion: 2
++    rgba: 4278190080
++  m_fontSize: 22
++  m_fontSizeBase: 22
++  m_fontWeight: 400
++  m_enableAutoSizing: 0
++  m_fontSizeMin: 18
++  m_fontSizeMax: 72
++  m_fontStyle: 0
++  m_textAlignment: 514
++  m_characterSpacing: 0
++  m_wordSpacing: 0
++  m_lineSpacing: 0
++  m_lineSpacingMax: 0
++  m_paragraphSpacing: 0
++  m_charWidthMaxAdj: 0
++  m_enableWordWrapping: 1
++  m_wordWrappingRatios: 0.4
++  m_overflowMode: 0
++  m_firstOverflowCharacterIndex: 0
++  m_linkedTextComponent: {fileID: 0}
++  m_isLinkedTextComponent: 0
++  m_isTextTruncated: 0
++  m_enableKerning: 1
++  m_enableExtraPadding: 0
++  checkPaddingRequired: 0
++  m_isRichText: 1
++  m_parseCtrlCharacters: 1
++  m_isOrthographic: 1
++  m_isCullingEnabled: 0
++  m_ignoreRectMaskCulling: 0
++  m_ignoreCulling: 1
++  m_horizontalMapping: 0
++  m_verticalMapping: 0
++  m_uvLineOffset: 0
++  m_geometrySortingOrder: 0
++  m_VertexBufferAutoSizeReduction: 1
++  m_firstVisibleCharacter: 0
++  m_useMaxVisibleDescender: 1
++  m_pageToDisplay: 1
++  m_margin: {x: 0, y: 0, z: 0, w: 0}
++  m_textInfo:
++    textComponent: {fileID: 195816905624044090}
++    characterCount: 3
++    spriteCount: 0
++    spaceCount: 0
++    wordCount: 1
++    linkCount: 0
++    lineCount: 1
++    pageCount: 1
++    materialCount: 1
++  m_isUsingLegacyAnimationComponent: 0
++  m_isVolumetricText: 0
++  m_spriteAnimator: {fileID: 0}
++  m_hasFontAssetChanged: 0
++  m_subTextObjects:
++  - {fileID: 0}
++  - {fileID: 0}
++  - {fileID: 0}
++  - {fileID: 0}
++  - {fileID: 0}
++  - {fileID: 0}
++  - {fileID: 0}
++  - {fileID: 0}
++  m_baseMaterial: {fileID: 0}
++  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
++  preserveNumbers: 0
++  farsi: 1
++  originalText: "\u0646\u0627\u0645"
++  fixTags: 1
++  forceFix: 0
+ --- !u!1 &8931476547941480557
+ GameObject:
+   m_ObjectHideFlags: 0
+@@ -10,6 +234,7 @@
+   m_Component:
+   - component: {fileID: 8931476547941480556}
+   - component: {fileID: 8931476547941480547}
++  - component: {fileID: 7569206581967882041}
+   m_Layer: 5
+   m_Name: tradeResult
+   m_TagString: Untagged
+@@ -29,14 +254,14 @@
+   m_LocalScale: {x: 1, y: 1, z: 1}
+   m_Children:
+   - {fileID: 8931476548157546810}
+-  - {fileID: 7320037978763607372}
++  - {fileID: 7143054245891540019}
+   m_Father: {fileID: 0}
+   m_RootOrder: 0
+   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+   m_AnchorMin: {x: 0, y: 0.5}
+   m_AnchorMax: {x: 1, y: 0.5}
+-  m_AnchoredPosition: {x: -17.174988, y: 15.24}
+-  m_SizeDelta: {x: -1785.65, y: 69.52}
++  m_AnchoredPosition: {x: -20.03003, y: 14.63}
++  m_SizeDelta: {x: -1779.94, y: 68.3}
+   m_Pivot: {x: 0.5, y: 0.5}
+ --- !u!114 &8931476547941480547
+ MonoBehaviour:
+@@ -63,6 +288,20 @@
+   m_ChildControlHeight: 0
+   m_ChildScaleWidth: 0
+   m_ChildScaleHeight: 0
++--- !u!114 &7569206581967882041
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 8931476547941480557}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 002108519d0c4ed48a879176aaed07d0, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  avatar: {fileID: 6453206165482533065}
++  username: {fileID: 195816905624044090}
+ --- !u!1001 &4573445171149871632
+ PrefabInstance:
+   m_ObjectHideFlags: 0
+@@ -228,7 +467,7 @@
+   m_ObjectHideFlags: 0
+   serializedVersion: 2
+   m_Modification:
+-    m_TransformParent: {fileID: 8931476547941480556}
++    m_TransformParent: {fileID: 7143054245891540019}
+     m_Modifications:
+     - target: {fileID: 371335149279077404, guid: 913511c2959afea4db746e1e8f78a720,
+         type: 3}
+@@ -253,17 +492,17 @@
+     - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,
+         type: 3}
+       propertyPath: m_LocalRotation.x
+-      value: 0
++      value: -0
+       objectReference: {fileID: 0}
+     - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,
+         type: 3}
+       propertyPath: m_LocalRotation.y
+-      value: 0
++      value: -0
+       objectReference: {fileID: 0}
+     - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,
+         type: 3}
+       propertyPath: m_LocalRotation.z
+-      value: 0
++      value: -0
+       objectReference: {fileID: 0}
+     - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,
+         type: 3}
+@@ -273,7 +512,7 @@
+     - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,
+         type: 3}
+       propertyPath: m_RootOrder
+-      value: 1
++      value: 0
+       objectReference: {fileID: 0}
+     - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,
+         type: 3}
+@@ -303,12 +542,12 @@
+     - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,
+         type: 3}
+       propertyPath: m_SizeDelta.x
+-      value: 60
++      value: 48.99
+       objectReference: {fileID: 0}
+     - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,
+         type: 3}
+       propertyPath: m_SizeDelta.y
+-      value: 60
++      value: 48.99
+       objectReference: {fileID: 0}
+     - target: {fileID: 2190725633923037642, guid: 913511c2959afea4db746e1e8f78a720,
+         type: 3}
+@@ -374,3 +613,15 @@
+     type: 3}
+   m_PrefabInstance: {fileID: 8931476547152479366}
+   m_PrefabAsset: {fileID: 0}
++--- !u!114 &6453206165482533065 stripped
++MonoBehaviour:
++  m_CorrespondingSourceObject: {fileID: 2485035128140854351, guid: 913511c2959afea4db746e1e8f78a720,
++    type: 3}
++  m_PrefabInstance: {fileID: 8931476547152479366}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 0}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
+Index: .idea/.idea.Boardo-Catan/.idea/contentModel.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ContentModelStore\">\r\n    <e p=\"C:\\Users\\Mohamadhassan\\AppData\\Local\\JetBrains\\Rider2020.2\\extResources\" t=\"IncludeRecursive\" />\r\n    <e p=\"C:\\Users\\Mohamadhassan\\AppData\\Local\\JetBrains\\Rider2020.2\\resharper-host\\Local\\Transient\\Rider\\v202\\SolutionCaches\\_Boardo-Catan.656124336.00\" t=\"ExcludeRecursive\" />\r\n    <e p=\"G:\\Users\\Mohamadhassan\\RiderProjects\\Boardo-Catan\" t=\"IncludeRecursive\">\r\n      <e p=\"Assembly-CSharp.csproj\" t=\"IncludeRecursive\" />\r\n      <e p=\"Assets\" t=\"Include\">\r\n        <e p=\"BuyButton.cs\" t=\"Include\" />\r\n        <e p=\"RTLTMPro\" t=\"Include\">\r\n          <e p=\"Ranges\" t=\"Include\">\r\n            <e p=\"LetterRanges.txt\" t=\"Include\" />\r\n            <e p=\"NumberRanges.txt\" t=\"Include\" />\r\n            <e p=\"TashkilRanges.txt\" t=\"Include\" />\r\n          </e>\r\n          <e p=\"Resources\" t=\"Include\">\r\n            <e p=\"Shaders\" t=\"Include\">\r\n              <e p=\"TMP_SDF Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF Overlay Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile Masking Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile Overlay Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Surface Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Surface-Mobile Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMPro.cginc\" t=\"Include\" />\r\n              <e p=\"TMPro_Properties.cginc\" t=\"Include\" />\r\n              <e p=\"TMPro_Surface.cginc\" t=\"Include\" />\r\n              <e p=\"TMPro_SurfaceOutline.cginc\" t=\"Include\" />\r\n            </e>\r\n          </e>\r\n          <e p=\"Scripts\" t=\"Include\">\r\n            <e p=\"Editor\" t=\"Include\">\r\n              <e p=\"ContextMenu.cs\" t=\"Include\" />\r\n              <e p=\"RTLDefaultControls.cs\" t=\"Include\" />\r\n              <e p=\"RTLTextMeshPro3DEditor.cs\" t=\"Include\" />\r\n              <e p=\"RTLTextMeshProEditor.cs\" t=\"Include\" />\r\n              <e p=\"RTLTMPro-Editor.asmdef\" t=\"Include\" />\r\n            </e>\r\n            <e p=\"Runtime\" t=\"Include\">\r\n              <e p=\"EnglishNumbers.cs\" t=\"Include\" />\r\n              <e p=\"FarsiNumbers.cs\" t=\"Include\" />\r\n              <e p=\"GeneralLetters.cs\" t=\"Include\" />\r\n              <e p=\"GlyphTable.cs\" t=\"Include\" />\r\n              <e p=\"HinduNumbers.cs\" t=\"Include\" />\r\n              <e p=\"IsolatedLetters.cs\" t=\"Include\" />\r\n              <e p=\"RTLSupport.cs\" t=\"Include\" />\r\n              <e p=\"RTLTextMeshPro.cs\" t=\"Include\" />\r\n              <e p=\"RTLTextMeshPro3D.cs\" t=\"Include\" />\r\n              <e p=\"RTLTMPro.asmdef\" t=\"Include\" />\r\n              <e p=\"TashkeelCharacters.cs\" t=\"Include\" />\r\n              <e p=\"TashkeelLocation.cs\" t=\"Include\" />\r\n            </e>\r\n          </e>\r\n          <e p=\"Tests\" t=\"Include\">\r\n            <e p=\"RTLSupportTests.cs\" t=\"Include\" />\r\n            <e p=\"RTLTMPro-Tests.asmdef\" t=\"Include\" />\r\n          </e>\r\n        </e>\r\n        <e p=\"Scripts\" t=\"Include\">\r\n          <e p=\"MainScreen.cs\" t=\"Include\" />\r\n          <e p=\"Model\" t=\"Include\">\r\n            <e p=\"Personal.cs\" t=\"Include\" />\r\n            <e p=\"Player.cs\" t=\"Include\" />\r\n            <e p=\"Tile.cs\" t=\"Include\" />\r\n          </e>\r\n          <e p=\"PlayerScores.cs\" t=\"Include\" />\r\n          <e p=\"Road.cs\" t=\"Include\" />\r\n          <e p=\"Settlement.cs\" t=\"Include\" />\r\n          <e p=\"Test.cs\" t=\"Include\" />\r\n          <e p=\"UpdateMyPlayer.cs\" t=\"Include\" />\r\n          <e p=\"Utils\" t=\"Include\">\r\n            <e p=\"Colors.cs\" t=\"Include\" />\r\n            <e p=\"Counter.cs\" t=\"Include\" />\r\n            <e p=\"LoadingView.cs\" t=\"Include\" />\r\n            <e p=\"Network.cs\" t=\"Include\" />\r\n            <e p=\"URL.cs\" t=\"Include\" />\r\n            <e p=\"Utility.cs\" t=\"Include\" />\r\n          </e>\r\n        </e>\r\n        <e p=\"testtt.cs\" t=\"Include\" />\r\n        <e p=\"TextMesh Pro\" t=\"Include\">\r\n          <e p=\"Fonts\" t=\"Include\">\r\n            <e p=\"LiberationSans - OFL.txt\" t=\"Include\" />\r\n          </e>\r\n          <e p=\"Resources\" t=\"Include\">\r\n            <e p=\"LineBreaking Following Characters.txt\" t=\"Include\" />\r\n            <e p=\"LineBreaking Leading Characters.txt\" t=\"Include\" />\r\n            <e p=\"Shaders\" t=\"Include\">\r\n              <e p=\"TMP_Bitmap-Custom-Atlas.shader\" t=\"Include\" />\r\n              <e p=\"TMP_Bitmap-Mobile.shader\" t=\"Include\" />\r\n              <e p=\"TMP_Bitmap.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF Overlay.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile Masking.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile Overlay.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Surface-Mobile.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Surface.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF.shader\" t=\"Include\" />\r\n              <e p=\"TMP_Sprite.shader\" t=\"Include\" />\r\n              <e p=\"TMPro.cginc\" t=\"Include\" />\r\n              <e p=\"TMPro_Properties.cginc\" t=\"Include\" />\r\n              <e p=\"TMPro_Surface.cginc\" t=\"Include\" />\r\n            </e>\r\n          </e>\r\n          <e p=\"Sprites\" t=\"Include\">\r\n            <e p=\"EmojiOne Attribution.txt\" t=\"Include\" />\r\n          </e>\r\n        </e>\r\n        <e p=\"Tradition.cs\" t=\"Include\" />\r\n      </e>\r\n      <e p=\"Boardo-Catan.sln\" t=\"IncludeFlat\" />\r\n      <e p=\"obj\" t=\"ExcludeRecursive\" />\r\n      <e p=\"Packages\" t=\"ExcludeRecursive\" />\r\n      <e p=\"RTLTMPro-Editor.csproj\" t=\"IncludeRecursive\" />\r\n      <e p=\"RTLTMPro-Tests.csproj\" t=\"IncludeRecursive\" />\r\n      <e p=\"RTLTMPro.csproj\" t=\"IncludeRecursive\" />\r\n      <e p=\"Temp\\bin\" t=\"ExcludeRecursive\" />\r\n    </e>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.Boardo-Catan/.idea/contentModel.xml	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ .idea/.idea.Boardo-Catan/.idea/contentModel.xml	(date 1599488530116)
+@@ -6,6 +6,7 @@
+     <e p="G:\Users\Mohamadhassan\RiderProjects\Boardo-Catan" t="IncludeRecursive">
+       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+       <e p="Assets" t="Include">
++        <e p="BankTradeHandler.cs" t="Include" />
+         <e p="BuyButton.cs" t="Include" />
+         <e p="RTLTMPro" t="Include">
+           <e p="Ranges" t="Include">
+@@ -61,7 +62,9 @@
+           <e p="Model" t="Include">
+             <e p="Personal.cs" t="Include" />
+             <e p="Player.cs" t="Include" />
++            <e p="Resources.cs" t="Include" />
+             <e p="Tile.cs" t="Include" />
++            <e p="TradeRequest.cs" t="Include" />
+           </e>
+           <e p="PlayerScores.cs" t="Include" />
+           <e p="Road.cs" t="Include" />
+@@ -69,10 +72,10 @@
+           <e p="Test.cs" t="Include" />
+           <e p="UpdateMyPlayer.cs" t="Include" />
+           <e p="Utils" t="Include">
+-            <e p="Colors.cs" t="Include" />
+             <e p="Counter.cs" t="Include" />
+             <e p="LoadingView.cs" t="Include" />
+             <e p="Network.cs" t="Include" />
++            <e p="PlayerColors.cs" t="Include" />
+             <e p="URL.cs" t="Include" />
+             <e p="Utility.cs" t="Include" />
+           </e>
+@@ -106,6 +109,8 @@
+             <e p="EmojiOne Attribution.txt" t="Include" />
+           </e>
+         </e>
++        <e p="TradeHandler.cs" t="Include" />
++        <e p="TradeProfileHandler.cs" t="Include" />
+         <e p="Tradition.cs" t="Include" />
+       </e>
+       <e p="Boardo-Catan.sln" t="IncludeFlat" />
+Index: Assets/Scripts/Model/Personal.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing System.Drawing;\r\n\r\nnamespace Model\r\n{\r\n    [Serializable]\r\n    public class Personal\r\n    {\r\n        public int id;\r\n        public int point;\r\n        public int brick_count;\r\n        public int sheep_count;\r\n        public int stone_count;\r\n        public int wheat_count;\r\n        public int wood_count;\r\n        public bool has_long_road_card;\r\n        public bool has_largest_army;\r\n        public int monopoly_count;\r\n        public int year_of_plenty;\r\n        public int road_building_count;\r\n        public int victory_point;\r\n        public int knight;\r\n        public int knight_card_played;\r\n        public int thief_tile;\r\n        public int catan_event;\r\n        public int player;\r\n        public string player_username;\r\n        public string player_avatar;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scripts/Model/Personal.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/Model/Personal.cs	(date 1599488530120)
+@@ -1,5 +1,6 @@
+ using System;
+ using System.Drawing;
++using Utils;
+ 
+ namespace Model
+ {
+@@ -26,5 +27,6 @@
+         public int player;
+         public string player_username;
+         public string player_avatar;
++        [NonSerialized] public PlayerColors Color;
+     }
+ }
+\ No newline at end of file
+Index: Assets/Scenes/Main.unity
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scenes/Main.unity	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scenes/Main.unity	(date 1599507194236)
+@@ -11335,6 +11335,46 @@
+   m_Modification:
+     m_TransformParent: {fileID: 1506617320}
+     m_Modifications:
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMin.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMax.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.x
++      value: 45.005
++      objectReference: {fileID: 0}
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.y
++      value: -73.0625
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMin.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMax.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.x
++      value: 85.76001
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.y
++      value: -34.76
++      objectReference: {fileID: 0}
+     - target: {fileID: 7320037978763607372, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchorMin.y
+@@ -11348,12 +11388,12 @@
+     - target: {fileID: 7320037978763607372, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchoredPosition.x
+-      value: 93.262505
++      value: 45.005
+       objectReference: {fileID: 0}
+     - target: {fileID: 7320037978763607372, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchoredPosition.y
+-      value: -34.76
++      value: -28.0575
+       objectReference: {fileID: 0}
+     - target: {fileID: 8931476547941480556, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+@@ -11478,7 +11518,7 @@
+     - target: {fileID: 8931476548157546810, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchoredPosition.x
+-      value: 26.087502
++      value: 18.585001
+       objectReference: {fileID: 0}
+     - target: {fileID: 8931476548157546810, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+@@ -16404,7 +16444,7 @@
+     - target: {fileID: 319761088980345610, guid: 20914efc7ea82874aada2369f8591407,
+         type: 3}
+       propertyPath: m_RootOrder
+-      value: 5
++      value: 6
+       objectReference: {fileID: 0}
+     - target: {fileID: 319761088980345610, guid: 20914efc7ea82874aada2369f8591407,
+         type: 3}
+@@ -18827,7 +18867,7 @@
+     - target: {fileID: 6128797931779377152, guid: 1091858957e11874a874a1d724ef591f,
+         type: 3}
+       propertyPath: m_Enabled
+-      value: 1
++      value: 0
+       objectReference: {fileID: 0}
+     - target: {fileID: 6128797931822131546, guid: 1091858957e11874a874a1d724ef591f,
+         type: 3}
+@@ -19701,6 +19741,46 @@
+   m_Modification:
+     m_TransformParent: {fileID: 1506617320}
+     m_Modifications:
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMin.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMax.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.x
++      value: 45.005
++      objectReference: {fileID: 0}
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.y
++      value: -73.0625
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMin.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMax.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.x
++      value: 85.76001
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.y
++      value: -34.76
++      objectReference: {fileID: 0}
+     - target: {fileID: 7320037978763607372, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchorMin.y
+@@ -19714,12 +19794,12 @@
+     - target: {fileID: 7320037978763607372, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchoredPosition.x
+-      value: 93.262505
++      value: 45.005
+       objectReference: {fileID: 0}
+     - target: {fileID: 7320037978763607372, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchoredPosition.y
+-      value: -34.76
++      value: -28.0575
+       objectReference: {fileID: 0}
+     - target: {fileID: 8931476547941480556, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+@@ -19844,7 +19924,7 @@
+     - target: {fileID: 8931476548157546810, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchoredPosition.x
+-      value: 26.087502
++      value: 18.585001
+       objectReference: {fileID: 0}
+     - target: {fileID: 8931476548157546810, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+@@ -22201,6 +22281,7 @@
+   - {fileID: 21300000, guid: 50a8a9b4d9c6aad468270626f5e4f0ac, type: 3}
+   - {fileID: 21300000, guid: a5d21bb1b217d25489e688357f9b23f8, type: 3}
+   - {fileID: 21300000, guid: f83962eceae2af549a9164f6f450c38f, type: 3}
++  boxMessage: {fileID: 862988407}
+ --- !u!4 &1230044012
+ Transform:
+   m_ObjectHideFlags: 0
+@@ -23024,7 +23105,7 @@
+   - {fileID: 862988406}
+   - {fileID: 733785857}
+   m_Father: {fileID: 1959406525}
+-  m_RootOrder: 6
++  m_RootOrder: 5
+   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+   m_AnchorMin: {x: 1, y: 0}
+   m_AnchorMax: {x: 1, y: 0}
+@@ -27768,7 +27849,7 @@
+     - target: {fileID: 6128797931779377152, guid: 1091858957e11874a874a1d724ef591f,
+         type: 3}
+       propertyPath: m_Enabled
+-      value: 1
++      value: 0
+       objectReference: {fileID: 0}
+     - target: {fileID: 6128797931822131546, guid: 1091858957e11874a874a1d724ef591f,
+         type: 3}
+@@ -29336,7 +29417,7 @@
+     - target: {fileID: 6128797931779377152, guid: 1091858957e11874a874a1d724ef591f,
+         type: 3}
+       propertyPath: m_Enabled
+-      value: 1
++      value: 0
+       objectReference: {fileID: 0}
+     - target: {fileID: 6128797931822131546, guid: 1091858957e11874a874a1d724ef591f,
+         type: 3}
+@@ -29799,7 +29880,7 @@
+     - target: {fileID: 394738054343004172, guid: 63a66f5ef0a83604ea8c14bc797e22a2,
+         type: 3}
+       propertyPath: m_Enabled
+-      value: 1
++      value: 0
+       objectReference: {fileID: 0}
+     - target: {fileID: 394738054343004172, guid: 63a66f5ef0a83604ea8c14bc797e22a2,
+         type: 3}
+@@ -29924,7 +30005,7 @@
+     - target: {fileID: 394738054854270522, guid: 63a66f5ef0a83604ea8c14bc797e22a2,
+         type: 3}
+       propertyPath: m_Enabled
+-      value: 1
++      value: 0
+       objectReference: {fileID: 0}
+     - target: {fileID: 394738054854270522, guid: 63a66f5ef0a83604ea8c14bc797e22a2,
+         type: 3}
+@@ -30044,7 +30125,7 @@
+     - target: {fileID: 8097339931524826465, guid: 63a66f5ef0a83604ea8c14bc797e22a2,
+         type: 3}
+       propertyPath: m_Enabled
+-      value: 1
++      value: 0
+       objectReference: {fileID: 0}
+     - target: {fileID: 8097339931524826465, guid: 63a66f5ef0a83604ea8c14bc797e22a2,
+         type: 3}
+@@ -30788,7 +30869,7 @@
+     - target: {fileID: 6128797931779377152, guid: 1091858957e11874a874a1d724ef591f,
+         type: 3}
+       propertyPath: m_Enabled
+-      value: 1
++      value: 0
+       objectReference: {fileID: 0}
+     - target: {fileID: 6128797931822131546, guid: 1091858957e11874a874a1d724ef591f,
+         type: 3}
+@@ -32924,8 +33005,8 @@
+   - {fileID: 840049897}
+   - {fileID: 648116955}
+   - {fileID: 1920239989}
+-  - {fileID: 1773344780}
+   - {fileID: 1327140476}
++  - {fileID: 1773344780}
+   m_Father: {fileID: 0}
+   m_RootOrder: 1
+   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+@@ -33577,7 +33658,7 @@
+     - target: {fileID: 6128797931779377152, guid: 1091858957e11874a874a1d724ef591f,
+         type: 3}
+       propertyPath: m_Enabled
+-      value: 1
++      value: 0
+       objectReference: {fileID: 0}
+     - target: {fileID: 6128797931822131546, guid: 1091858957e11874a874a1d724ef591f,
+         type: 3}
+@@ -35713,6 +35794,46 @@
+   m_Modification:
+     m_TransformParent: {fileID: 1506617320}
+     m_Modifications:
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMin.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMax.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.x
++      value: 45.005
++      objectReference: {fileID: 0}
++    - target: {fileID: 4338475370294276549, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.y
++      value: -73.0625
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMin.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchorMax.y
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.x
++      value: 85.76001
++      objectReference: {fileID: 0}
++    - target: {fileID: 7143054245891540019, guid: e29f280203402e94694fdea4f3aa22d7,
++        type: 3}
++      propertyPath: m_AnchoredPosition.y
++      value: -34.76
++      objectReference: {fileID: 0}
+     - target: {fileID: 7320037978763607372, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchorMin.y
+@@ -35726,12 +35847,12 @@
+     - target: {fileID: 7320037978763607372, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchoredPosition.x
+-      value: 93.262505
++      value: 45.005
+       objectReference: {fileID: 0}
+     - target: {fileID: 7320037978763607372, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchoredPosition.y
+-      value: -34.76
++      value: -28.0575
+       objectReference: {fileID: 0}
+     - target: {fileID: 8931476547941480556, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+@@ -35856,7 +35977,7 @@
+     - target: {fileID: 8931476548157546810, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+       propertyPath: m_AnchoredPosition.x
+-      value: 26.087502
++      value: 18.585001
+       objectReference: {fileID: 0}
+     - target: {fileID: 8931476548157546810, guid: e29f280203402e94694fdea4f3aa22d7,
+         type: 3}
+Index: Assets/Scripts/Utils/URL.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System.Collections.Generic;\r\n\r\nnamespace Utils\r\n{\r\n    public static class URL\r\n    {\r\n        private static string RoomName { get; set; }\r\n        public static void SetRoomName(string value) => RoomName = value;\r\n        private static string Token { get; set; }\r\n        public static void SetToken(string value) => Token = value;\r\n        public static Dictionary<string, string> Headers() => new Dictionary<string, string>\r\n        {\r\n            {\"Authorization\", $\"Token {Token}\"}\r\n        };\r\n        private const string BaseURL = \"http://192.168.1.6:8000\";\r\n        public static string GetBoard() => $\"{BaseURL}/catan/map/{RoomName}\";\r\n        public static string GetPlayers() => $\"{BaseURL}/catan/player_info/{RoomName}\";\r\n        public static string Personal() => $\"{BaseURL}/catan/personal/{RoomName}\";\r\n        public static string Pass() => $\"{BaseURL}/catan/end/{RoomName}\";\r\n        public static string Init1() => $\"{BaseURL}/catan/init1/{RoomName}\";\r\n        public static string Init2() => $\"{BaseURL}/catan/init2/{RoomName}\";\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scripts/Utils/URL.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/Utils/URL.cs	(date 1599488530129)
+@@ -17,6 +17,8 @@
+         public static string GetPlayers() => $"{BaseURL}/catan/player_info/{RoomName}";
+         public static string Personal() => $"{BaseURL}/catan/personal/{RoomName}";
+         public static string Pass() => $"{BaseURL}/catan/end/{RoomName}";
++        public static string Trade() => $"{BaseURL}/catan/trade/{RoomName}";
++        public static string TradeBank() => $"{BaseURL}/catan/trade_bank/{RoomName}";
+         public static string Init1() => $"{BaseURL}/catan/init1/{RoomName}";
+         public static string Init2() => $"{BaseURL}/catan/init2/{RoomName}";
+ 
+Index: Assets/Scripts/Utils/Counter.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using TMPro;\r\nusing UnityEngine;\r\n\r\nnamespace Utils\r\n{\r\n    public class Counter : MonoBehaviour\r\n    {\r\n        [SerializeField] private int currentNumber;\r\n\r\n        public void OnPlusPressed()\r\n        {\r\n            Debug.Log(currentNumber.ToString());\r\n            currentNumber++;\r\n            SetText();\r\n        }\r\n\r\n        public void OnMinusPressed()\r\n        {\r\n            if (currentNumber == 0) return;\r\n            Debug.Log(currentNumber.ToString());\r\n            currentNumber--;\r\n            SetText();\r\n        }\r\n\r\n        public void SetText()\r\n        {\r\n            var textComponent = GetComponent<TextMeshProUGUI>();\r\n            textComponent.text = (currentNumber).ToString();\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scripts/Utils/Counter.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/Utils/Counter.cs	(date 1599488530126)
+@@ -1,3 +1,5 @@
++using System;
++using Model;
+ using TMPro;
+ using UnityEngine;
+ 
+@@ -5,27 +7,79 @@
+ {
+     public class Counter : MonoBehaviour
+     {
+-        [SerializeField] private int currentNumber;
+ 
+-        public void OnPlusPressed()
++        private int _currentNumber;
++        [SerializeField] private Resource resources;
++
++        private void OnIncrease()
+         {
+-            Debug.Log(currentNumber.ToString());
+-            currentNumber++;
++            _currentNumber++;
+             SetText();
+         }
+ 
+-        public void OnMinusPressed()
++        public void OnIncreaseOffer()
+         {
+-            if (currentNumber == 0) return;
+-            Debug.Log(currentNumber.ToString());
+-            currentNumber--;
++            switch (resources)
++            {
++                case Resource.Brick:
++                    if (_currentNumber == UpdateMyPlayer.Personal.brick_count)
++                    {
++                        return;
++                    }
++                    break;
++                case Resource.Sheep:
++                    if (_currentNumber == UpdateMyPlayer.Personal.sheep_count)
++                    {
++                        return;
++                    }
++                    break;
++                case Resource.Stone:
++                    if (_currentNumber == UpdateMyPlayer.Personal.stone_count)
++                    {
++                        return;
++                    }
++                    break;
++                case Resource.Wheat:
++                    if (_currentNumber == UpdateMyPlayer.Personal.wheat_count)
++                    {
++                        return;
++                    }
++                    break;
++                case Resource.Wood:
++                    if (_currentNumber == UpdateMyPlayer.Personal.wood_count)
++                    {
++                        return;
++                    }
++                    break;
++                default:
++                    throw new ArgumentOutOfRangeException();
++                break;
++            }
++            OnIncrease();
++        }
++
++        public void OnDecrease()
++        {
++            if (_currentNumber == 0) return;
++            _currentNumber--;
+             SetText();
+         }
+ 
+-        public void SetText()
++        public void OnIncreaseWilling()
++        {
++            OnIncrease();
++        }
++
++        private void SetText()
+         {
+             var textComponent = GetComponent<TextMeshProUGUI>();
+-            textComponent.text = (currentNumber).ToString();
++            textComponent.text = _currentNumber.ToString();
++        }
++
++        public void OnReset()
++        {
++            _currentNumber = 0;
++            SetText();
+         }
+     }
+ }
+\ No newline at end of file
+Index: Assets/Scripts/Model/Player.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing System.Drawing;\r\nusing Utils;\r\nusing Color = UnityEngine.Color;\r\n\r\nnamespace Model\r\n{\r\n    [Serializable]\r\n    public class Player\r\n    {\r\n        public int catan_event;\r\n        public int player;\r\n        public bool has_long_road_card;\r\n        public bool has_largest_army;\r\n        public int knight_card_played;\r\n        public int cards;\r\n        public int resources;\r\n        public int point;\r\n        public int road_length;\r\n        public string player_avatar;\r\n        public string player_username;\r\n        [NonSerialized] public Color Color;\r\n    }\r\n\r\n    [Serializable]\r\n    public class Players\r\n    {\r\n        public Player[] otherPlayers;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scripts/Model/Player.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/Model/Player.cs	(date 1599488530121)
+@@ -1,7 +1,5 @@
+ using System;
+-using System.Drawing;
+ using Utils;
+-using Color = UnityEngine.Color;
+ 
+ namespace Model
+ {
+@@ -19,7 +17,7 @@
+         public int road_length;
+         public string player_avatar;
+         public string player_username;
+-        [NonSerialized] public Color Color;
++        [NonSerialized] public PlayerColors Color;
+     }
+ 
+     [Serializable]
+Index: Assets/Scripts/Utils/Network.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing System.Collections;\r\nusing System.Collections.Generic;\r\nusing UnityEngine;\r\nusing UnityEngine.Networking;\r\n\r\nnamespace Utils\r\n{\r\n    public static class Network\r\n    {\r\n        public static IEnumerator GetRequest(string uri, Action<string> onResponse,\r\n            Dictionary<string, string> headers = null, Action onError = null)\r\n        {\r\n            if (headers == null)\r\n            {\r\n                headers = new Dictionary<string, string>();\r\n            }\r\n\r\n            using (var webRequest = UnityWebRequest.Get(uri))\r\n            {\r\n                foreach (var keyValuePair in headers)\r\n                {\r\n                    webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);\r\n                }\r\n\r\n                yield return webRequest.SendWebRequest();\r\n\r\n                var pages = uri.Split('/');\r\n                var page = pages.Length - 1;\r\n\r\n                if (webRequest.isNetworkError)\r\n                {\r\n                    // ReSharper disable once Unity.PerformanceCriticalCodeInvocation\r\n                    Debug.Log(pages[page] + \": Error: \" + webRequest.error);\r\n                    onError?.Invoke();\r\n                }\r\n                else\r\n                {\r\n                    var response = webRequest.downloadHandler.text;\r\n                    onResponse(response);\r\n                }\r\n            }\r\n        }\r\n\r\n        public static IEnumerator PostRequest(string uri, string body, Action<string> onResponse,\r\n            Dictionary<string, string> headers = null, Action onError = null)\r\n        {\r\n            if (headers == null)\r\n            {\r\n                headers = new Dictionary<string, string>();\r\n            }\r\n\r\n            using (var webRequest = UnityWebRequest.Post(uri, body))\r\n            {\r\n                foreach (var keyValuePair in headers)\r\n                {\r\n                    webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);\r\n                }\r\n\r\n                yield return webRequest.SendWebRequest();\r\n                var pages = uri.Split('/');\r\n                var page = pages.Length - 1;\r\n\r\n                if (webRequest.isNetworkError)\r\n                {\r\n                    Debug.Log(pages[page] + \": Error: \" + webRequest.error);\r\n                    onError?.Invoke();\r\n                }\r\n                else\r\n                {\r\n                    var response = webRequest.downloadHandler.text;\r\n                    onResponse(response);\r\n                }\r\n            }\r\n        }\r\n\r\n        public static IEnumerator GetTexture(string resource, Action<Texture> func,\r\n            Dictionary<string, string> headers = null)\r\n        {\r\n            if (headers == null)\r\n            {\r\n                headers = new Dictionary<string, string>();\r\n            }\r\n\r\n            UnityWebRequest request = UnityWebRequestTexture.GetTexture(resource);\r\n            foreach (var keyValuePair in headers)\r\n            {\r\n                request.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);\r\n            }\r\n\r\n            yield return request.SendWebRequest();\r\n            if (request.isNetworkError || request.isHttpError)\r\n            {\r\n                Debug.Log(request.error);\r\n            }\r\n            else\r\n            {\r\n                Texture myTexture = DownloadHandlerTexture.GetContent(request);\r\n                func(myTexture);\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scripts/Utils/Network.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/Utils/Network.cs	(date 1599488530127)
+@@ -1,6 +1,7 @@
+ using System;
+ using System.Collections;
+ using System.Collections.Generic;
++using System.Text;
+ using UnityEngine;
+ using UnityEngine.Networking;
+ 
+@@ -50,6 +51,74 @@
+                 headers = new Dictionary<string, string>();
+             }
+ 
++            using (var webRequest = new UnityWebRequest(uri, "post"))
++            {
++                foreach (var keyValuePair in headers)
++                {
++                    webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
++                }
++
++                var bodyRaw = Encoding.UTF8.GetBytes(body);
++                webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
++                webRequest.downloadHandler = new DownloadHandlerBuffer();
++
++                yield return webRequest.SendWebRequest();
++                var pages = uri.Split('/');
++                var page = pages.Length - 1;
++
++                if (webRequest.isNetworkError)
++                {
++                    Debug.Log(pages[page] + ": Error: " + webRequest.error);
++                    onError?.Invoke();
++                }
++                else
++                {
++                    var response = webRequest.downloadHandler.text;
++                    onResponse(response);
++                }
++            }
++        }
++
++        public static IEnumerator PostRequest(string uri, Dictionary<string, string> body, Action<string> onResponse,
++            Dictionary<string, string> headers = null, Action onError = null)
++        {
++            if (headers == null)
++            {
++                headers = new Dictionary<string, string>();
++            }
++
++            using (var webRequest = UnityWebRequest.Post(uri, body))
++            {
++                foreach (var keyValuePair in headers)
++                {
++                    webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
++                }
++
++                yield return webRequest.SendWebRequest();
++                var pages = uri.Split('/');
++                var page = pages.Length - 1;
++
++                if (webRequest.isNetworkError)
++                {
++                    Debug.Log(pages[page] + ": Error: " + webRequest.error);
++                    onError?.Invoke();
++                }
++                else
++                {
++                    var response = webRequest.downloadHandler.text;
++                    onResponse(response);
++                }
++            }
++        }
++        
++        public static IEnumerator PostRequest(string uri, WWWForm body, Action<string> onResponse,
++            Dictionary<string, string> headers = null, Action onError = null)
++        {
++            if (headers == null)
++            {
++                headers = new Dictionary<string, string>();
++            }
++
+             using (var webRequest = UnityWebRequest.Post(uri, body))
+             {
+                 foreach (var keyValuePair in headers)
+@@ -82,7 +151,7 @@
+                 headers = new Dictionary<string, string>();
+             }
+ 
+-            UnityWebRequest request = UnityWebRequestTexture.GetTexture(resource);
++            var request = UnityWebRequestTexture.GetTexture(resource);
+             foreach (var keyValuePair in headers)
+             {
+                 request.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
+Index: .idea/.idea.Boardo/.idea/contentModel.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ContentModelStore\">\r\n    <e p=\"C:\\Users\\smrz\\AppData\\Local\\JetBrains\\Rider2020.2\\extResources\" t=\"IncludeRecursive\" />\r\n    <e p=\"C:\\Users\\smrz\\AppData\\Local\\JetBrains\\Rider2020.2\\resharper-host\\Local\\Transient\\Rider\\v202\\SolutionCaches\\_Boardo.1981425803.00\" t=\"ExcludeRecursive\" />\r\n    <e p=\"C:\\Users\\smrz\\Documents\\Boardo\" t=\"IncludeRecursive\">\r\n      <e p=\"Assembly-CSharp.csproj\" t=\"IncludeRecursive\" />\r\n      <e p=\"Assets\" t=\"Include\">\r\n        <e p=\"BuyButton.cs\" t=\"Include\" />\r\n        <e p=\"RTLTMPro\" t=\"Include\">\r\n          <e p=\"Ranges\" t=\"Include\">\r\n            <e p=\"LetterRanges.txt\" t=\"Include\" />\r\n            <e p=\"NumberRanges.txt\" t=\"Include\" />\r\n            <e p=\"TashkilRanges.txt\" t=\"Include\" />\r\n          </e>\r\n          <e p=\"Resources\" t=\"Include\">\r\n            <e p=\"Shaders\" t=\"Include\">\r\n              <e p=\"TMP_SDF Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF Overlay Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile Masking Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile Overlay Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Surface Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Surface-Mobile Fixed.shader\" t=\"Include\" />\r\n              <e p=\"TMPro.cginc\" t=\"Include\" />\r\n              <e p=\"TMPro_Properties.cginc\" t=\"Include\" />\r\n              <e p=\"TMPro_Surface.cginc\" t=\"Include\" />\r\n              <e p=\"TMPro_SurfaceOutline.cginc\" t=\"Include\" />\r\n            </e>\r\n          </e>\r\n          <e p=\"Scripts\" t=\"Include\">\r\n            <e p=\"Editor\" t=\"Include\">\r\n              <e p=\"ContextMenu.cs\" t=\"Include\" />\r\n              <e p=\"RTLDefaultControls.cs\" t=\"Include\" />\r\n              <e p=\"RTLTextMeshPro3DEditor.cs\" t=\"Include\" />\r\n              <e p=\"RTLTextMeshProEditor.cs\" t=\"Include\" />\r\n              <e p=\"RTLTMPro-Editor.asmdef\" t=\"Include\" />\r\n            </e>\r\n            <e p=\"Runtime\" t=\"Include\">\r\n              <e p=\"EnglishNumbers.cs\" t=\"Include\" />\r\n              <e p=\"FarsiNumbers.cs\" t=\"Include\" />\r\n              <e p=\"GeneralLetters.cs\" t=\"Include\" />\r\n              <e p=\"GlyphTable.cs\" t=\"Include\" />\r\n              <e p=\"HinduNumbers.cs\" t=\"Include\" />\r\n              <e p=\"IsolatedLetters.cs\" t=\"Include\" />\r\n              <e p=\"RTLSupport.cs\" t=\"Include\" />\r\n              <e p=\"RTLTextMeshPro.cs\" t=\"Include\" />\r\n              <e p=\"RTLTextMeshPro3D.cs\" t=\"Include\" />\r\n              <e p=\"RTLTMPro.asmdef\" t=\"Include\" />\r\n              <e p=\"TashkeelCharacters.cs\" t=\"Include\" />\r\n              <e p=\"TashkeelLocation.cs\" t=\"Include\" />\r\n            </e>\r\n          </e>\r\n          <e p=\"Tests\" t=\"Include\">\r\n            <e p=\"RTLSupportTests.cs\" t=\"Include\" />\r\n            <e p=\"RTLTMPro-Tests.asmdef\" t=\"Include\" />\r\n          </e>\r\n        </e>\r\n        <e p=\"Scripts\" t=\"Include\">\r\n          <e p=\"MainScreen.cs\" t=\"Include\" />\r\n          <e p=\"Model\" t=\"Include\">\r\n            <e p=\"Personal.cs\" t=\"Include\" />\r\n            <e p=\"Player.cs\" t=\"Include\" />\r\n            <e p=\"Tile.cs\" t=\"Include\" />\r\n          </e>\r\n          <e p=\"PlayerScores.cs\" t=\"Include\" />\r\n          <e p=\"Road.cs\" t=\"Include\" />\r\n          <e p=\"Settlement.cs\" t=\"Include\" />\r\n          <e p=\"Test.cs\" t=\"Include\" />\r\n          <e p=\"UpdateMyPlayer.cs\" t=\"Include\" />\r\n          <e p=\"Utils\" t=\"Include\">\r\n            <e p=\"Colors.cs\" t=\"Include\" />\r\n            <e p=\"Counter.cs\" t=\"Include\" />\r\n            <e p=\"GameController.cs\" t=\"Include\" />\r\n            <e p=\"LoadingView.cs\" t=\"Include\" />\r\n            <e p=\"Network.cs\" t=\"Include\" />\r\n            <e p=\"URL.cs\" t=\"Include\" />\r\n            <e p=\"Utility.cs\" t=\"Include\" />\r\n          </e>\r\n        </e>\r\n        <e p=\"testtt.cs\" t=\"Include\" />\r\n        <e p=\"TextMesh Pro\" t=\"Include\">\r\n          <e p=\"Fonts\" t=\"Include\">\r\n            <e p=\"LiberationSans - OFL.txt\" t=\"Include\" />\r\n          </e>\r\n          <e p=\"Resources\" t=\"Include\">\r\n            <e p=\"LineBreaking Following Characters.txt\" t=\"Include\" />\r\n            <e p=\"LineBreaking Leading Characters.txt\" t=\"Include\" />\r\n            <e p=\"Shaders\" t=\"Include\">\r\n              <e p=\"TMP_Bitmap-Custom-Atlas.shader\" t=\"Include\" />\r\n              <e p=\"TMP_Bitmap-Mobile.shader\" t=\"Include\" />\r\n              <e p=\"TMP_Bitmap.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF Overlay.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile Masking.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile Overlay.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Mobile.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Surface-Mobile.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF-Surface.shader\" t=\"Include\" />\r\n              <e p=\"TMP_SDF.shader\" t=\"Include\" />\r\n              <e p=\"TMP_Sprite.shader\" t=\"Include\" />\r\n              <e p=\"TMPro.cginc\" t=\"Include\" />\r\n              <e p=\"TMPro_Properties.cginc\" t=\"Include\" />\r\n              <e p=\"TMPro_Surface.cginc\" t=\"Include\" />\r\n            </e>\r\n          </e>\r\n          <e p=\"Sprites\" t=\"Include\">\r\n            <e p=\"EmojiOne Attribution.txt\" t=\"Include\" />\r\n          </e>\r\n        </e>\r\n        <e p=\"Tradition.cs\" t=\"Include\" />\r\n      </e>\r\n      <e p=\"Boardo.sln\" t=\"IncludeFlat\" />\r\n      <e p=\"obj\" t=\"ExcludeRecursive\" />\r\n      <e p=\"Packages\" t=\"ExcludeRecursive\" />\r\n      <e p=\"RTLTMPro-Editor.csproj\" t=\"IncludeRecursive\" />\r\n      <e p=\"RTLTMPro-Tests.csproj\" t=\"IncludeRecursive\" />\r\n      <e p=\"RTLTMPro.csproj\" t=\"IncludeRecursive\" />\r\n      <e p=\"Temp\\bin\" t=\"ExcludeRecursive\" />\r\n    </e>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.Boardo/.idea/contentModel.xml	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ .idea/.idea.Boardo/.idea/contentModel.xml	(date 1599489723845)
+@@ -6,6 +6,7 @@
+     <e p="C:\Users\smrz\Documents\Boardo" t="IncludeRecursive">
+       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+       <e p="Assets" t="Include">
++        <e p="BankTradeHandler.cs" t="Include" />
+         <e p="BuyButton.cs" t="Include" />
+         <e p="RTLTMPro" t="Include">
+           <e p="Ranges" t="Include">
+@@ -61,7 +62,9 @@
+           <e p="Model" t="Include">
+             <e p="Personal.cs" t="Include" />
+             <e p="Player.cs" t="Include" />
++            <e p="Resources.cs" t="Include" />
+             <e p="Tile.cs" t="Include" />
++            <e p="TradeRequest.cs" t="Include" />
+           </e>
+           <e p="PlayerScores.cs" t="Include" />
+           <e p="Road.cs" t="Include" />
+@@ -69,11 +72,11 @@
+           <e p="Test.cs" t="Include" />
+           <e p="UpdateMyPlayer.cs" t="Include" />
+           <e p="Utils" t="Include">
+-            <e p="Colors.cs" t="Include" />
+             <e p="Counter.cs" t="Include" />
+             <e p="GameController.cs" t="Include" />
+             <e p="LoadingView.cs" t="Include" />
+             <e p="Network.cs" t="Include" />
++            <e p="PlayerColors.cs" t="Include" />
+             <e p="URL.cs" t="Include" />
+             <e p="Utility.cs" t="Include" />
+           </e>
+@@ -107,6 +110,8 @@
+             <e p="EmojiOne Attribution.txt" t="Include" />
+           </e>
+         </e>
++        <e p="TradeHandler.cs" t="Include" />
++        <e p="TradeProfileHandler.cs" t="Include" />
+         <e p="Tradition.cs" t="Include" />
+       </e>
+       <e p="Boardo.sln" t="IncludeFlat" />
+Index: Assets/Scripts/UpdateMyPlayer.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using Model;\r\nusing RTLTMPro;\r\nusing UnityEngine;\r\nusing UnityEngine.UI;\r\nusing Utils;\r\nusing Network = Utils.Network;\r\n\r\npublic class UpdateMyPlayer : MonoBehaviour\r\n{\r\n    [SerializeField] private RTLTextMeshPro longestArmy;\r\n    [SerializeField] private RTLTextMeshPro playedSoldiers;\r\n    [SerializeField] private RTLTextMeshPro soldiers;\r\n    [SerializeField] private RTLTextMeshPro longestRoad;\r\n    [SerializeField] private RTLTextMeshPro yearOfPlenty;\r\n    [SerializeField] private RTLTextMeshPro monopoly;\r\n    [SerializeField] private RTLTextMeshPro roadBuilding;\r\n    [SerializeField] private RTLTextMeshPro wheat;\r\n    [SerializeField] private RTLTextMeshPro wood;\r\n    [SerializeField] private RTLTextMeshPro brick;\r\n    [SerializeField] private RTLTextMeshPro stone;\r\n    [SerializeField] private RTLTextMeshPro sheep;\r\n    [SerializeField] private RTLTextMeshPro victoryPoint;\r\n    [SerializeField] private RTLTextMeshPro totalPoint;\r\n    [SerializeField] private RTLTextMeshPro username;\r\n    [SerializeField] private Image profileImage;\r\n    [SerializeField] private Image pColor;\r\n\r\n    public void UpdatePlayer()\r\n    {\r\n        StartCoroutine(Network.GetRequest(URL.Personal(), response =>\r\n        {\r\n            var personal = JsonUtility.FromJson<Personal>(response);\r\n            brick.text = personal.brick_count.ToString();\r\n            longestArmy.text = personal.has_largest_army ? \"2\" : \"0\";\r\n            playedSoldiers.text = personal.knight_card_played.ToString();\r\n            soldiers.text = personal.knight.ToString();\r\n            longestRoad.text = personal.has_long_road_card ? \"2\" : \"0\";\r\n            yearOfPlenty.text = personal.year_of_plenty.ToString();\r\n            monopoly.text = personal.monopoly_count.ToString();\r\n            roadBuilding.text = personal.road_building_count.ToString();\r\n            wheat.text = personal.wheat_count.ToString();\r\n            wood.text = personal.wood_count.ToString();\r\n            stone.text = personal.stone_count.ToString();\r\n            sheep.text = personal.sheep_count.ToString();\r\n            victoryPoint.text = personal.victory_point.ToString();\r\n            totalPoint.text = $\"امتیاز کل: {personal.point}\";\r\n            username.text = personal.player_username;\r\n            MainScreen.ThisPlayerID = personal.player;\r\n            StartCoroutine(Network.GetTexture(personal.player_avatar,\r\n                texture => { profileImage.sprite = texture.ToSprite(); }, URL.Headers()));\r\n        }, URL.Headers()));\r\n    }\r\n\r\n    public void UpdateColor(Color color)\r\n    {\r\n        pColor.color = color;\r\n    }\r\n\r\n    public void Pass()\r\n    {\r\n        StartCoroutine(Network.PostRequest(URL.Pass(), string.Empty, s => { }, URL.Headers()));\r\n    }\r\n\r\n    public void StartBuy()\r\n    {\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Assets/Scripts/UpdateMyPlayer.cs	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ Assets/Scripts/UpdateMyPlayer.cs	(date 1599488530125)
+@@ -23,6 +23,8 @@
+     [SerializeField] private RTLTextMeshPro totalPoint;
+     [SerializeField] private RTLTextMeshPro username;
+     [SerializeField] private Image profileImage;
++    public static Personal Personal;
++
+     [SerializeField] private Image pColor;
+ 
+     public void UpdatePlayer()
+@@ -30,6 +32,7 @@
+         StartCoroutine(Network.GetRequest(URL.Personal(), response =>
+         {
+             var personal = JsonUtility.FromJson<Personal>(response);
++            Personal = personal;
+             brick.text = personal.brick_count.ToString();
+             longestArmy.text = personal.has_largest_army ? "2" : "0";
+             playedSoldiers.text = personal.knight_card_played.ToString();
+@@ -51,17 +54,14 @@
+         }, URL.Headers()));
+     }
+ 
+-    public void UpdateColor(Color color)
++    public void UpdateColor(PlayerColors color)
+     {
+-        pColor.color = color;
++        pColor.color = color.GetColor();
++        Personal.Color = color;
+     }
+ 
+     public void Pass()
+     {
+         StartCoroutine(Network.PostRequest(URL.Pass(), string.Empty, s => { }, URL.Headers()));
+     }
+-
+-    public void StartBuy()
+-    {
+-    }
+ }
+\ No newline at end of file
+Index: ProjectSettings/TagManager.asset
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>%YAML 1.1\r\n%TAG !u! tag:unity3d.com,2011:\r\n--- !u!78 &1\r\nTagManager:\r\n  serializedVersion: 2\r\n  tags: []\r\n  layers:\r\n  - Default\r\n  - TransparentFX\r\n  - Ignore Raycast\r\n  - \r\n  - Water\r\n  - UI\r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  - \r\n  m_SortingLayers:\r\n  - name: Default\r\n    uniqueID: 0\r\n    locked: 0\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ProjectSettings/TagManager.asset	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ ProjectSettings/TagManager.asset	(date 1599488530132)
+@@ -3,7 +3,8 @@
+ --- !u!78 &1
+ TagManager:
+   serializedVersion: 2
+-  tags: []
++  tags:
++  - Loading
+   layers:
+   - Default
+   - TransparentFX
+Index: .idea/.idea.Boardo-Catan/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"BranchesTreeState\">\r\n    <expand>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"GROUP_NODE:origin\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n    </expand>\r\n    <select />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"4e5ce0ca-048f-415f-a349-9b5559d69346\" name=\"Default Changelist\" comment=\"UpdatePlayer fixed.\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/Assets/Tradition.cs\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Prefabs/Utils/TabPanel.prefab\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/MainScreen.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/PlayerScores.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/URL.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Prefabs/Utils/TabPanel.prefab\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Prefabs/Utils/TabPanel.prefab\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scenes/Main.unity\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/PlayerScores.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Assets/BuyButton.cs\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/URL.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/MainScreen.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/URL.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"IdeDocumentHistory\">\r\n    <option name=\"CHANGED_PATHS\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/UpdatePlayer.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Model/Player.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/BuyButton.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Road.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Settlement.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/Utility.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Test.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/MainScreen.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/LoadingView.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Tradition.cs\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1gzY4aRET1JKnvrtgzeBiMRQqos\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"DebuggerViewTab_PTCS_FirstProportionKey\" value=\"0.3502052\" />\r\n    <property name=\"DebuggerViewTab_PTCS_LastProportionKey\" value=\"0.3002736\" />\r\n    <property name=\"Discover.Launch.Via.Unity\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\r\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\r\n    <property name=\"node.js.path.for.package.tslint\" value=\"project\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Attach to Unity Editor.Attach to Unity Editor\">\r\n    <configuration name=\"Attach to Unity Editor &amp; Play\" type=\"UNITY_DEBUG_RUN_CONFIGURATION\" factoryName=\"UNITY_ATTACH_AND_PLAY\" show_console_on_std_err=\"false\" show_console_on_std_out=\"false\" port=\"50000\" address=\"localhost\">\r\n      <option name=\"allowRunningInParallel\" value=\"false\" />\r\n      <option name=\"listenPortForConnections\" value=\"false\" />\r\n      <option name=\"pid\" />\r\n      <option name=\"selectedOptions\">\r\n        <set />\r\n      </option>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Attach to Unity Editor\" type=\"UNITY_DEBUG_RUN_CONFIGURATION\" factoryName=\"Unity Debug\" show_console_on_std_err=\"false\" show_console_on_std_out=\"false\" port=\"50000\" address=\"localhost\" ignored-value-for-modified-check=\"24840\">\r\n      <option name=\"allowRunningInParallel\" value=\"false\" />\r\n      <option name=\"listenPortForConnections\" value=\"false\" />\r\n      <option name=\"pid\" value=\"24840\" />\r\n      <option name=\"selectedOptions\">\r\n        <set />\r\n      </option>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"4e5ce0ca-048f-415f-a349-9b5559d69346\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1599118720351</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1599118720351</updated>\r\n      <workItem from=\"1599118743169\" duration=\"25119000\" />\r\n    </task>\r\n    <task id=\"LOCAL\u200E۰۰۰۰۱\" summary=\"Some Network improvements\">\r\n      <created>1599127741135</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E۰۰۰۰۱\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E۰۰۰۰۱\" />\r\n      <updated>1599127741135</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E۰۰۰۰۲\" summary=\"Added MyPlayer update.\">\r\n      <created>1599139449823</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E۰۰۰۰۲\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E۰۰۰۰۲\" />\r\n      <updated>1599139449823</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E۰۰۰۰۳\" summary=\"PostMerge age\">\r\n      <created>1599140125840</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E۰۰۰۰۳\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E۰۰۰۰۳\" />\r\n      <updated>1599140125840</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E۰۰۰۰۴\" summary=\"UpdatePlayer fixed.\">\r\n      <created>1599153571622</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E۰۰۰۰۴\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E۰۰۰۰۴\" />\r\n      <updated>1599153571622</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E۰۰۰۰۵\" summary=\"UpdatePlayer fixed.\">\r\n      <created>1599154371533</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E۰۰۰۰۵\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E۰۰۰۰۵\" />\r\n      <updated>1599154371533</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E۰۰۰۰۶\" summary=\"UpdatePlayer fixed.\">\r\n      <created>1599154490091</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E۰۰۰۰۶\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E۰۰۰۰۶\" />\r\n      <updated>1599154490091</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"UnityProjectConfiguration\" hasMinimizedUI=\"true\" />\r\n  <component name=\"UnityUnitTestConfiguration\" currentTestLauncher=\"EditMode\" />\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"CLEAR_INITIAL_COMMIT_MESSAGE\" value=\"true\" />\r\n    <MESSAGE value=\"Some Network improvements\" />\r\n    <MESSAGE value=\"Added MyPlayer update.\" />\r\n    <MESSAGE value=\"PostMerge age\" />\r\n    <MESSAGE value=\"UpdatePlayer fixed.\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"UpdatePlayer fixed.\" />\r\n  </component>\r\n  <component name=\"WindowStateProjectService\">\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.0.bottom\" timestamp=\"1599154652366\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652366\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.0.center\" timestamp=\"1599154652366\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652366\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.0.left\" timestamp=\"1599154652366\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652366\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.0.right\" timestamp=\"1599154652366\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652366\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.1.bottom\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.1.center\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.1.left\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.1.right\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.2.bottom\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.2.center\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.2.left\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.2.right\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.3.bottom\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.3.bottom/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.3.center\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.3.center/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.3.left\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.3.left/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.3.right\" timestamp=\"1599154652367\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1493\" height=\"280\" key=\"GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154652367\" />\r\n    <state x=\"147\" y=\"65\" key=\"MergeDialog\" timestamp=\"1599153616604\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"147\" y=\"65\" key=\"MergeDialog/0.0.1536.824@0.0.1536.824\" timestamp=\"1599153616604\" />\r\n    <state x=\"399\" y=\"166\" key=\"MultipleFileMergeDialog\" timestamp=\"1599153619796\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"399\" y=\"166\" key=\"MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824\" timestamp=\"1599153619796\" />\r\n    <state x=\"93\" y=\"93\" width=\"1350\" height=\"638\" key=\"VCS.FileHistoryDialog\" timestamp=\"1599142617867\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"93\" y=\"93\" width=\"1350\" height=\"638\" key=\"VCS.FileHistoryDialog/0.0.1536.824@0.0.1536.824\" timestamp=\"1599142617867\" />\r\n    <state x=\"361\" y=\"141\" key=\"Vcs.Push.Dialog.v2\" timestamp=\"1599154494908\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"361\" y=\"141\" key=\"Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824\" timestamp=\"1599154494908\" />\r\n    <state x=\"587\" y=\"322\" key=\"com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2\" timestamp=\"1599153582879\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"587\" y=\"322\" key=\"com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824\" timestamp=\"1599153582879\" />\r\n    <state x=\"431\" y=\"145\" width=\"672\" height=\"678\" key=\"search.everywhere.popup\" timestamp=\"1599142787489\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"431\" y=\"145\" width=\"672\" height=\"678\" key=\"search.everywhere.popup/0.0.1536.824@0.0.1536.824\" timestamp=\"1599142787489\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.Boardo-Catan/.idea/workspace.xml	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ .idea/.idea.Boardo-Catan/.idea/workspace.xml	(date 1599488530117)
+@@ -19,9 +19,26 @@
+     <select />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="4e5ce0ca-048f-415f-a349-9b5559d69346" name="Default Changelist" comment="UpdatePlayer fixed.">
++    <list default="true" id="4e5ce0ca-048f-415f-a349-9b5559d69346" name="Default Changelist" comment="Players color improved.">
++      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/TradeRequest.cs" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/TradeRequest.cs.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/TradeProfileHandler.cs" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Road.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Road.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/PlayerColors.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/PlayerColors.cs.meta" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -33,43 +50,42 @@
+   </component>
+   <component name="HighlightingSettingsPerFile">
+     <setting file="file://$PROJECT_DIR$/Assets/Tradition.cs" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Prefabs/Utils/TabPanel.prefab" root0="SKIP_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/MainScreen.cs" root0="SKIP_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/PlayerScores.cs" root0="SKIP_HIGHLIGHTING" />
+-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/URL.cs" root0="SKIP_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Prefabs/Utils/TabPanel.prefab" root0="SKIP_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Prefabs/Utils/TabPanel.prefab" root0="SKIP_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scenes/Main.unity" root0="SKIP_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Dropdown.cs" root0="SKIP_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/PlayerScores.cs" root0="SKIP_HIGHLIGHTING" />
++    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/11BD515F-D2A0-4526-8509-D23726DE0F46/49/8b97d2f6/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/Assets/TradeHandler.cs" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/Assets/BuyButton.cs" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/URL.cs" root0="SKIP_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/MainScreen.cs" root0="SKIP_HIGHLIGHTING" />
+-    <setting file="mock://G:/Users/mohamadhassan/RiderProjects/Boardo-Catan/Assets/Scripts/Utils/URL.cs" root0="SKIP_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/Assets/TradeProfileHandler.cs" root0="FORCE_HIGHLIGHTING" />
+   </component>
+   <component name="IdeDocumentHistory">
+     <option name="CHANGED_PATHS">
+       <list>
+-        <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/UpdatePlayer.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
+         <option value="$PROJECT_DIR$/Assets/BuyButton.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Utility.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/Test.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/LoadingView.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" />
++        <option value="$PROJECT_DIR$/Assets/Tradition.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/PlayerColors.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/LoadingView.cs" />
++        <option value="$PROJECT_DIR$/Assets/TradeProfileHandler.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Model/TradeRequest.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Tradition.cs" />
++        <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
++        <option value="$PROJECT_DIR$/Assets/TradeHandler.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
++        <option value="$PROJECT_DIR$/Assets/BankTradeHandler.cs" />
+       </list>
+     </option>
+   </component>
+@@ -93,6 +109,7 @@
+     <property name="node.js.path.for.package.tslint" value="project" />
+     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+     <property name="node.js.selected.package.tslint" value="(autodetect)" />
++    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+   </component>
+   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+@@ -104,10 +121,10 @@
+       </option>
+       <method v="2" />
+     </configuration>
+-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="24840">
++    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+       <option name="allowRunningInParallel" value="false" />
+       <option name="listenPortForConnections" value="false" />
+-      <option name="pid" value="24840" />
++      <option name="pid" />
+       <option name="selectedOptions">
+         <set />
+       </option>
+@@ -122,7 +139,12 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1599118720351</updated>
+-      <workItem from="1599118743169" duration="25119000" />
++      <workItem from="1599118743169" duration="26668000" />
++      <workItem from="1599315341745" duration="12220000" />
++      <workItem from="1599330673716" duration="150000" />
++      <workItem from="1599332467883" duration="940000" />
++      <workItem from="1599401877204" duration="17972000" />
++      <workItem from="1599486564802" duration="959000" />
+     </task>
+     <task id="LOCAL‎۰۰۰۰۱" summary="Some Network improvements">
+       <created>1599127741135</created>
+@@ -160,7 +182,19 @@
+       <option name="presentableId" value="LOCAL‎۰۰۰۰۶" />
+       <updated>1599154490091</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL‎۰۰۰۰۷" summary="Tradition open and close functional">
++      <created>1599199790156</created>
++      <option name="number" value="LOCAL‎۰۰۰۰۷" />
++      <option name="presentableId" value="LOCAL‎۰۰۰۰۷" />
++      <updated>1599199790156</updated>
++    </task>
++    <task id="LOCAL‎۰۰۰۰۸" summary="Players color improved.">
++      <created>1599324932073</created>
++      <option name="number" value="LOCAL‎۰۰۰۰۸" />
++      <option name="presentableId" value="LOCAL‎۰۰۰۰۸" />
++      <updated>1599324932073</updated>
++    </task>
++    <option name="localTasksCounter" value="9" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -178,6 +212,7 @@
+         </entry>
+       </map>
+     </option>
++    <option name="oldMeFiltersMigrated" value="true" />
+   </component>
+   <component name="VcsManagerConfiguration">
+     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+@@ -185,96 +220,110 @@
+     <MESSAGE value="Added MyPlayer update." />
+     <MESSAGE value="PostMerge age" />
+     <MESSAGE value="UpdatePlayer fixed." />
+-    <option name="LAST_COMMIT_MESSAGE" value="UpdatePlayer fixed." />
++    <MESSAGE value="Tradition open and close functional" />
++    <MESSAGE value="Players color improved." />
++    <option name="LAST_COMMIT_MESSAGE" value="Players color improved." />
+   </component>
+   <component name="WindowStateProjectService">
+-    <state width="1493" height="280" key="GridCell.Tab.0.bottom" timestamp="1599154652366">
++    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1599327042950">
++      <screen x="0" y="0" width="1536" height="824" />
++    </state>
++    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1599327042950" />
++    <state width="1493" height="280" key="GridCell.Tab.0.bottom" timestamp="1599314583842">
++      <screen x="0" y="0" width="1536" height="824" />
++    </state>
++    <state width="1493" height="280" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599314583842" />
++    <state width="1493" height="280" key="GridCell.Tab.0.center" timestamp="1599314583841">
++      <screen x="0" y="0" width="1536" height="824" />
++    </state>
++    <state width="1493" height="280" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1599314583841" />
++    <state width="1493" height="280" key="GridCell.Tab.0.left" timestamp="1599314583813">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599154652366" />
+-    <state width="1493" height="280" key="GridCell.Tab.0.center" timestamp="1599154652366">
++    <state width="1493" height="280" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1599314583813" />
++    <state width="1493" height="280" key="GridCell.Tab.0.right" timestamp="1599314583841">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1599154652366" />
+-    <state width="1493" height="280" key="GridCell.Tab.0.left" timestamp="1599154652366">
++    <state width="1493" height="280" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1599314583841" />
++    <state width="1493" height="280" key="GridCell.Tab.1.bottom" timestamp="1599314583863">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1599154652366" />
+-    <state width="1493" height="280" key="GridCell.Tab.0.right" timestamp="1599154652366">
++    <state width="1493" height="280" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599314583863" />
++    <state width="1493" height="280" key="GridCell.Tab.1.center" timestamp="1599314583842">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1599154652366" />
+-    <state width="1493" height="280" key="GridCell.Tab.1.bottom" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1599314583842" />
++    <state width="1493" height="280" key="GridCell.Tab.1.left" timestamp="1599314583842">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.1.center" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1599314583842" />
++    <state width="1493" height="280" key="GridCell.Tab.1.right" timestamp="1599314583842">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.1.left" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1599314583842" />
++    <state width="1493" height="280" key="GridCell.Tab.2.bottom" timestamp="1599314583863">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.1.right" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599314583863" />
++    <state width="1493" height="280" key="GridCell.Tab.2.center" timestamp="1599314583863">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.2.bottom" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1599314583863" />
++    <state width="1493" height="280" key="GridCell.Tab.2.left" timestamp="1599314583863">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.2.center" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1599314583863" />
++    <state width="1493" height="280" key="GridCell.Tab.2.right" timestamp="1599314583863">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.2.left" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1599314583863" />
++    <state width="1493" height="280" key="GridCell.Tab.3.bottom" timestamp="1599314583864">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.2.right" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.3.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599314583864" />
++    <state width="1493" height="280" key="GridCell.Tab.3.center" timestamp="1599314583864">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.3.bottom" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.3.center/0.0.1536.824@0.0.1536.824" timestamp="1599314583864" />
++    <state width="1493" height="280" key="GridCell.Tab.3.left" timestamp="1599314583864">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.3.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.3.center" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.3.left/0.0.1536.824@0.0.1536.824" timestamp="1599314583864" />
++    <state width="1493" height="280" key="GridCell.Tab.3.right" timestamp="1599314583864">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.3.center/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.3.left" timestamp="1599154652367">
++    <state width="1493" height="280" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1599314583864" />
++    <state x="349" y="147" key="IDE.errors.dialog" timestamp="1599325934783">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.3.left/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state width="1493" height="280" key="GridCell.Tab.3.right" timestamp="1599154652367">
++    <state x="349" y="147" key="IDE.errors.dialog/0.0.1536.824@0.0.1536.824" timestamp="1599325934783" />
++    <state x="147" y="65" key="MergeDialog" timestamp="1599325354746">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state width="1493" height="280" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1599154652367" />
+-    <state x="147" y="65" key="MergeDialog" timestamp="1599153616604">
++    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599325354746" />
++    <state x="399" y="166" key="MultipleFileMergeDialog" timestamp="1599325508097">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599153616604" />
+-    <state x="399" y="166" key="MultipleFileMergeDialog" timestamp="1599153619796">
++    <state x="399" y="166" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599325508097" />
++    <state x="277" y="57" key="SettingsEditor" timestamp="1599416556112">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state x="399" y="166" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1599153619796" />
++    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1599416556112" />
+     <state x="93" y="93" width="1350" height="638" key="VCS.FileHistoryDialog" timestamp="1599142617867">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+     <state x="93" y="93" width="1350" height="638" key="VCS.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1599142617867" />
+-    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1599154494908">
++    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1599324938952">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599154494908" />
+-    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599153582879">
++    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599324938952" />
++    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599324941286">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599153582879" />
+-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599142787489">
++    <state x="587" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599324941286" />
++    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599487168764">
+       <screen x="0" y="0" width="1536" height="824" />
+     </state>
+-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1599142787489" />
++    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1599487168764" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/.idea.Boardo/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"BranchesTreeState\">\r\n    <expand>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"GROUP_NODE:origin\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n    </expand>\r\n    <select />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"4045fec0-e8a4-4574-a321-527fd5bc9fae\" name=\"Default Changelist\" comment=\"seems settlement rules added fully\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scenes/Main.unity\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scenes/Main.unity\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/MainScreen.cs\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scripts/MainScreen.cs\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/Settlement.cs\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scripts/Settlement.cs\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"IdeDocumentHistory\">\r\n    <option name=\"CHANGED_PATHS\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Colors.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/RTLTMPro/Scripts/Runtime/RTLTextMeshPro.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Counter.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/LoadingView.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/testtt.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Model/Tile.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/Utility.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Model/Player.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/GameState.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/GameController.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Settlement.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/Road.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/MessageController.cs\" />\r\n        <option value=\"$PROJECT_DIR$/Assets/Scripts/MainScreen.cs\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1goCdpjppdyCr0ML14Y50op6VrR\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"Discover.Launch.Via.Unity\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/Assets/TextMesh Pro\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"preferences.lookFeel\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Attach to Unity Editor.Attach to Unity Editor\">\r\n    <configuration name=\"Standalone Player\" type=\"RunUnityExe\" factoryName=\"Unity Executable\">\r\n      <option name=\"EXE_PATH\" value=\"$PROJECT_DIR$/../BordoBuild\\Boardo Catan.exe\" />\r\n      <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"C:\\Users\\smrz\\Documents\\BordoBuild\" />\r\n      <option name=\"PASS_PARENT_ENVS\" value=\"1\" />\r\n      <option name=\"USE_EXTERNAL_CONSOLE\" value=\"0\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Attach to Unity Editor &amp; Play\" type=\"UNITY_DEBUG_RUN_CONFIGURATION\" factoryName=\"UNITY_ATTACH_AND_PLAY\" show_console_on_std_err=\"false\" show_console_on_std_out=\"false\" port=\"50000\" address=\"localhost\">\r\n      <option name=\"allowRunningInParallel\" value=\"false\" />\r\n      <option name=\"listenPortForConnections\" value=\"false\" />\r\n      <option name=\"pid\" />\r\n      <option name=\"selectedOptions\">\r\n        <set />\r\n      </option>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Attach to Unity Editor\" type=\"UNITY_DEBUG_RUN_CONFIGURATION\" factoryName=\"Unity Debug\" show_console_on_std_err=\"false\" show_console_on_std_out=\"false\" port=\"50000\" address=\"localhost\">\r\n      <option name=\"allowRunningInParallel\" value=\"false\" />\r\n      <option name=\"listenPortForConnections\" value=\"false\" />\r\n      <option name=\"pid\" />\r\n      <option name=\"selectedOptions\">\r\n        <set />\r\n      </option>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"4045fec0-e8a4-4574-a321-527fd5bc9fae\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1598771647891</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1598771647891</updated>\r\n      <workItem from=\"1598771663455\" duration=\"6636000\" />\r\n      <workItem from=\"1598866451396\" duration=\"2773000\" />\r\n      <workItem from=\"1598968134860\" duration=\"9174000\" />\r\n      <workItem from=\"1599030915635\" duration=\"30177000\" />\r\n      <workItem from=\"1599118722151\" duration=\"17909000\" />\r\n      <workItem from=\"1599142583774\" duration=\"4877000\" />\r\n      <workItem from=\"1599199288649\" duration=\"19975000\" />\r\n      <workItem from=\"1599314374580\" duration=\"9011000\" />\r\n      <workItem from=\"1599401283811\" duration=\"15796000\" />\r\n      <workItem from=\"1599459977374\" duration=\"4887000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"settlements and road click handling finished\">\r\n      <created>1598774965242</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1598774965242</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"other player score board added\">\r\n      <created>1598796752321</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1598796752321</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"player score board added\">\r\n      <created>1598810419851</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1598810419851</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"buy dialog added\">\r\n      <created>1598880623976</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1598880623976</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"initializing counter compenent\">\r\n      <created>1598975192824</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1598975192824</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"refactored\">\r\n      <created>1598978345987</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1598978345987</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"bank ui completed\">\r\n      <created>1599036354288</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599036354288</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"tags added\">\r\n      <created>1599038758937</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599038758937</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"init board by server\">\r\n      <created>1599054856771</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599054856771</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"players receive by server\">\r\n      <created>1599058431314</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599058431314</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"players scoreboard updated by server\">\r\n      <created>1599071618359</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599071618359</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"other player profile image set by server\">\r\n      <created>1599127820958</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599127820958</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"some bugs fixed + merged\">\r\n      <created>1599139362242</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599139362242</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"buy dialog added to trade tab\">\r\n      <created>1599153101332</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599153101332</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"ui little change\">\r\n      <created>1599153929649</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599153929649</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"init players color\">\r\n      <created>1599200226585</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599200226585</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"players colors added to cards\">\r\n      <created>1599204863406</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599204863406</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\"initializing road and settlements rule checking\">\r\n      <created>1599323621966</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599323621966</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\"settlements now knows their roads\">\r\n      <created>1599329561137</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599329561137</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00020\" summary=\"homes connected to roads to implementing rules\">\r\n      <created>1599331221998</created>\r\n      <option name=\"number\" value=\"00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00020\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599331221998</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00021\" summary=\"game state initialize\">\r\n      <created>1599406265164</created>\r\n      <option name=\"number\" value=\"00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00021\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599406265164</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00022\" summary=\"seems settlement rules added fully\">\r\n      <created>1599419908043</created>\r\n      <option name=\"number\" value=\"00022\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00022\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1599419908043</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"23\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"UnityProjectConfiguration\" hasMinimizedUI=\"true\" />\r\n  <component name=\"UnityUnitTestConfiguration\" currentTestLauncher=\"EditMode\" />\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"CLEAR_INITIAL_COMMIT_MESSAGE\" value=\"true\" />\r\n    <MESSAGE value=\"settlements and road click handling finished\" />\r\n    <MESSAGE value=\"other player score board added\" />\r\n    <MESSAGE value=\"player score board added\" />\r\n    <MESSAGE value=\"buy dialog added\" />\r\n    <MESSAGE value=\"initializing counter compenent\" />\r\n    <MESSAGE value=\"refactored\" />\r\n    <MESSAGE value=\"bank ui completed\" />\r\n    <MESSAGE value=\"tags added\" />\r\n    <MESSAGE value=\"init board by server\" />\r\n    <MESSAGE value=\"players receive by server\" />\r\n    <MESSAGE value=\"players scoreboard updated by server\" />\r\n    <MESSAGE value=\"other player profile image set by server\" />\r\n    <MESSAGE value=\"some bugs fixed + merged\" />\r\n    <MESSAGE value=\"buy dialog added to trade tab\" />\r\n    <MESSAGE value=\"ui little change\" />\r\n    <MESSAGE value=\"init players color\" />\r\n    <MESSAGE value=\"players colors added to cards\" />\r\n    <MESSAGE value=\"initializing road and settlements rule checking\" />\r\n    <MESSAGE value=\"settlements now knows their roads\" />\r\n    <MESSAGE value=\"homes connected to roads to implementing rules\" />\r\n    <MESSAGE value=\"game state initialize\" />\r\n    <MESSAGE value=\"seems settlement rules added fully\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"seems settlement rules added fully\" />\r\n  </component>\r\n  <component name=\"WindowStateProjectService\">\r\n    <state x=\"94\" y=\"94\" width=\"1349\" height=\"677\" key=\"DiffContextDialog\" timestamp=\"1599315264426\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state x=\"94\" y=\"94\" width=\"1349\" height=\"677\" key=\"DiffContextDialog/0.0.1536.864@0.0.1536.864\" timestamp=\"1599315264426\" />\r\n    <state x=\"550\" y=\"188\" key=\"FileChooserDialogImpl\" timestamp=\"1598972762287\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state x=\"550\" y=\"188\" key=\"FileChooserDialogImpl/0.0.1536.864@0.0.1536.864\" timestamp=\"1598972762287\" />\r\n    <state x=\"149\" y=\"70\" key=\"MergeDialog\" timestamp=\"1599127974841\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state x=\"149\" y=\"70\" key=\"MergeDialog/0.0.1536.864@0.0.1536.864\" timestamp=\"1599127974841\" />\r\n    <state x=\"409\" y=\"195\" key=\"MultipleFileMergeDialog\" timestamp=\"1599127974841\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state x=\"409\" y=\"195\" key=\"MultipleFileMergeDialog/0.0.1536.864@0.0.1536.864\" timestamp=\"1599127974841\" />\r\n    <state x=\"535\" y=\"158\" key=\"RiderGenerateDialog\" timestamp=\"1598774550393\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state x=\"535\" y=\"158\" key=\"RiderGenerateDialog/0.0.1536.864@0.0.1536.864\" timestamp=\"1598774550393\" />\r\n    <state x=\"279\" y=\"78\" key=\"SettingsEditor\" timestamp=\"1599318773149\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state x=\"279\" y=\"78\" key=\"SettingsEditor/0.0.1536.864@0.0.1536.864\" timestamp=\"1599318773149\" />\r\n    <state width=\"498\" height=\"446\" key=\"SwitcherDM\" timestamp=\"1599135510614\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state width=\"498\" height=\"446\" key=\"SwitcherDM/0.0.1536.864@0.0.1536.864\" timestamp=\"1599135510614\" />\r\n    <state x=\"362\" y=\"166\" key=\"Vcs.Push.Dialog.v2\" timestamp=\"1599406272273\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state x=\"362\" y=\"166\" key=\"Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864\" timestamp=\"1599406272273\" />\r\n    <state x=\"588\" y=\"347\" key=\"com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2\" timestamp=\"1599406275885\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state x=\"588\" y=\"347\" key=\"com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864\" timestamp=\"1599406275885\" />\r\n    <state x=\"394\" y=\"31\" width=\"639\" height=\"801\" key=\"find.popup\" timestamp=\"1599402533383\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state x=\"394\" y=\"31\" width=\"639\" height=\"801\" key=\"find.popup/0.0.1536.864@0.0.1536.864\" timestamp=\"1599402533383\" />\r\n    <state x=\"426\" y=\"197\" key=\"run.anything.popup\" timestamp=\"1599124128123\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"864\" />\r\n    </state>\r\n    <state x=\"426\" y=\"197\" key=\"run.anything.popup/0.0.1536.864@0.0.1536.864\" timestamp=\"1599124128123\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.Boardo/.idea/workspace.xml	(revision cdd9af190b8f6ce066414d364d1811d0d5fe2d79)
++++ .idea/.idea.Boardo/.idea/workspace.xml	(date 1599548695747)
+@@ -1,30 +1,30 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="BranchesTreeState">
+-    <expand>
+-      <path>
+-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+-      </path>
+-      <path>
+-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+-      </path>
+-      <path>
+-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+-      </path>
+-    </expand>
++    <expand />
+     <select />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="seems settlement rules added fully">
++    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/contentModel.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo-Catan/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Utils/tradeResult.prefab" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Road.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Road.cs" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Colors.cs.meta" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Counter.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -36,6 +36,7 @@
+   </component>
+   <component name="HighlightingSettingsPerFile">
+     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/../../../../Program Files/Unity/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/SelectableEditor.cs" root0="SKIP_HIGHLIGHTING" />
+   </component>
+   <component name="IdeDocumentHistory">
+     <option name="CHANGED_PATHS">
+@@ -51,16 +52,17 @@
+         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Personal.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/GameState.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/GameController.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
+-        <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
+-        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/MessageController.cs" />
+         <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
++        <option value="$PROJECT_DIR$/Assets/Scenes/Main.unity" />
++        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerScores.cs" />
++        <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" />
+       </list>
+     </option>
+   </component>
+@@ -74,6 +76,7 @@
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="last_opened_file_path" value="$PROJECT_DIR$/Assets/TextMesh Pro" />
++    <property name="nodejs_package_manager_path" value="npm" />
+     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+   </component>
+   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+@@ -121,7 +124,9 @@
+       <workItem from="1599199288649" duration="19975000" />
+       <workItem from="1599314374580" duration="9011000" />
+       <workItem from="1599401283811" duration="15796000" />
+-      <workItem from="1599459977374" duration="4887000" />
++      <workItem from="1599459977374" duration="7033000" />
++      <workItem from="1599490474727" duration="14379000" />
++      <workItem from="1599547156885" duration="630000" />
+     </task>
+     <task id="LOCAL-00001" summary="settlements and road click handling finished">
+       <created>1598774965242</created>
+@@ -277,7 +282,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1599419908043</updated>
+     </task>
+-    <option name="localTasksCounter" value="23" />
++    <task id="LOCAL-00023" summary="message box initialized">
++      <created>1599488515294</created>
++      <option name="number" value="00023" />
++      <option name="presentableId" value="LOCAL-00023" />
++      <option name="project" value="LOCAL" />
++      <updated>1599488515294</updated>
++    </task>
++    <option name="localTasksCounter" value="24" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -288,6 +300,23 @@
+   <component name="Vcs.Log.Tabs.Properties">
+     <option name="TAB_STATES">
+       <map>
++        <entry key="1">
++          <value>
++            <State>
++              <option name="FILTERS">
++                <map>
++                  <entry key="roots">
++                    <value>
++                      <list>
++                        <option value="$PROJECT_DIR$" />
++                      </list>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </State>
++          </value>
++        </entry>
+         <entry key="MAIN">
+           <value>
+             <State />
+@@ -321,25 +350,26 @@
+     <MESSAGE value="homes connected to roads to implementing rules" />
+     <MESSAGE value="game state initialize" />
+     <MESSAGE value="seems settlement rules added fully" />
+-    <option name="LAST_COMMIT_MESSAGE" value="seems settlement rules added fully" />
++    <MESSAGE value="message box initialized" />
++    <option name="LAST_COMMIT_MESSAGE" value="message box initialized" />
+   </component>
+   <component name="WindowStateProjectService">
+-    <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599315264426">
++    <state x="88" y="18" width="1349" height="760" key="DiffContextDialog" timestamp="1599507028899">
+       <screen x="0" y="0" width="1536" height="864" />
+     </state>
+-    <state x="94" y="94" width="1349" height="677" key="DiffContextDialog/0.0.1536.864@0.0.1536.864" timestamp="1599315264426" />
++    <state x="88" y="18" width="1349" height="760" key="DiffContextDialog/0.0.1536.864@0.0.1536.864" timestamp="1599507028899" />
+     <state x="550" y="188" key="FileChooserDialogImpl" timestamp="1598972762287">
+       <screen x="0" y="0" width="1536" height="864" />
+     </state>
+     <state x="550" y="188" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1598972762287" />
+-    <state x="149" y="70" key="MergeDialog" timestamp="1599127974841">
++    <state x="111" y="18" key="MergeDialog" timestamp="1599488976301">
+       <screen x="0" y="0" width="1536" height="864" />
+     </state>
+-    <state x="149" y="70" key="MergeDialog/0.0.1536.864@0.0.1536.864" timestamp="1599127974841" />
+-    <state x="409" y="195" key="MultipleFileMergeDialog" timestamp="1599127974841">
++    <state x="111" y="18" key="MergeDialog/0.0.1536.864@0.0.1536.864" timestamp="1599488976301" />
++    <state x="409" y="195" key="MultipleFileMergeDialog" timestamp="1599493119838">
+       <screen x="0" y="0" width="1536" height="864" />
+     </state>
+-    <state x="409" y="195" key="MultipleFileMergeDialog/0.0.1536.864@0.0.1536.864" timestamp="1599127974841" />
++    <state x="409" y="195" key="MultipleFileMergeDialog/0.0.1536.864@0.0.1536.864" timestamp="1599493119838" />
+     <state x="535" y="158" key="RiderGenerateDialog" timestamp="1598774550393">
+       <screen x="0" y="0" width="1536" height="864" />
+     </state>
+@@ -352,14 +382,14 @@
+       <screen x="0" y="0" width="1536" height="864" />
+     </state>
+     <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599135510614" />
+-    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599406272273">
++    <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599506263952">
+       <screen x="0" y="0" width="1536" height="864" />
+     </state>
+-    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599406272273" />
+-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599406275885">
++    <state x="362" y="166" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1599506263952" />
++    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599506232764">
+       <screen x="0" y="0" width="1536" height="864" />
+     </state>
+-    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599406275885" />
++    <state x="588" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1599506232764" />
+     <state x="394" y="31" width="639" height="801" key="find.popup" timestamp="1599402533383">
+       <screen x="0" y="0" width="1536" height="864" />
+     </state>
