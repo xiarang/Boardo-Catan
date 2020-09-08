@@ -51,21 +51,20 @@ namespace Utils
                 headers = new Dictionary<string, string>();
             }
 
-            using (var webRequest = new UnityWebRequest(uri, "post"))
+            using (var webRequest = json ? new UnityWebRequest(uri, "post") : UnityWebRequest.Post(uri, body))
             {
                 foreach (var keyValuePair in headers)
                 {
                     webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
                 }
-
+        
                 if (json)
                 {
                     webRequest.SetRequestHeader("Content-Type", "application/json");
+                    var bodyRaw = Encoding.UTF8.GetBytes(body);
+                    webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                    webRequest.downloadHandler = new DownloadHandlerBuffer();
                 }
-
-                var bodyRaw = Encoding.UTF8.GetBytes(body);
-                webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                webRequest.downloadHandler = new DownloadHandlerBuffer();
 
                 yield return webRequest.SendWebRequest();
                 var pages = uri.Split('/');

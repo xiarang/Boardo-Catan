@@ -3,7 +3,6 @@ using Model;
 using UnityEngine;
 using Utils;
 using Network = Utils.Network;
-using static UnityEditor.EditorUtility;
 
 public class BuyHandler : MonoBehaviour
 {
@@ -60,6 +59,7 @@ public class BuyHandler : MonoBehaviour
 
         StartCoroutine(Network.PostRequest(URL.BuyDevelopmentCard, string.Empty, s =>
         {
+            s = s.Trim('"');
             string message;
             string title;
             switch (s)
@@ -87,7 +87,7 @@ public class BuyHandler : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            var result = DisplayDialog(title, message, "باشه."); 
+            // var result = DisplayDialog(title, message, "باشه."); 
         }, URL.Headers()));
     }
 
