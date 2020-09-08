@@ -6,6 +6,7 @@
     <e p="C:\Users\smrz\Documents\Boardo" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="BankTradeHandler.cs" t="Include" />
         <e p="BuyButton.cs" t="Include" />
         <e p="RTLTMPro" t="Include">
           <e p="Ranges" t="Include">
@@ -61,7 +62,9 @@
           <e p="Model" t="Include">
             <e p="Personal.cs" t="Include" />
             <e p="Player.cs" t="Include" />
+            <e p="Resources.cs" t="Include" />
             <e p="Tile.cs" t="Include" />
+            <e p="TradeRequest.cs" t="Include" />
           </e>
           <e p="PlayerScores.cs" t="Include" />
           <e p="Road.cs" t="Include" />
@@ -69,11 +72,11 @@
           <e p="Test.cs" t="Include" />
           <e p="UpdateMyPlayer.cs" t="Include" />
           <e p="Utils" t="Include">
-            <e p="Colors.cs" t="Include" />
             <e p="Counter.cs" t="Include" />
             <e p="GameController.cs" t="Include" />
             <e p="LoadingView.cs" t="Include" />
             <e p="Network.cs" t="Include" />
+            <e p="PlayerColors.cs" t="Include" />
             <e p="URL.cs" t="Include" />
             <e p="Utility.cs" t="Include" />
           </e>
@@ -107,6 +110,8 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
+        <e p="TradeHandler.cs" t="Include" />
+        <e p="TradeProfileHandler.cs" t="Include" />
         <e p="Tradition.cs" t="Include" />
       </e>
       <e p="Boardo.sln" t="IncludeFlat" />

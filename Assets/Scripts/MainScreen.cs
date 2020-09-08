@@ -35,7 +35,7 @@ public class MainScreen : MonoBehaviour
     private Settlement[] _boardSettlements;
 
     public static int ThisPlayerID;
-    public static Color ThisPlayerColor;
+    public static PlayerColors ThisPlayerPlayerColor;
 
     private void InitBoard()
     {
