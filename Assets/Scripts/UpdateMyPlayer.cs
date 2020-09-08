@@ -23,6 +23,8 @@ public class UpdateMyPlayer : MonoBehaviour
     [SerializeField] private RTLTextMeshPro totalPoint;
     [SerializeField] private RTLTextMeshPro username;
     [SerializeField] private Image profileImage;
+    public static Personal Personal;
+
     [SerializeField] private Image pColor;
 
     public void UpdatePlayer()
@@ -30,6 +32,7 @@ public class UpdateMyPlayer : MonoBehaviour
         StartCoroutine(Network.GetRequest(URL.Personal(), response =>
         {
             var personal = JsonUtility.FromJson<Personal>(response);
+            Personal = personal;
             brick.text = personal.brick_count.ToString();
             longestArmy.text = personal.has_largest_army ? "2" : "0";
             playedSoldiers.text = personal.knight_card_played.ToString();
@@ -51,17 +54,14 @@ public class UpdateMyPlayer : MonoBehaviour
         }, URL.Headers()));
     }
 
-    public void UpdateColor(Color color)
+    public void UpdateColor(PlayerColors color)
     {
-        pColor.color = color;
+        pColor.color = color.GetColor();
+        Personal.Color = color;
     }
 
     public void Pass()
     {
         StartCoroutine(Network.PostRequest(URL.Pass(), string.Empty, s => { }, URL.Headers()));
-    }
-
-    public void StartBuy()
-    {
     }
 }

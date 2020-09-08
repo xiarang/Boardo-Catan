@@ -26,14 +26,13 @@ public class MainScreen : MonoBehaviour
     
 
     private Tiles _catanBoard;
-    private static Players _players;
+    public static Players Players;
     private UpdateMyPlayer _myPlayer;
     private PlayerScores[] _playersScoreboard;
     private Canvas _canvas;
     private Scene _scene;
     private Road[] _boardRoads;
     private Settlement[] _boardSettlements;
-    private readonly Color[] _playersColor = {Colors.Blue, Colors.Green, Colors.Orange, Colors.Red};
 
     public static int ThisPlayerID;
     public static Color ThisPlayerColor;
@@ -56,11 +55,8 @@ public class MainScreen : MonoBehaviour
         boxMessage.text = "مکان خانه اول را مشخص کنید.";
 
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
-        
         FindBoardElements();
-
         _myPlayer = _canvas.GetComponentInChildren<UpdateMyPlayer>();
         URL.SetToken("58998a8632efec6b3810f7a2833dc300fe2a937f");
         URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
@@ -73,14 +69,16 @@ public class MainScreen : MonoBehaviour
     {
         foreach (var item in SceneManager.GetActiveScene().GetRootGameObjects())
         {
-            if (item.name == "roads")
+            switch (item.name)
             {
-                _boardRoads = item.GetComponentsInChildren<Road>();
-                Debug.Log(_boardRoads.Length + " h " + _boardSettlements.Length);
+                case "roads":
+                    _boardRoads = item.GetComponentsInChildren<Road>();
+                    Debug.Log(_boardRoads.Length + " h " + _boardSettlements.Length);
+                    break;
+                case "settlements":
+                    _boardSettlements = item.GetComponentsInChildren<Settlement>();
+                    break;
             }
-            else if (item.name == "settlements")
-                _boardSettlements = item.GetComponentsInChildren<Settlement>();
-            
         }
     }
 
@@ -89,19 +87,19 @@ public class MainScreen : MonoBehaviour
         StartCoroutine(Network.GetRequest(URL.GetPlayers(), response =>
         {
             response = "{\"otherPlayers\":" + response + "}";
-            _players = JsonUtility.FromJson<Players>(response);
+            Players = JsonUtility.FromJson<Players>(response);
             var index = 0;
             foreach (var player in _playersScoreboard)
             {
-                if (_players.otherPlayers[index].player == ThisPlayerID)
+                if (Players.otherPlayers[index].player == ThisPlayerID)
                 {
-                    ThisPlayerColor = _playersColor[index];
-                    _myPlayer.UpdateColor(ThisPlayerColor);
+                    ThisPlayerPlayerColor = (PlayerColors)index;
+                    _myPlayer.UpdateColor(ThisPlayerPlayerColor);
                     index++;
                 }
 
-                _players.otherPlayers[index].Color = _playersColor[index];
-                player.InitViews(_players.otherPlayers[index]);
+                Players.otherPlayers[index].Color = (PlayerColors)index;
+                player.InitViews(Players.otherPlayers[index]);
                 index++;
             }
         }, URL.Headers()));

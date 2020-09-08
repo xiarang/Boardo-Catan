@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utils;
@@ -23,7 +23,7 @@ public class Road : MonoBehaviour
     private void ChangeRoadColor()
     {
         var road = GetComponent<SpriteRenderer>();
-        road.color = MainScreen.ThisPlayerColor;
+        road.color = MainScreen.ThisPlayerPlayerColor.GetColor();
     }
 
     private bool IsRoadPositionValid()
