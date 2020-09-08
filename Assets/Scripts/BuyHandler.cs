@@ -60,6 +60,7 @@ public class BuyHandler : MonoBehaviour
 
         StartCoroutine(Network.PostRequest(URL.BuyDevelopmentCard, string.Empty, s =>
         {
+            s = s.Trim('"');
             string message;
             string title;
             switch (s)

@@ -23,9 +23,9 @@ public class UpdateMyPlayer : MonoBehaviour
     [SerializeField] private RTLTextMeshPro totalPoint;
     [SerializeField] private RTLTextMeshPro username;
     [SerializeField] private Image profileImage;
+    [SerializeField] private Image pColor;
     public static Personal Personal;
 
-    [SerializeField] private Image pColor;
 
     public void UpdatePlayer()
     {
