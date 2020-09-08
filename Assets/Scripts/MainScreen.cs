@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Model;
@@ -39,7 +40,13 @@ public class MainScreen : MonoBehaviour
     public static RTLTextMeshPro BoxMessage;
 
     [DllImport("__Internal")]
-    public static extern void showDialog(string title, string body);
+    public static extern void showDialog(string label, string body);
+
+    [DllImport("__Internal")]
+    public static extern void showDialogWithImage(string label, string body, string image);
+
+    [DllImport("__Internal")]
+    public static extern void rollDice(string dice1, string dice2);
 
     private void InitBoard()
     {
@@ -53,7 +60,7 @@ public class MainScreen : MonoBehaviour
 
     private void Start()
     {
-        showDialog("Foo", "Bar");
+        
         //todo: change by getting init1 from server and cityClickable
         GameController.Action = GameState.init1;
         GameController.ShouldSettlementClickable = true;
