@@ -1,16 +1,16 @@
 ﻿mergeInto(LibraryManager.library, {
-    // WebSocketInit: (url) => {
-    //     this.socket = new WebSocket(Pointer_stringify(url));
-    //     this.socket.onmessage = (msg) => {
-    //         const data = JSON.parse(msg.data);
-    //         const [object, method, args] = onMessageReceived(data);
-    //         unityInstance.SendMessage(
-    //             object,
-    //             method,
-    //             args
-    //         );
-    //     };
-    // },
+    WebSocketInit: (url) => {
+        this.socket = new WebSocket(Pointer_stringify(url));
+        this.socket.onmessage = (msg) => {
+            const data = JSON.parse(msg.data);
+            const [object, method, args] = onMessageReceived(data);
+            unityInstance.SendMessage(
+                object,
+                method,
+                args
+            );
+        };
+    },
     showDialog: (title, body) => {
         swal(title, body);
     }
@@ -62,3 +62,22 @@ function playRoadBuilding({args, turn}) {
     const {road1_vertex1, road1_vertex2, road2_vertex1, road2_vertex2} = args;
     return [gameObject, 'PlayRoadBuilding', [turn, road1_vertex1, road1_vertex2, road2_vertex1, road2_vertex2]];
 }
+
+function playMonopoly({args, turn}) {
+    const {resource} = args;
+    return [gameObject, 'PlayMonopoly', [turn, resource]];
+}
+
+function playKnightCard({args, turn}) {
+    const {tile} = args;
+    return [gameObject, 'PlayKnightCard', [turn, tile]];
+}
+
+function dice({turn}) {
+    return [gameObject, 'Dice', [turn]];
+}
+
+function playedDice({args, turn}) {
+    const {dice1, dice2} = args;
+    return [gameObject, "PlayedDice", [turn]];
+} 
