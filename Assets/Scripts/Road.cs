@@ -1,6 +1,5 @@
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utils;
 using Network = Utils.Network;
 
@@ -13,8 +12,12 @@ public class Road : MonoBehaviour
     {
         //todo: check road bought
         if (!GameController.ShouldRoadClickable) return;
-        if (builtID != -1) return;
-        if (!IsRoadPositionValid()) return;
+        if (!IsRoadPositionValid())
+        {
+            // todo Uncomment for build.
+            // MainScreen.showDialog("خطا", "نمی توانید جاده خود را اینجا بسازید");
+            return;
+        }
         builtID = MainScreen.ThisPlayerID;
         ChangeRoadColor();
         Debug.Log(gameObject.name);
@@ -35,6 +38,7 @@ public class Road : MonoBehaviour
 
     private bool IsRoadPositionValid()
     {
+        if (builtID != -1) return false;
         if (s1.builtID == MainScreen.ThisPlayerID || s2.builtID == MainScreen.ThisPlayerID) return true;
         if (s1.roads.Any(s1Road => s1Road.builtID == MainScreen.ThisPlayerID))
             return s1.builtID == MainScreen.ThisPlayerID || s1.builtID == -1;

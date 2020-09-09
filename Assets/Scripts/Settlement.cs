@@ -16,15 +16,18 @@ public class Settlement : MonoBehaviour
     private void OnMouseDown()
     {
         if (!GameController.ShouldSettlementClickable) return;
-        if (builtID != -1 && (builtID != MainScreen.ThisPlayerID || isCity)) return;
-        if (!IsُSettlementPositionValid()) return;
+        if (!IsُSettlementPositionValid())
+        {
+            // todo Uncomment for build.
+            // MainScreen.showDialog("خطا", "نمی توانید خانه یا شهر خود را اینجا بنا کنید");
+            return;
+        }
         //todo: set the owner road id to _buildID
         ChangeHolderColor();
         Debug.Log(gameObject.name);
         GameController.ShouldSettlementClickable = false;
         builtID = MainScreen.ThisPlayerID;
         MainScreen.SelectedSettlement = gameObject.name;
-        // MainScreen.showDialogWithImage("دمت گرم", "تو خبی.", "/assets/monopoly.png");
         if (GameController.Action == GameState.init1)
         {
             MainScreen.BoxMessage.text = "مکان جاده اول را مشخص کنید.";
@@ -34,6 +37,7 @@ public class Settlement : MonoBehaviour
 
     private bool IsُSettlementPositionValid()
     {
+        if (builtID != -1 && (builtID != MainScreen.ThisPlayerID || isCity)) return false;
         if (roads.Any(road => road.builtID == MainScreen.ThisPlayerID))
         {
             return true;

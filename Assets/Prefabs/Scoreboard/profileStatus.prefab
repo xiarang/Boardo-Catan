@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2235780249860099155}
   m_Layer: 5
-  m_Name: maskCircle
+  m_Name: profileStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 8946113294836653665}
   - component: {fileID: 5572303932518969732}
   - component: {fileID: 1340349090980876151}
+  - component: {fileID: 7593089260646196307}
   m_Layer: 5
   m_Name: Image (2)
   m_TagString: Untagged
@@ -212,6 +213,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &7593089260646196307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6897598566380331424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df2442b82f3a5e4c907edaf470cadff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7524805155920480453
 GameObject:
   m_ObjectHideFlags: 0

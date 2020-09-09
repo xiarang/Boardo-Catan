@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Model;
 using UnityEngine;
@@ -33,6 +34,7 @@ public class MainScreen : MonoBehaviour
     private Scene _scene;
     private Road[] _boardRoads;
     private Settlement[] _boardSettlements;
+    private TurnHandler[] _turnHandlers;
 
     public static int ThisPlayerID;
     public static PlayerColors ThisPlayerPlayerColor;
@@ -67,6 +69,7 @@ public class MainScreen : MonoBehaviour
         BoxMessage.text = "مکان خانه اول را مشخص کنید.";
 
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        _turnHandlers = _canvas.GetComponentsInChildren<TurnHandler>();
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
         FindBoardElements();
         _myPlayer = _canvas.GetComponentInChildren<UpdateMyPlayer>();
@@ -103,6 +106,7 @@ public class MainScreen : MonoBehaviour
             var index = 0;
             foreach (var player in _playersScoreboard)
             {
+                Debug.Log(Players.otherPlayers[index].player);
                 if (Players.otherPlayers[index].player == ThisPlayerID)
                 {
                     ThisPlayerPlayerColor = (PlayerColors) index;
@@ -114,6 +118,8 @@ public class MainScreen : MonoBehaviour
                 player.InitViews(Players.otherPlayers[index]);
                 index++;
             }
+
+            UpdateTurn(22);
         }, URL.Headers()));
     }
 
@@ -148,16 +154,31 @@ public class MainScreen : MonoBehaviour
         return -1;
     }
 
+    private void UpdateTurn(int turn)
+    {
+        GameController.Turn = turn;
+        var player = Players.otherPlayers.First(_player => _player.player == turn);
+        var index = Array.IndexOf(Players.otherPlayers, player);
+        var actualIndex = index > (int) ThisPlayerPlayerColor ? index - 1 :
+            index == (int) ThisPlayerPlayerColor ? 3 : index;
+        for (var i = 0; i < _turnHandlers.Length; i++)
+        {
+            _turnHandlers[i].UpdateTurn(i != actualIndex
+                ? new Color(108f / 255f, 93f / 255f, 68f / 255f)
+                : ((PlayerColors) index).GetColor());
+        }
+    }
+
     /**
      * These are functions that will be called by js.
      */
-
     /**
      * if it's your first init turn, play it.
      */
     public void Init1(string[] args)
     {
         var turn = int.Parse(args[0]);
+        UpdateTurn(turn);
     }
 
     /**
@@ -178,7 +199,7 @@ public class MainScreen : MonoBehaviour
         var road1 = int.Parse(args[2]);
         var road2 = int.Parse(args[3]);
     }
-    
+
     /**
      * Update UI based on other players second init.
      */
