@@ -6,34 +6,37 @@ using Network = Utils.Network;
 public class Road : MonoBehaviour
 {
     public int builtID = -1;
-    [SerializeField] private Settlement s1, s2;
+    [SerializeField] public Settlement s1, s2;
 
     private void OnMouseDown()
     {
         //todo: check road bought
         if (!GameController.ShouldRoadClickable) return;
+        if(GameController.Turn != MainScreen.ThisPlayerID) return;
         if (!IsRoadPositionValid())
         {
             // todo Uncomment for build.
-            // MainScreen.showDialog("خطا", "نمی توانید جاده خود را اینجا بسازید");
+            MainScreen.showDialog("خطا", "نمی توانید جاده خود را اینجا بسازید");
             return;
         }
+
         builtID = MainScreen.ThisPlayerID;
-        ChangeRoadColor();
+        ChangeRoadColor(MainScreen.ThisPlayerPlayerColor.GetColor());
         Debug.Log(gameObject.name);
         GameController.ShouldRoadClickable = false;
-        if (GameController.Action == GameState.init1)
+        if (GameController.Action == GameState.init1 || GameController.Action == GameState.init2)
         {
             var body = "{\"vertex\": " + MainScreen.SelectedSettlement + ", \"road_v1\": " + s1.name +
                        ", \"road_v2\": " + s2.name + "}";
-            StartCoroutine(Network.PostRequest(URL.Init1, body, s => { }, URL.Headers(), true));
+            StartCoroutine(Network.PostRequest(GameController.Action == GameState.init1 ? URL.Init1 : URL.Init2, body,
+                s => { }, URL.Headers(), true));
         }
     }
 
-    private void ChangeRoadColor()
+    public void ChangeRoadColor(Color color)
     {
         var road = GetComponent<SpriteRenderer>();
-        road.color = MainScreen.ThisPlayerPlayerColor.GetColor();
+        road.color = color;
     }
 
     private bool IsRoadPositionValid()

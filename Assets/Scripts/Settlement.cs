@@ -16,14 +16,15 @@ public class Settlement : MonoBehaviour
     private void OnMouseDown()
     {
         if (!GameController.ShouldSettlementClickable) return;
+        if(GameController.Turn != MainScreen.ThisPlayerID) return;
         if (!IsُSettlementPositionValid())
         {
             // todo Uncomment for build.
-            // MainScreen.showDialog("خطا", "نمی توانید خانه یا شهر خود را اینجا بنا کنید");
+            MainScreen.showDialog("خطا", "نمی توانید خانه یا شهر خود را اینجا بنا کنید");
             return;
         }
         //todo: set the owner road id to _buildID
-        ChangeHolderColor();
+        ChangeHolderColor(MainScreen.ThisPlayerPlayerColor.GetColor());
         Debug.Log(gameObject.name);
         GameController.ShouldSettlementClickable = false;
         builtID = MainScreen.ThisPlayerID;
@@ -46,10 +47,17 @@ public class Settlement : MonoBehaviour
         return GameController.Action == GameState.init1;
     }
 
-    private void ChangeHolderColor()
+    public void ChangeHolderColor(Color color)
     {
         var holder = GetComponent<SpriteRenderer>();
         holder.sprite = house;
-        holder.color = MainScreen.ThisPlayerPlayerColor.GetColor();
+        holder.color = color;
+    }
+
+    public void UpgradeToCity()
+    {
+        var holder = GetComponent<SpriteRenderer>();
+        holder.sprite = city;
+        isCity = true;
     }
 }

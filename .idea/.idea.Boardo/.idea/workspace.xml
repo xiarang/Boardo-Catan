@@ -8,14 +8,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="init1 + trade result ui updated">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/contentModel.xml" afterDir="false" />
+    <list default="true" id="4045fec0-e8a4-4574-a321-527fd5bc9fae" name="Default Changelist" comment="turn handler added fully successfully">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Boardo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scoreboard/profileStatus.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scoreboard/profileStatus.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Road.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Road.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,7 @@
     <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/MainScreen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../UnityProjects/HelloWorld/TextGame/TextGame/Assets/Scripts/TextUpdater.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TurnHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scenes/Main.unity" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/smrz/Documents/Boardo/Assets/Scripts/MainScreen.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -60,15 +63,15 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Resources.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/BuyHandler.cs" />
         <option value="$PROJECT_DIR$/../UnityProjects/HelloWorld/TextGame/TextGame/Assets/Plugins/WebSocketHanler.jslib" />
-        <option value="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
         <option value="$PROJECT_DIR$/Assets/TurnHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateMyPlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Settlement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Network.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/URL.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainScreen.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/Socket.jslib" />
       </list>
     </option>
   </component>
@@ -140,7 +143,7 @@
       <workItem from="1599401283811" duration="15796000" />
       <workItem from="1599459977374" duration="4887000" />
       <workItem from="1599552094184" duration="13567000" />
-      <workItem from="1599569926465" duration="28432000" />
+      <workItem from="1599569926465" duration="45753000" />
     </task>
     <task id="LOCAL-00001" summary="settlements and road click handling finished">
       <created>1598774965242</created>
@@ -345,7 +348,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599603789269</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="turn handler added fully successfully">
+      <created>1599629511298</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1599629511298</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -367,7 +377,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="refactored" />
     <MESSAGE value="bank ui completed" />
     <MESSAGE value="tags added" />
     <MESSAGE value="init board by server" />
@@ -392,7 +401,8 @@
     <MESSAGE value="network error in post solved" />
     <MESSAGE value="socket and webgl initializing" />
     <MESSAGE value="init1 + trade result ui updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="init1 + trade result ui updated" />
+    <MESSAGE value="turn handler added fully successfully" />
+    <option name="LAST_COMMIT_MESSAGE" value="turn handler added fully successfully" />
   </component>
   <component name="WindowStateProjectService">
     <state x="94" y="94" width="1349" height="677" key="DiffContextDialog" timestamp="1599557509121">
@@ -419,10 +429,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="279" y="28" width="979" height="758" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1599604239441" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1599606095105">
+    <state width="498" height="446" key="SwitcherDM" timestamp="1599634639740">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599606095105" />
+    <state width="498" height="446" key="SwitcherDM/0.0.1536.864@0.0.1536.864" timestamp="1599634639740" />
     <state x="362" y="166" key="Vcs.Push.Dialog.v2" timestamp="1599603996626">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -439,9 +449,9 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="426" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1599561563616" />
-    <state x="431" y="182" width="672" height="678" key="search.everywhere.popup" timestamp="1599608819530">
+    <state x="431" y="182" width="672" height="678" key="search.everywhere.popup" timestamp="1599629909162">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="431" y="182" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1599608819530" />
+    <state x="431" y="182" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1599629909162" />
   </component>
 </project>

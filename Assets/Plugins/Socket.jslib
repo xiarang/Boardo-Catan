@@ -19,17 +19,33 @@
             text: text,
         });
     },
+    showLoading: function() {
+        Swal.fire({
+            title: "منتظر سایر بازیکنان",
+            text: "لطفاً تا تکمیل ظرفیت اتاق بازی منتظر بمانید",
+            icon: "warning",
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showConfirmButton: false,
+            backdrop: "rgba(0,0,0,0.75)"
+        });
+    },
     rollDice: function (dice1, dice2) {
         const d1 = Pointer_stringify(dice1);
         const d2 = Pointer_stringify(dice2);
         rollADie({element: document.getElementById("dice-container"), numberOfDice: 2, callback: function(a) {}, values: [parseInt(d1), parseInt(d2)]});
+    },
+    InitGame: function () {
+        const token = localStorage.getItem("token");
+        console.log("token is read from ls", token);
+        window.unityInstance.SendMessage("GameController", "SetToken", token);
     },
     WebSocketInit: function (url) {
         this.socket = new WebSocket(Pointer_stringify(url));
         this.socket.onmessage = function (msg) {
             const data = JSON.parse(msg.data);
             const x = onMessageReceived(data);
-            unityInstance.SendMessage(
+            window.unityInstance.SendMessage(
                 x[0],
                 x[1],
                 x[2]
@@ -37,8 +53,6 @@
         };
     },
 });
-
-const gameObject = 'GameController';
 
 function onMessageReceived(message) {
     switch (message.action) {
@@ -91,86 +105,86 @@ function onMessageReceived(message) {
 }
 
 function init1(x) {
-    return [gameObject, 'Init1', [x.turn]];
+    return ['GameController', 'Init1', [x.turn]];
 }
 
 function init2(x) {
-    return [gameObject, 'Init2', [x.turn]];
+    return ['GameController', 'Init2', [x.turn]];
 }
 
 function playedInit1(x) {
-    return [gameObject, 'PlayedInit1', [x.turn, x.args.vertex, x.args.road_v1, x.args.road_v2]];
+    return ['GameController', 'PlayedInit1', [x.turn, x.args.vertex, x.args.road_v1, x.args.road_v2]];
 }
 
 function playedInit2(x) {
-    return [gameObject, 'PlayedInit2', [x.turn, x.args.vertex, x.args.road_v1, x.args.road_v2]];
+    return ['GameController', 'PlayedInit2', [x.turn, x.args.vertex, x.args.road_v1, x.args.road_v2]];
 }
 
 function playYearOfPlenty(x) {
-    return [gameObject, 'PlayYearOfPlenty', [x.turn, x.args.resource1, x.args.resource2]];
+    return ['GameController', 'PlayYearOfPlenty', [x.turn, x.args.resource1, x.args.resource2]];
 }
 
 function playRoadBuilding(x) {
-    return [gameObject, 'PlayRoadBuilding', [x.turn, x.args.road1_vertex1, x.args.road1_vertex2, x.args.road2_vertex1, x.args.road2_vertex2]];
+    return ['GameController', 'PlayRoadBuilding', [x.turn, x.args.road1_vertex1, x.args.road1_vertex2, x.args.road2_vertex1, x.args.road2_vertex2]];
 }
 
 function playMonopoly(x) {
-    return [gameObject, 'PlayMonopoly', [x.turn, x.args.resource]];
+    return ['GameController', 'PlayMonopoly', [x.turn, x.args.resource]];
 }
 
 function playKnightCard(x) {
-    return [gameObject, 'PlayKnightCard', [x.turn, x.args.tile]];
+    return ['GameController', 'PlayKnightCard', [x.turn, x.args.tile]];
 }
 
 function dice(x) {
-    return [gameObject, 'Dice', [x.turn]];
+    return ['GameController', 'Dice', [x.turn]];
 }
 
 function playedDice(x) {
     rollADie({element: document.getElementById("dice-container"), numberOfDice: 2, callback: function(a) {}, values: [parseInt(x.args.dice1), parseInt(x.args.dice2)]});
-    return [gameObject, "PlayedDice", [x.turn]];
+    return ['GameController', "PlayedDice", [x.turn]];
 }
 
 function thiefTile(x) {
-    return [gameObject, 'ThiefTile', [x.turn]];
+    return ['GameController', 'ThiefTile', [x.turn]];
 }
 
 function tradeBuyBuild(x) {
-    return [gameObject, 'TradeBuyBuild', [x.turn]];
+    return ['GameController', 'TradeBuyBuild', [x.turn]];
 }
 
 function buildHome(x) {
-    return [gameObject, 'BuildHome', [x.turn, x.args.vertex]];
+    return ['GameController', 'BuildHome', [x.turn, x.args.vertex]];
 }
 
 function buildRoad(x) {
-    return [gameObject, "BuildRoad", [x.turn, x.args.vertex1, x.args.vertex2]];
+    return ['GameController', "BuildRoad", [x.turn, x.args.vertex1, x.args.vertex2]];
 }
 
 function buildCity(x) {
-    return [gameObject, 'BuildCity', [x.turn, x.args.vertex]];
+    return ['GameController', 'BuildCity', [x.turn, x.args.vertex]];
 }
 
 function boughtDevelopmentCard(x) {
-    return [gameObject, 'BoughtDevelopmentCard', [x.turn]];
+    return ['GameController', 'BoughtDevelopmentCard', [x.turn]];
 }
 
 function tradeOffer(x) {
-    return [gameObject, "TradeOffer", [x.turn, x.args]];
+    return ['GameController', "TradeOffer", [x.turn, x.args]];
 }
 
 function answeredTrade(x) {
-    return [gameObject, 'AnsweredTrade', [x.player, x.args.answer, x.args.id]];
+    return ['GameController', 'AnsweredTrade', [x.player, x.args.answer, x.args.id]];
 }
 
 function acceptedTrade(x) {
-    return [gameObject, "AcceptedTrade", [x.turn, x.args.player]];
+    return ['GameController', "AcceptedTrade", [x.turn, x.args.player]];
 }
 
 function tradeBank(x) {
-    return [gameObject, "TradeBank", [x.turn, x.args.give, x.args.want]];
+    return ['GameController', "TradeBank", [x.turn, x.args.give, x.args.want]];
 }
 
 function finish(x) {
-    return [gameObject, "Finish", [x.winner]];
+    return ['GameController', "Finish", [x.winner]];
 }

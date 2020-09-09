@@ -22,6 +22,11 @@ namespace Utils
                 foreach (var keyValuePair in headers)
                 {
                     webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
+                    if (keyValuePair.Value.Trim() == "Token")
+                    {
+                        webRequest.SetRequestHeader(keyValuePair.Key, $"Token {URL.Token}");
+                        // MainScreen.showDialog("token", URL.Token);
+                    }
                 }
 
                 yield return webRequest.SendWebRequest();
@@ -56,6 +61,11 @@ namespace Utils
                 foreach (var keyValuePair in headers)
                 {
                     webRequest.SetRequestHeader(keyValuePair.Key, keyValuePair.Value);
+                    if (keyValuePair.Value.Trim() == "Token")
+                    {
+                        webRequest.SetRequestHeader(keyValuePair.Key, $"Token {URL.Token}");
+                        // MainScreen.showDialog("token", URL.Token);
+                    }
                 }
         
                 if (json)

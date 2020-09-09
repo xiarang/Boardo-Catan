@@ -6,7 +6,7 @@ namespace Utils
     {
         private static string RoomName { get; set; }
         public static void SetRoomName(string value) => RoomName = value;
-        private static string Token { get; set; }
+        public static string Token { get; private set; }
         public static void SetToken(string value) => Token = value;
 
         public static Dictionary<string, string> Headers() => new Dictionary<string, string>
@@ -16,6 +16,7 @@ namespace Utils
 
         private const string BaseURL = "http://192.168.1.6:8000";
         private const string Game = "catan";
+        public static string WebSocket => $"ws://192.168.1.6:8000/ws/{Game}/{RoomName}/";
         private static string _buildPath(string path) => $"{BaseURL}/{Game}/{path}/{RoomName}";
         public static string GetBoard => _buildPath("map");
         public static string GetPlayers => _buildPath("player_info");

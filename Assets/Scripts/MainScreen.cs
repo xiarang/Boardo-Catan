@@ -48,7 +48,22 @@ public class MainScreen : MonoBehaviour
     public static extern void showDialogWithImage(string label, string body, string image);
 
     [DllImport("__Internal")]
+    public static extern void showLoading();
+
+    [DllImport("__Internal")]
     public static extern void rollDice(string dice1, string dice2);
+
+    [DllImport("__Internal")]
+    private static extern void WebSocketInit(string url);
+
+    [DllImport("__Internal")]
+    private static extern void InitGame();
+
+    public void SetToken(string token)
+    {
+        showDialog("token is received", token);
+        URL.SetToken(token);
+    }
 
     private void InitBoard()
     {
@@ -62,19 +77,17 @@ public class MainScreen : MonoBehaviour
 
     private void Start()
     {
-        //todo: change by getting init1 from server and cityClickable
-        GameController.Action = GameState.init1;
-        GameController.ShouldSettlementClickable = true;
         BoxMessage = GameObject.Find("notifyMessage").GetComponent<RTLTextMeshPro>();
-        BoxMessage.text = "مکان خانه اول را مشخص کنید.";
-
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         _turnHandlers = _canvas.GetComponentsInChildren<TurnHandler>();
         _playersScoreboard = _canvas.GetComponentsInChildren<PlayerScores>();
         FindBoardElements();
         _myPlayer = _canvas.GetComponentInChildren<UpdateMyPlayer>();
         URL.SetToken("58998a8632efec6b3810f7a2833dc300fe2a937f");
+        InitGame();
+        showLoading();
         URL.SetRoomName("9b717be4-a042-4b94-837f-b673f13d3241");
+        // WebSocketInit(URL.WebSocket);
         _myPlayer.UpdatePlayer();
         GetBoardInfo();
         GetPlayers();
@@ -179,6 +192,17 @@ public class MainScreen : MonoBehaviour
     {
         var turn = int.Parse(args[0]);
         UpdateTurn(turn);
+        GameController.Action = GameState.init1;
+        if (GameController.Turn == ThisPlayerID)
+        {
+            GameController.ShouldSettlementClickable = true;
+            BoxMessage.text = "مکان خانه اول را مشخص کنید.";
+        }
+        else
+        {
+            _myPlayer.SetEnableButtons(false);    
+            BoxMessage.text = "اکنون نوبت حریف شماست.";
+        }
     }
 
     /**
@@ -187,6 +211,18 @@ public class MainScreen : MonoBehaviour
     public void Init2(string[] args)
     {
         var turn = int.Parse(args[0]);
+        UpdateTurn(turn);
+        GameController.Action = GameState.init2;
+        if (GameController.Turn == ThisPlayerID)
+        {
+            GameController.ShouldSettlementClickable = true;
+            BoxMessage.text = "مکان خانه دوم را مشخص کنید.";
+        }
+        else
+        {
+            _myPlayer.SetEnableButtons(false);
+            BoxMessage.text = "اکنون نوبت حریف شماست.";
+        }
     }
 
     /**
@@ -198,7 +234,15 @@ public class MainScreen : MonoBehaviour
         var vertex = int.Parse(args[1]);
         var road1 = int.Parse(args[2]);
         var road2 = int.Parse(args[3]);
+
+        var s = _boardSettlements[vertex];
+        s.builtID = turn;
+        var playerColor = FindPlayer(turn).Color.GetColor();
+        s.ChangeHolderColor(playerColor);
+        _boardRoads.First(road => road.s1.name == road1.ToString() && road.s2.name == road2.ToString()).ChangeRoadColor(playerColor);
     }
+
+    public static Player FindPlayer(int turn) => Players.otherPlayers.First(item => item.player == turn);
 
     /**
      * Update UI based on other players second init.
@@ -209,6 +253,15 @@ public class MainScreen : MonoBehaviour
         var vertex = int.Parse(args[1]);
         var road1 = int.Parse(args[2]);
         var road2 = int.Parse(args[3]);
+        var s = _boardSettlements[vertex];
+        s.builtID = turn;
+        var playerColor = FindPlayer(turn).Color.GetColor();
+        s.ChangeHolderColor(playerColor);
+        var incomingRoad = _boardRoads.First(road => road.s1.name == road1.ToString() && road.s2.name == road2.ToString());
+        incomingRoad.ChangeRoadColor(playerColor);
+        incomingRoad.builtID = turn;
+        _myPlayer.UpdatePlayer();
+        GetPlayers();
     }
 
     /**
@@ -257,14 +310,20 @@ public class MainScreen : MonoBehaviour
     public void Dice(string[] args)
     {
         var turn = int.Parse(args[0]);
+        if (turn == ThisPlayerID)
+        {
+            StartCoroutine(Network.PostRequest(URL.Dice, string.Empty, s => { }, URL.Headers()));
+        }
     }
 
     /**
-     * A player rolled the dice. If it's you, update your personal.
+     * A player rolled the dice. Update players' personal.
      */
     public void PlayedDice(string[] args)
     {
         var turn = int.Parse(args[0]);
+        _myPlayer.UpdatePlayer();
+        GetPlayers();
     }
 
     /**
@@ -281,6 +340,12 @@ public class MainScreen : MonoBehaviour
     public void TradeBuyBuild(string[] args)
     {
         var turn = int.Parse(args[0]);
+        UpdateTurn(turn);
+        if (turn == ThisPlayerID)
+        {
+            _myPlayer.SetEnableButtons(true);
+            BoxMessage.text = "اکنون می توانید معامله یا خرید انجام دهید.";
+        }
     }
 
     /**
@@ -290,6 +355,12 @@ public class MainScreen : MonoBehaviour
     {
         var turn = int.Parse(args[0]);
         var vertex = int.Parse(args[1]);
+        var s = _boardSettlements[vertex];
+        s.builtID = turn;
+        var playerColor = FindPlayer(turn).Color.GetColor();
+        s.ChangeHolderColor(playerColor);
+        _myPlayer.UpdatePlayer();
+        GetPlayers();
     }
 
     /**
@@ -300,6 +371,12 @@ public class MainScreen : MonoBehaviour
         var turn = int.Parse(args[0]);
         var vertex1 = int.Parse(args[1]);
         var vertex2 = int.Parse(args[2]);
+        var playerColor = FindPlayer(turn).Color.GetColor();
+        var incomingRoad = _boardRoads.First(road => road.s1.name == vertex1.ToString() && road.s2.name == vertex2.ToString());
+        incomingRoad.ChangeRoadColor(playerColor);
+        incomingRoad.builtID = turn;
+        _myPlayer.UpdatePlayer();
+        GetPlayers();
     }
 
     /**
@@ -309,6 +386,10 @@ public class MainScreen : MonoBehaviour
     {
         var turn = int.Parse(args[0]);
         var vertex = int.Parse(args[1]);
+        var s = _boardSettlements[vertex];
+        s.UpgradeToCity();
+        _myPlayer.UpdatePlayer();
+        GetPlayers();
     }
 
     /**
@@ -317,6 +398,8 @@ public class MainScreen : MonoBehaviour
     public void BoughtDevelopmentCard(string[] args)
     {
         var turn = int.Parse(args[0]);
+        showDialog("خرید کارت شانس", $"بازیکن {FindPlayer(turn).player_username} یک کارت شانس خرید");
+        GetPlayers();
     }
 
     /**

@@ -24,6 +24,9 @@ public class UpdateMyPlayer : MonoBehaviour
     [SerializeField] private RTLTextMeshPro username;
     [SerializeField] private Image profileImage;
     [SerializeField] private Image pColor;
+    [SerializeField] private Button trade;
+    [SerializeField] private Button pass;
+    [SerializeField] private Button dice;
     public static Personal Personal;
 
 
@@ -52,6 +55,13 @@ public class UpdateMyPlayer : MonoBehaviour
             StartCoroutine(Network.GetTexture(personal.player_avatar,
                 texture => { profileImage.sprite = texture.ToSprite(); }, URL.Headers()));
         }, URL.Headers()));
+    }
+
+    public void SetEnableButtons(bool enable)
+    {
+        trade.interactable = enable;
+        pass.interactable = enable;
+        dice.interactable = enable;
     }
 
     public void UpdateColor(PlayerColors color)
